@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F6F6"
+    tools:context=".ui.ProfileActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/top_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_item_profile"
+            app:layout_constraintDimensionRatio="390:388"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profile_image_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardCornerRadius="100dp"
+            app:layout_constraintBottom_toBottomOf="@id/top_container"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".1"
+            app:layout_constraintWidth_percent=".3">
+
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Narendra Modi"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_image_container"
+            app:layout_constraintVertical_bias=".05" />
+
+        <TextView
+            android:id="@+id/expertise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Vedic ,Tarot"
+            android:textColor="#B3FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/name"
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
+
+        <TextView
+            android:id="@+id/language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="English, Tamil"
+            android:textColor="#B3FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/expertise"
+            app:layout_constraintStart_toStartOf="@+id/expertise"
+            app:layout_constraintTop_toBottomOf="@+id/expertise" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/consultation_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="-30dp"
+            app:cardCornerRadius="23dp"
+            app:cardElevation="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/top_container"
+            app:layout_constraintDimensionRatio="11:13"
+            app:layout_constraintEnd_toStartOf="@id/experience_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent=".28"
+            app:strokeColor="#B3520881"
+            app:strokeWidth=".5dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/consultation_img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/ic_consultation_profile"
+                    app:layout_constraintDimensionRatio="49:63"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent=".45" />
+
+                <TextView
+                    android:id="@+id/consultation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1000+"
+                    android:textColor="#222B45"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/consultation_img"
+                    app:layout_constraintVertical_bias=".3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Consultation"
+                    android:textColor="#6B779A"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/consultation"
+                    app:layout_constraintVertical_bias=".2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/experience_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardCornerRadius="23dp"
+            app:cardElevation="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/consultation_container"
+            app:layout_constraintDimensionRatio="11:13"
+            app:layout_constraintEnd_toStartOf="@id/rating_container"
+            app:layout_constraintStart_toEndOf="@id/consultation_container"
+            app:layout_constraintTop_toTopOf="@+id/consultation_container"
+            app:strokeColor="#B3520881"
+            app:strokeWidth=".5dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/experience_img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/ic_experience_profile"
+                    app:layout_constraintDimensionRatio="49:63"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent=".45" />
+
+                <TextView
+                    android:id="@+id/experience"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10 Yrs"
+                    android:textColor="#222B45"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/experience_img"
+                    app:layout_constraintVertical_bias=".3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Experience"
+                    android:textColor="#6B779A"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/experience"
+                    app:layout_constraintVertical_bias=".2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/rating_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardCornerRadius="23dp"
+            app:cardElevation="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/consultation_container"
+            app:layout_constraintDimensionRatio="11:13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/experience_container"
+            app:layout_constraintTop_toTopOf="@+id/consultation_container"
+            app:strokeColor="#B3520881"
+            app:strokeWidth=".5dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/rating_img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/ic_rating_profile"
+                    app:layout_constraintDimensionRatio="49:63"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent=".45" />
+
+                <TextView
+                    android:id="@+id/rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10 Yrs"
+                    android:textColor="#222B45"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rating_img"
+                    app:layout_constraintVertical_bias=".3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ratings"
+                    android:textColor="#6B779A"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rating"
+                    app:layout_constraintVertical_bias=".2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/label_bio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:text="Bio"
+            android:textColor="#222B45"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_container" />
+
+        <TextView
+            android:id="@+id/bio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:letterSpacing=".05"
+            android:lineSpacingExtra="2dp"
+            android:text="@string/dummy_bio"
+            android:textColor="#979899"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/label_bio"
+            app:layout_constraintWidth_percent=".9" />
+
+        <TextView
+            android:id="@+id/label_communication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Communication"
+            android:textColor="#222B45"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bio" />
+
+        <ImageView
+            android:id="@+id/chat_logo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_chat_profile"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toStartOf="@id/label_communication"
+            app:layout_constraintTop_toBottomOf="@id/label_communication"
+            app:layout_constraintWidth_percent=".1" />
+
+        <TextView
+            android:id="@+id/chat_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="38/min"
+            android:textColor="#222B45"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/chat_logo"
+            app:layout_constraintStart_toEndOf="@id/chat_logo"
+            app:layout_constraintTop_toTopOf="@id/chat_logo"
+            app:layout_constraintVertical_bias=".2" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chat Rate"
+            android:textColor="#6B779A"
+            app:layout_constraintBottom_toBottomOf="@+id/chat_logo"
+            app:layout_constraintStart_toStartOf="@id/chat_price"
+            app:layout_constraintTop_toBottomOf="@id/chat_price" />
+
+        <ImageView
+            android:id="@+id/call_logo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_call_profile"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toStartOf="@id/chat_logo"
+            app:layout_constraintTop_toBottomOf="@id/chat_logo"
+            app:layout_constraintWidth_percent=".1" />
+
+        <TextView
+            android:id="@+id/call_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="40/min"
+            android:textColor="#222B45"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/call_logo"
+            app:layout_constraintStart_toEndOf="@id/call_logo"
+            app:layout_constraintTop_toTopOf="@id/call_logo"
+            app:layout_constraintVertical_bias=".2" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Call Rate"
+            android:textColor="#6B779A"
+            app:layout_constraintBottom_toBottomOf="@+id/call_logo"
+            app:layout_constraintStart_toStartOf="@id/call_price"
+            app:layout_constraintTop_toBottomOf="@id/call_price" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

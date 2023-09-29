@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/side_nav_profile"
+        android:title="My Profile" />
+    <item
+        android:id="@+id/side_nav_documentation"
+        android:title="Documentation" />
+    <item
+        android:id="@+id/side_nav_reviews"
+        android:title="Review &amp; Comments" />
+    <item
+        android:id="@+id/side_nav_session_log"
+        android:title="Session Logs" />
+    <item
+        android:id="@+id/side_nav_help"
+        android:title="Help Support" />
+    <item
+        android:id="@+id/side_nav_setting"
+        android:title="Settings" />
+    <item
+        android:id="@+id/side_nav_logout"
+        android:title="Logout" />
+</menu>

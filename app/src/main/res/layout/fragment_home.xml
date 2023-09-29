@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F6F6"
+    tools:context=".ui.fragment.HomeFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/view_bg"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/item_bg_home"
+                app:layout_constraintDimensionRatio="390:263"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="#520881"
+                app:layout_constraintTop_toTopOf="parent"
+                app:menu="@menu/home_top_menu"
+                app:navigationIcon="@drawable/ic_hamburger"
+                app:navigationIconTint="@color/white">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_hamburger"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_border_color="@color/white"
+                        app:riv_border_width="2dp"
+                        app:riv_corner_radius="100dp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/greet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:text="Good Morning"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/profile_image"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Narendra Modi"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="@+id/greet"
+                        app:layout_constraintTop_toBottomOf="@+id/greet" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+            <TextView
+                android:id="@+id/label_next_online"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Next Online Time"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                app:layout_constraintVertical_bias=".2"
+                app:layout_constraintBottom_toTopOf="@+id/textView18"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+            <TextView
+                android:id="@+id/label_call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:text="CALL TIME : "
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/label_next_online"/>
+
+            <TextView
+                android:id="@+id/call_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="21 Sept 2023, 03:52 PM"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@id/label_call"
+                app:layout_constraintTop_toTopOf="@id/label_call"/>
+
+            <TextView
+                android:id="@+id/label_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="CHAT TIME : "
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/label_call"/>
+
+            <TextView
+                android:id="@+id/chat_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="21 Sept 2023, 03:52 PM"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@id/label_chat"
+                app:layout_constraintTop_toTopOf="@id/label_chat"/>
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Your availability"
+                android:textColor="#FFFDFD"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/call_action_container"
+                app:layout_constraintStart_toStartOf="@+id/call_action_container" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/call_action_container"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="-15dp"
+                app:cardBackgroundColor="#F7F7F7"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp"
+                app:layout_constraintBottom_toBottomOf="@id/view_bg"
+                app:layout_constraintDimensionRatio="179:32"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintWidth_percent=".9"
+                app:strokeColor="#520881"
+                app:strokeWidth=".5dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/call_img"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_margin="15dp"
+                        app:cardCornerRadius="50dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:strokeWidth="0dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_call_home" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:text="Call availability"
+                        android:textColor="#101010"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/call_img"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/call_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:thumb="@drawable/push_switch_thumb_bg"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:track="@drawable/push_switch_track_bg" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/chat_action_container"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                app:cardBackgroundColor="#F7F7F7"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp"
+                app:layout_constraintDimensionRatio="179:32"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/call_action_container"
+                app:layout_constraintWidth_percent=".9"
+                app:strokeColor="#520881"
+                app:strokeWidth=".5dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/chat_img"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_margin="15dp"
+                        app:cardCornerRadius="50dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:strokeWidth="0dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_chat_home" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:text="Chat availability"
+                        android:textColor="#101010"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/chat_img"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/chat_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:thumb="@drawable/push_switch_thumb_bg"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:track="@drawable/push_switch_track_bg" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <include
+                android:id="@+id/prediction_question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/item_prediction_question_layout"
+                app:layout_constraintTop_toBottomOf="@id/chat_action_container"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/month_earning_container"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/bg_border_home"
+                app:layout_constraintDimensionRatio="163:81"
+                app:layout_constraintEnd_toStartOf="@id/day_earning_container"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/prediction_question">
+
+                <ImageView
+                    android:id="@+id/month_img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_month_home"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias=".1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent=".3" />
+
+                <TextView
+                    android:id="@+id/month_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="₹78542"
+                    android:textColor="#520881"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/month_img"
+                    app:layout_constraintTop_toTopOf="@+id/month_img" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Month Wise\nEarning"
+                    android:textColor="#979899"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/month_img"
+                    app:layout_constraintStart_toStartOf="@+id/month_total"
+                    app:layout_constraintTop_toBottomOf="@+id/month_total" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/day_earning_container"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/bg_border_home"
+                app:layout_constraintDimensionRatio="163:81"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/month_earning_container"
+                app:layout_constraintTop_toTopOf="@id/month_earning_container">
+
+                <ImageView
+                    android:id="@+id/day_img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_calendar_day_home"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias=".1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent=".3" />
+
+                <TextView
+                    android:id="@+id/day_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="₹8471"
+                    android:textColor="#520881"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/day_img"
+                    app:layout_constraintTop_toTopOf="@+id/day_img" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Day Wise\nEarning"
+                    android:textColor="#979899"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/day_img"
+                    app:layout_constraintStart_toStartOf="@+id/day_total"
+                    app:layout_constraintTop_toBottomOf="@+id/day_total" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/wait_list_container"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/bg_border_home"
+                app:layout_constraintDimensionRatio="163:81"
+                app:layout_constraintEnd_toStartOf="@id/reviews_container"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/month_earning_container">
+
+                <ImageView
+                    android:id="@+id/wait_img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_wait_home"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias=".1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent=".3" />
+
+                <TextView
+                    android:id="@+id/wait_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="3(Pending)"
+                    android:textColor="#520881"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/label_waitlist"
+                    app:layout_constraintStart_toEndOf="@id/wait_img"
+                    app:layout_constraintTop_toTopOf="@+id/wait_img" />
+
+                <TextView
+                    android:id="@+id/label_waitlist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Waitlist"
+                    android:textColor="#979899"
+                    app:layout_constraintBottom_toBottomOf="@+id/wait_img"
+                    app:layout_constraintStart_toStartOf="@+id/wait_count"
+                    app:layout_constraintTop_toBottomOf="@+id/wait_count" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/reviews_container"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/bg_border_home"
+                app:layout_constraintDimensionRatio="163:81"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/wait_list_container"
+                app:layout_constraintTop_toTopOf="@id/wait_list_container">
+
+                <ImageView
+                    android:id="@+id/review_img"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_review_home"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias=".1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent=".3" />
+
+                <TextView
+                    android:id="@+id/review_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="256 "
+                    android:textColor="#520881"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/label_review"
+                    app:layout_constraintStart_toEndOf="@id/review_img"
+                    app:layout_constraintTop_toTopOf="@+id/review_img" />
+
+                <TextView
+                    android:id="@+id/label_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reviews"
+                    android:textColor="#979899"
+                    app:layout_constraintBottom_toBottomOf="@+id/review_img"
+                    app:layout_constraintStart_toStartOf="@+id/review_count"
+                    app:layout_constraintTop_toBottomOf="@+id/review_count" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/label_day_wise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawableEnd="@drawable/ic_fire_home"
+                android:drawablePadding="5dp"
+                android:text="Daywise Earning"
+                android:textColor="#06161C"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/wait_list_container"
+                app:layout_constraintTop_toBottomOf="@id/wait_list_container" />
+
+            <TextView
+                android:id="@+id/view_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:padding="5dp"
+                android:text="See all"
+                android:textColor="#520881"
+                app:layout_constraintBottom_toBottomOf="@+id/label_day_wise"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/label_day_wise" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/transaction_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_earning_list_home"
+                android:clipToPadding="false"
+                android:paddingTop="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/label_day_wise"
+                tools:itemCount="4"
+                tools:listitem="@layout/item_earning_home" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_nav_home"
+        android:icon="@drawable/selector_bottom_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/bottom_nav_wallet"
+        android:icon="@drawable/selector_bottom_wallet"
+        android:title="My Earning" />
+    <item
+        android:id="@+id/bottom_nav_history"
+        android:icon="@drawable/selector_bottom_history"
+        android:title="Chat/Call Log" />
+    <item
+        android:id="@+id/bottom_nav_profile"
+        android:icon="@drawable/selector_bottom_profile"
+        android:title="Profile" />
+</menu>

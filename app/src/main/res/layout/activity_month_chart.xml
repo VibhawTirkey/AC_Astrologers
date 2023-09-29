@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F6F6"
+    tools:context=".ui.MonthChartActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/toolbar_bg_color"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Month Wise"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/top_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/avail_bal_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="Available\nBalance:"
+                    android:textColor="#520881"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/pg_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/avail_bal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="₹970"
+                    android:textColor="#520881"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/pg_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/avail_bal_text" />
+
+                <TextView
+                    android:id="@+id/pg_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Pg\nCharges:"
+                    android:textColor="#8D9397"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/sub_total_label"
+                    app:layout_constraintStart_toEndOf="@id/avail_bal_text"
+                    app:layout_constraintTop_toTopOf="@id/avail_bal_text" />
+
+                <TextView
+                    android:id="@+id/pg_charge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="₹32"
+                    android:textColor="#8D9397"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/pg_label"
+                    app:layout_constraintStart_toStartOf="@+id/pg_label"
+                    app:layout_constraintTop_toTopOf="@+id/avail_bal" />
+
+                <TextView
+                    android:id="@+id/sub_total_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Sub\nTotal:"
+                    android:textColor="#8D9397"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/label_tds"
+                    app:layout_constraintStart_toEndOf="@id/pg_label"
+                    app:layout_constraintTop_toTopOf="@id/avail_bal_text" />
+
+                <TextView
+                    android:id="@+id/sub_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="₹945"
+                    android:textColor="#8D9397"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/sub_total_label"
+                    app:layout_constraintStart_toStartOf="@+id/sub_total_label"
+                    app:layout_constraintTop_toTopOf="@+id/avail_bal" />
+
+                <TextView
+                    android:id="@+id/label_tds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="TDS"
+                    android:textColor="#8D9397"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/avail_bal_text"
+                    app:layout_constraintEnd_toStartOf="@id/label_gst"
+                    app:layout_constraintStart_toEndOf="@id/sub_total_label"
+                    app:layout_constraintTop_toTopOf="@id/avail_bal_text" />
+
+                <TextView
+                    android:id="@+id/tds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="₹94"
+                    android:textColor="#8D9397"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/label_tds"
+                    app:layout_constraintStart_toStartOf="@+id/label_tds"
+                    app:layout_constraintTop_toTopOf="@+id/avail_bal" />
+
+                <TextView
+                    android:id="@+id/label_gst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="GST"
+                    android:textColor="#8D9397"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/avail_bal_text"
+                    app:layout_constraintEnd_toStartOf="@id/payable"
+                    app:layout_constraintStart_toEndOf="@id/label_tds"
+                    app:layout_constraintTop_toTopOf="@id/avail_bal_text" />
+
+                <TextView
+                    android:id="@+id/gst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="₹0"
+                    android:textColor="#8D9397"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/label_gst"
+                    app:layout_constraintStart_toStartOf="@+id/label_gst"
+                    app:layout_constraintTop_toTopOf="@+id/avail_bal" />
+
+                <TextView
+                    android:id="@+id/payable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Payable\nAmount"
+                    android:textColor="#0D822E"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_gst"
+                    app:layout_constraintTop_toTopOf="@id/avail_bal_text" />
+
+                <TextView
+                    android:id="@+id/payable_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="₹851"
+                    android:textColor="#0D822E"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/payable"
+                    app:layout_constraintStart_toStartOf="@+id/payable"
+                    app:layout_constraintTop_toTopOf="@+id/avail_bal" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <org.eazegraph.lib.charts.ValueLineChart
+                android:id="@+id/earning_chart"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginTop="10dp"
+                app:egCurveSmoothness="0.2"
+                app:egLineStroke="5dp"
+                app:egIndicatorLineColor="#80606060"
+                app:egIndicatorTextUnit="₹"
+                app:egLegendHeight="40dp"
+                app:egShowStandardValue="true"
+                app:egUseCubic="true"
+                app:egUseOverlapFill="true"
+                app:layout_constraintTop_toBottomOf="@id/top_container" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                app:tabMode="scrollable"
+                app:tabTextColor="#80606060"
+                app:tabSelectedTextColor="#520881"
+                app:tabIndicatorColor="#520881"
+                app:tabIndicatorHeight="1dp"
+                app:tabRippleColor="@android:color/transparent"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toBottomOf="@id/earning_chart"
+                app:layout_constraintStart_toStartOf="@id/earning_chart">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Month"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Week"/>
+
+            </com.google.android.material.tabs.TabLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/month_earning_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tab_layout"
+                tools:listitem="@layout/item_month_earning" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

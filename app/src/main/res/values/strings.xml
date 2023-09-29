@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AC Astrologers</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dummy_bio">Meet Narendra Modi, a proficient Tarot and Vedic Astrologer. With a passion for deciphering celestial patterns, she illuminates paths, offering clarity, empowerment, and guiding transformations. Discover your story with Narendra Modi.</string>
+    <string name="terms_and_condition">By signing in, you agree to our<font fgcolor='#520881'> Terms and Conditions.</font></string>
+    <string name="resend_otp">Haven’t receive code? <font fgcolor='#135EF2'>Resend code.</font></string>
+</resources>
