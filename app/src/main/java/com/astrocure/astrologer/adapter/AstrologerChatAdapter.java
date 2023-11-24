@@ -27,9 +27,9 @@ public class AstrologerChatAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemSenderChatLayoutBinding senderChatLayoutBinding = ItemSenderChatLayoutBinding.inflate(LayoutInflater.from(context),parent,false);
-        ItemReceiveChatLayoutBinding receiveChatLayoutBinding = ItemReceiveChatLayoutBinding.inflate(LayoutInflater.from(context),parent,false);
-        switch (viewType){
+        ItemSenderChatLayoutBinding senderChatLayoutBinding = ItemSenderChatLayoutBinding.inflate(LayoutInflater.from(context), parent, false);
+        ItemReceiveChatLayoutBinding receiveChatLayoutBinding = ItemReceiveChatLayoutBinding.inflate(LayoutInflater.from(context), parent, false);
+        switch (viewType) {
             case SEND_TEXT:
                 return new SenderViewHolder(senderChatLayoutBinding);
             case RECEIVE_TEXT:
@@ -42,11 +42,11 @@ public class AstrologerChatAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         AstrologerChatModel model = chatModels.get(position);
-        if (model.isAstrologer()){
+        if (model.isAstrologer()) {
             SenderViewHolder viewHolder = (SenderViewHolder) holder;
             viewHolder.binding.message.setText(model.getText_msg());
             viewHolder.binding.time.setText(model.getTime());
-        }else {
+        } else {
             ReceiverViewHolder viewHolder = (ReceiverViewHolder) holder;
             viewHolder.binding.message.setText(model.getText_msg());
             viewHolder.binding.time.setText(model.getTime());
@@ -55,9 +55,9 @@ public class AstrologerChatAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (chatModels.get(position).isAstrologer()){
+        if (chatModels.get(position).isAstrologer()) {
             return SEND_TEXT;
-        }else {
+        } else {
             return RECEIVE_TEXT;
         }
     }

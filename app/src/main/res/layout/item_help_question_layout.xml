@@ -11,28 +11,28 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
+        android:theme="@style/Theme.Material3.Light"
         app:cardCornerRadius="10dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="#434040"
-        android:theme="@style/Theme.Material3.Light">
+        app:strokeColor="#434040">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#F6F6F6"
             android:paddingStart="15dp"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="#F6F6F6">
+            android:paddingBottom="10dp">
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:minLines="2"
                 android:text="Have an issue with a transaction? "
                 android:textColor="#434040"
                 android:textStyle="bold"
-                android:minLines="2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/expand"
                 app:layout_constraintHorizontal_bias="0"
@@ -44,8 +44,8 @@
                 android:id="@+id/expand"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:padding="5dp"
                 android:layout_marginEnd="10dp"
+                android:padding="5dp"
                 android:src="@drawable/ic_add"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

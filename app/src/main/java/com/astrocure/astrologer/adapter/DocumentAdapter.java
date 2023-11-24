@@ -2,7 +2,6 @@ package com.astrocure.astrologer.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -26,7 +25,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
     @NonNull
     @Override
     public DocumentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemDocumentNameBinding binding = ItemDocumentNameBinding.inflate(LayoutInflater.from(context),parent,false);
+        ItemDocumentNameBinding binding = ItemDocumentNameBinding.inflate(LayoutInflater.from(context), parent, false);
         return new DocumentViewHolder(binding);
     }
 
@@ -43,6 +42,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
 
     public class DocumentViewHolder extends RecyclerView.ViewHolder {
         ItemDocumentNameBinding binding;
+
         public DocumentViewHolder(ItemDocumentNameBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

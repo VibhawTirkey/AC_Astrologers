@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        app:strokeColor="#B3520881"
-        app:strokeWidth=".1dp"
-        app:cardElevation="6dp"
         android:theme="@style/Theme.Material3.Light"
-        app:layout_constraintWidth_percent=".9"
+        app:cardElevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".9"
+        app:strokeColor="#B3520881"
+        app:strokeWidth=".1dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -27,16 +27,16 @@
                 android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
-                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
                 android:text="Issues with Chat with riya Payment"
-                android:textStyle="bold"
                 android:textColor="#282828"
-                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/label_ticket_id"
@@ -45,7 +45,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Ticket ID : "
                 app:layout_constraintStart_toStartOf="@id/title"
-                app:layout_constraintTop_toBottomOf="@id/title"/>
+                app:layout_constraintTop_toBottomOf="@id/title" />
 
             <TextView
                 android:id="@+id/ticket_id"
@@ -77,14 +77,14 @@
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="19 Aug 23"
                 android:textColor="#8C8C8C"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/label_status"
-                app:layout_constraintStart_toStartOf="@id/title"/>
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/label_status" />
 
             <TextView
                 android:id="@+id/time"
@@ -92,12 +92,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
+                android:drawableEnd="@drawable/ic_tick"
                 android:text="5:44 PM"
                 android:textColor="#8C8C8C"
                 android:textSize="12sp"
-                android:drawableEnd="@drawable/ic_tick"
-                app:layout_constraintTop_toBottomOf="@id/label_status"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/label_status" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

@@ -1,24 +1,30 @@
 package com.astrocure.astrologer.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
-import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.astrocure.astrologer.R;
 import com.astrocure.astrologer.databinding.ActivityResetPasswordBinding;
+import com.astrocure.astrologer.viewModel.ResetPasswordViewModel;
 import com.bumptech.glide.Glide;
 
 public class ResetPasswordActivity extends AppCompatActivity {
     ActivityResetPasswordBinding binding;
+    ResetPasswordViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityResetPasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        String userId = getIntent().getStringExtra("user_id");
+        viewModel = new ViewModelProvider(this).get(ResetPasswordViewModel.class);
 
         binding.passwordToggle.setOnClickListener(v -> {
             if (binding.password.getTransformationMethod().getClass().getSimpleName().equals("PasswordTransformationMethod")) {
@@ -42,6 +48,21 @@ public class ResetPasswordActivity extends AppCompatActivity {
             binding.newPassword.setSelection(binding.newPassword.getText().length());
         });
 
-        binding.nextDashboard.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), DashboardActivity.class)));
+        viewModel.getPassValidResult().observe(this, s -> binding.message.setText(s));
+
+        binding.nextDashboard.setOnClickListener(v -> {
+            if (!binding.password.getText().toString().matches(binding.newPassword.getText().toString())) {
+                binding.message.setText("Password does not match.");
+                return;
+            } else if (binding.password.getText().toString().isEmpty() || binding.newPassword.getText().toString().isEmpty()) {
+                binding.message.setText("Enter your Password");
+                return;
+            }
+            viewModel.verifyOtp(userId, binding.password.getText().toString()).observe(this, responseModel -> {
+                if (responseModel.getStatusCode() == 200) {
+                    startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                }
+            });
+        });
     }
 }

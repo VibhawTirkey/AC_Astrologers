@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.astrocure.astrologer.R;
 import com.astrocure.astrologer.adapter.HomeTransactionAdapter;
-import com.astrocure.astrologer.adapter.MonthEarningAdapter;
 import com.astrocure.astrologer.databinding.ActivityDayChartBinding;
 import com.google.android.material.datepicker.MaterialDatePicker;
 
@@ -49,7 +48,7 @@ public class DayChartActivity extends AppCompatActivity {
         binding.earningChart.startAnimation();
 
         HomeTransactionAdapter adapter = new HomeTransactionAdapter(getApplicationContext());
-        binding.monthEarningList.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false));
+        binding.monthEarningList.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         binding.monthEarningList.setAdapter(adapter);
 
         binding.calender.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +75,6 @@ public class DayChartActivity extends AppCompatActivity {
 
 //            selectedDate.setText(selectedDateRange);
         });
-        datePicker.show(getSupportFragmentManager(),"DATE_PICKER");
+        datePicker.show(getSupportFragmentManager(), "DATE_PICKER");
     }
 }

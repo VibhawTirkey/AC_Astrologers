@@ -11,9 +11,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:navigationIcon="@drawable/ic_arrow_back"
         android:background="@color/toolbar_bg_color"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back">
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,39 +32,39 @@
         android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Account Settings"
-        android:textSize="16sp"
+        android:paddingStart="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:paddingStart="20dp"
+        android:text="Account Settings"
         android:textColor="#272A30"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/setting_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/label"
         tools:itemCount="6"
-        tools:listitem="@layout/item_setting_name"
-        app:layout_constraintTop_toBottomOf="@id/label"/>
+        tools:listitem="@layout/item_setting_name" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/logout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:textColor="#520881"
-        android:text="Log out"
-        app:strokeColor="#520881"
-        app:strokeWidth=".5dp"
-        app:cornerRadius="15dp"
         android:backgroundTint="#F6F6F6"
-        app:layout_constraintWidth_percent=".8"
-        app:layout_constraintTop_toBottomOf="@id/setting_list"
+        android:text="Log out"
+        android:textColor="#520881"
+        app:cornerRadius="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/setting_list"
+        app:layout_constraintWidth_percent=".8"
+        app:strokeColor="#520881"
+        app:strokeWidth=".5dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

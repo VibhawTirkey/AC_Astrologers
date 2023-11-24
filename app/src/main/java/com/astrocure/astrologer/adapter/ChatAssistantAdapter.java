@@ -2,7 +2,6 @@ package com.astrocure.astrologer.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -28,9 +27,9 @@ public class ChatAssistantAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemSenderChatAssistBinding senderChatAssistBinding = ItemSenderChatAssistBinding.inflate(LayoutInflater.from(context),parent,false);
-        ItemReceiveChatAssistBinding receiveChatAssistBinding = ItemReceiveChatAssistBinding.inflate(LayoutInflater.from(context),parent,false);
-        switch (viewType){
+        ItemSenderChatAssistBinding senderChatAssistBinding = ItemSenderChatAssistBinding.inflate(LayoutInflater.from(context), parent, false);
+        ItemReceiveChatAssistBinding receiveChatAssistBinding = ItemReceiveChatAssistBinding.inflate(LayoutInflater.from(context), parent, false);
+        switch (viewType) {
             case TXT_SEND:
                 return new SenderViewHolder(senderChatAssistBinding);
             case TXT_RECEIVE:
@@ -43,10 +42,10 @@ public class ChatAssistantAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ChatAssistantModel model = chatList.get(position);
-        if (model.isAdmin()){
+        if (model.isAdmin()) {
             ReceiverViewHolder viewHolder = (ReceiverViewHolder) holder;
             viewHolder.binding.txtMsg.setText(model.getTxt_msg());
-        }else {
+        } else {
             SenderViewHolder viewHolder = (SenderViewHolder) holder;
             viewHolder.binding.txtMsg.setText(model.getTxt_msg());
         }
@@ -54,9 +53,9 @@ public class ChatAssistantAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (chatList.get(position).isAdmin()){
+        if (chatList.get(position).isAdmin()) {
             return TXT_RECEIVE;
-        }else {
+        } else {
             return TXT_SEND;
         }
     }
@@ -65,16 +64,19 @@ public class ChatAssistantAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return chatList.size();
     }
-    public class SenderViewHolder extends RecyclerView.ViewHolder{
+
+    public class SenderViewHolder extends RecyclerView.ViewHolder {
         ItemSenderChatAssistBinding binding;
+
         public SenderViewHolder(ItemSenderChatAssistBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
     }
 
-    public class ReceiverViewHolder extends RecyclerView.ViewHolder{
+    public class ReceiverViewHolder extends RecyclerView.ViewHolder {
         ItemReceiveChatAssistBinding binding;
+
         public ReceiverViewHolder(ItemReceiveChatAssistBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

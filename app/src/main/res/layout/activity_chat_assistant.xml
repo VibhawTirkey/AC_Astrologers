@@ -31,8 +31,8 @@
         android:id="@+id/chat_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingTop="10dp"
         android:clipToPadding="false"
+        android:paddingTop="10dp"
         app:layout_constraintBottom_toTopOf="@id/bottom_container"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         tools:listitem="@layout/item_receive_chat_assist" />

@@ -19,7 +19,7 @@ public class MonthEarningAdapter extends RecyclerView.Adapter<MonthEarningAdapte
     @NonNull
     @Override
     public EarnViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemMonthEarningBinding binding = ItemMonthEarningBinding.inflate(LayoutInflater.from(context),parent,false);
+        ItemMonthEarningBinding binding = ItemMonthEarningBinding.inflate(LayoutInflater.from(context), parent, false);
         return new EarnViewHolder(binding);
     }
 

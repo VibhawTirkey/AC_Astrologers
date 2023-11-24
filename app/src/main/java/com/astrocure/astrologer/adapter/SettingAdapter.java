@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.astrocure.astrologer.databinding.ItemDocumentNameBinding;
 import com.astrocure.astrologer.databinding.ItemSettingNameBinding;
 import com.astrocure.astrologer.models.DocumentModel;
 import com.bumptech.glide.Glide;
@@ -26,7 +25,7 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.SettingV
     @NonNull
     @Override
     public SettingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemSettingNameBinding binding = ItemSettingNameBinding.inflate(LayoutInflater.from(context),parent,false);
+        ItemSettingNameBinding binding = ItemSettingNameBinding.inflate(LayoutInflater.from(context), parent, false);
         return new SettingViewHolder(binding);
     }
 
@@ -43,6 +42,7 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.SettingV
 
     public class SettingViewHolder extends RecyclerView.ViewHolder {
         ItemSettingNameBinding binding;
+
         public SettingViewHolder(ItemSettingNameBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

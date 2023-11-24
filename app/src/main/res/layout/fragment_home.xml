@@ -85,12 +85,12 @@
                 android:layout_marginStart="20dp"
                 android:text="Next Online Time"
                 android:textColor="@color/white"
-                android:textStyle="bold"
                 android:textSize="15sp"
-                app:layout_constraintVertical_bias=".2"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/textView18"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toolbar" />
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                app:layout_constraintVertical_bias=".2" />
 
             <TextView
                 android:id="@+id/label_call"
@@ -99,10 +99,10 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
                 android:text="CALL TIME : "
-                android:textStyle="bold"
                 android:textColor="@color/white"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/label_next_online"/>
+                app:layout_constraintTop_toBottomOf="@id/label_next_online" />
 
             <TextView
                 android:id="@+id/call_time"
@@ -111,7 +111,7 @@
                 android:text="21 Sept 2023, 03:52 PM"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toEndOf="@id/label_call"
-                app:layout_constraintTop_toTopOf="@id/label_call"/>
+                app:layout_constraintTop_toTopOf="@id/label_call" />
 
             <TextView
                 android:id="@+id/label_chat"
@@ -119,10 +119,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:text="CHAT TIME : "
-                android:textStyle="bold"
                 android:textColor="@color/white"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/label_call"/>
+                app:layout_constraintTop_toBottomOf="@id/label_call" />
 
             <TextView
                 android:id="@+id/chat_time"
@@ -131,7 +131,7 @@
                 android:text="21 Sept 2023, 03:52 PM"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toEndOf="@id/label_chat"
-                app:layout_constraintTop_toTopOf="@id/label_chat"/>
+                app:layout_constraintTop_toTopOf="@id/label_chat" />
 
             <TextView
                 android:id="@+id/textView18"
@@ -281,10 +281,10 @@
 
             <include
                 android:id="@+id/prediction_question"
+                layout="@layout/item_prediction_question_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                layout="@layout/item_prediction_question_layout"
-                app:layout_constraintTop_toBottomOf="@id/chat_action_container"/>
+                app:layout_constraintTop_toBottomOf="@id/chat_action_container" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/month_earning_container"

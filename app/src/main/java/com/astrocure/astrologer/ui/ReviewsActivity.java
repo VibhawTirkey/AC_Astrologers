@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.astrocure.astrologer.R;
 import com.astrocure.astrologer.adapter.ReviewAdapter;
 import com.astrocure.astrologer.databinding.ActivityReviewsBinding;
 import com.astrocure.astrologer.databinding.DialogBottomReplyReviewBinding;
@@ -29,7 +28,7 @@ public class ReviewsActivity extends AppCompatActivity {
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(ReviewsActivity.this);
             DialogBottomReplyReviewBinding replyBinding = DialogBottomReplyReviewBinding.inflate(getLayoutInflater());
             bottomSheetDialog.setContentView(replyBinding.getRoot());
-            replyBinding.username.setText("@"+username);
+            replyBinding.username.setText("@" + username);
             bottomSheetDialog.show();
         });
 

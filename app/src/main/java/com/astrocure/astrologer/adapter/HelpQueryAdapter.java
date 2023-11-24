@@ -27,7 +27,7 @@ public class HelpQueryAdapter extends RecyclerView.Adapter<HelpQueryAdapter.Help
     @NonNull
     @Override
     public HelpViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemHelpQuestionLayoutBinding binding = ItemHelpQuestionLayoutBinding.inflate(LayoutInflater.from(context),parent,false);
+        ItemHelpQuestionLayoutBinding binding = ItemHelpQuestionLayoutBinding.inflate(LayoutInflater.from(context), parent, false);
         return new HelpViewHolder(binding);
     }
 
@@ -37,10 +37,10 @@ public class HelpQueryAdapter extends RecyclerView.Adapter<HelpQueryAdapter.Help
         holder.binding.title.setText(model.getQuestion());
         holder.binding.answer.setText(model.getAnswer());
         holder.binding.expand.setOnClickListener(v -> {
-            if (holder.binding.answer.getVisibility() == View.VISIBLE){
+            if (holder.binding.answer.getVisibility() == View.VISIBLE) {
                 holder.binding.answer.setVisibility(View.GONE);
                 Glide.with(context).load(R.drawable.ic_add).into(holder.binding.expand);
-            }else {
+            } else {
                 holder.binding.answer.setVisibility(View.VISIBLE);
                 Glide.with(context).load(R.drawable.ic_subtract).into(holder.binding.expand);
             }
@@ -54,6 +54,7 @@ public class HelpQueryAdapter extends RecyclerView.Adapter<HelpQueryAdapter.Help
 
     public class HelpViewHolder extends RecyclerView.ViewHolder {
         ItemHelpQuestionLayoutBinding binding;
+
         public HelpViewHolder(ItemHelpQuestionLayoutBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

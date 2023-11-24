@@ -75,14 +75,14 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         } else if (item.getItemId() == R.id.side_nav_help) {
             startActivity(new Intent(getApplicationContext(), HelpSupportActivity.class));
         } else if (item.getItemId() == R.id.side_nav_documentation) {
-            startActivity(new Intent(getApplicationContext(),DocumentationActivity.class));
+            startActivity(new Intent(getApplicationContext(), DocumentationActivity.class));
         } else if (item.getItemId() == R.id.side_nav_setting) {
-            startActivity(new Intent(getApplicationContext(),SettingActivity.class));
+            startActivity(new Intent(getApplicationContext(), SettingActivity.class));
         } else if (item.getItemId() == R.id.side_nav_profile) {
             binding.bottomNav.setSelectedItemId(R.id.bottom_nav_profile);
-        }else if (item.getItemId() == R.id.side_nav_reviews) {
-            startActivity(new Intent(getApplicationContext(),ReviewsActivity.class));
-        }else if (item.getItemId() == R.id.side_nav_logout){
+        } else if (item.getItemId() == R.id.side_nav_reviews) {
+            startActivity(new Intent(getApplicationContext(), ReviewsActivity.class));
+        } else if (item.getItemId() == R.id.side_nav_logout) {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
         binding.drawer.closeDrawer(GravityCompat.START);

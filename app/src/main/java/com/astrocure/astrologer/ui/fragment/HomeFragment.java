@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
@@ -37,7 +36,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickListener {
     FragmentHomeBinding binding;
@@ -127,7 +125,7 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
         });
 
         binding.chatSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (!isChecked){
+            if (!isChecked) {
                 setOnlineTime("Chat");
             }
         });
@@ -144,7 +142,7 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
         cal.add(Calendar.DAY_OF_YEAR, 0);
         onlineTimeBinding.datePicker.setMinDate(cal.getTimeInMillis());
         cal.add(Calendar.DAY_OF_YEAR, 7);
-        onlineTimeBinding.textView19.setText("Set Next Online Time for "+type);
+        onlineTimeBinding.textView19.setText("Set Next Online Time for " + type);
         onlineTimeBinding.datePicker.setMaxDate(cal.getTimeInMillis());
         onlineTimeBinding.select.setOnClickListener(v -> {
             final Calendar c = Calendar.getInstance();

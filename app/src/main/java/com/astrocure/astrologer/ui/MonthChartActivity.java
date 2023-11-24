@@ -9,7 +9,6 @@ import com.astrocure.astrologer.R;
 import com.astrocure.astrologer.adapter.MonthEarningAdapter;
 import com.astrocure.astrologer.databinding.ActivityMonthChartBinding;
 
-import org.eazegraph.lib.charts.ValueLineChart;
 import org.eazegraph.lib.models.ValueLinePoint;
 import org.eazegraph.lib.models.ValueLineSeries;
 
@@ -47,7 +46,7 @@ public class MonthChartActivity extends AppCompatActivity {
         binding.earningChart.startAnimation();
 
         MonthEarningAdapter adapter = new MonthEarningAdapter(getApplicationContext());
-        binding.monthEarningList.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false));
+        binding.monthEarningList.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         binding.monthEarningList.setAdapter(adapter);
     }
 

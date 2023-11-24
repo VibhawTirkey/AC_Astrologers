@@ -53,18 +53,18 @@
                         android:id="@+id/selection_tab"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:layout_marginTop="10dp"
                         android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
                         android:background="#F8F8F8"
                         app:layout_constraintTop_toTopOf="parent"
                         app:tabBackground="@drawable/review_tab_selector"
+                        app:tabIconTint="#FF9500"
                         app:tabIndicatorColor="#00520881"
+                        app:tabInlineLabel="true"
                         app:tabMode="scrollable"
                         app:tabRippleColor="@android:color/transparent"
                         app:tabSelectedTextColor="#520881"
-                        app:tabTextColor="#838A93"
-                        app:tabIconTint="#FF9500"
-                        app:tabInlineLabel="true">
+                        app:tabTextColor="#838A93">
 
                         <com.google.android.material.tabs.TabItem
                             android:layout_width="wrap_content"
@@ -74,44 +74,44 @@
                         <com.google.android.material.tabs.TabItem
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="5"
                             android:layout_marginStart="10dp"
-                            android:icon="@drawable/ic_star_active_review"/>
+                            android:icon="@drawable/ic_star_active_review"
+                            android:text="5" />
 
                         <com.google.android.material.tabs.TabItem
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="4"
-                            android:icon="@drawable/ic_star_active_review"/>
+                            android:icon="@drawable/ic_star_active_review"
+                            android:text="4" />
 
                         <com.google.android.material.tabs.TabItem
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3"
-                            android:icon="@drawable/ic_star_active_review"/>
+                            android:icon="@drawable/ic_star_active_review"
+                            android:text="3" />
 
                         <com.google.android.material.tabs.TabItem
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2"
-                            android:icon="@drawable/ic_star_active_review"/>
+                            android:icon="@drawable/ic_star_active_review"
+                            android:text="2" />
 
                         <com.google.android.material.tabs.TabItem
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1"
-                            android:icon="@drawable/ic_star_active_review"/>
+                            android:icon="@drawable/ic_star_active_review"
+                            android:text="1" />
 
                     </com.google.android.material.tabs.TabLayout>
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         app:cardBackgroundColor="#F2F2F3"
                         app:cardCornerRadius="100dp"
                         app:cardElevation="10dp"
-                        android:layout_marginTop="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintDimensionRatio="355:42"
                         app:layout_constraintEnd_toEndOf="parent"

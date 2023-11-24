@@ -2,7 +2,6 @@ package com.astrocure.astrologer.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -28,12 +27,20 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     @Override
     public void onBindViewHolder(@NonNull ReviewViewHolder holder, int position) {
         int index = position;
-        holder.binding.reply.setOnClickListener(v -> onItemClickListener.onItemClick(index,holder.binding.name.getText().toString()));
+        holder.binding.reply.setOnClickListener(v -> onItemClickListener.onItemClick(index, holder.binding.name.getText().toString()));
     }
 
     @Override
     public int getItemCount() {
         return 7;
+    }
+
+    public void setOnItemClick(onItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public interface onItemClickListener {
+        void onItemClick(int position, String username);
     }
 
     public class ReviewViewHolder extends RecyclerView.ViewHolder {
@@ -43,13 +50,5 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             super(binding.getRoot());
             this.binding = binding;
         }
-    }
-
-    public void setOnItemClick(onItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
-    public interface onItemClickListener {
-        void onItemClick(int position, String username);
     }
 }

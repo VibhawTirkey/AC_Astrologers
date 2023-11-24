@@ -11,35 +11,35 @@
         android:id="@+id/imageView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/bg_item_login"
         android:scaleType="centerCrop"
+        android:src="@drawable/bg_item_login"
+        app:layout_constraintBottom_toBottomOf="@id/logo_container"
         app:layout_constraintDimensionRatio="15:11"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/logo_container" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/logo_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:cardCornerRadius="100dp"
-        app:strokeColor="#DE2F0044"
-        app:strokeWidth="5dp"
         app:cardBackgroundColor="#DE2F0044"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintWidth_percent=".3"
+        app:cardCornerRadius="100dp"
         app:layout_constraintBottom_toTopOf="@id/guideline"
+        app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".3"
+        app:strokeColor="#DE2F0044"
+        app:strokeWidth="5dp">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#F6F6F6"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:background="#F6F6F6"
-            android:src="@drawable/ic_app_logo"/>
+            android:src="@drawable/ic_app_logo" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -86,26 +86,27 @@
         android:id="@+id/username_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:strokeWidth="0dp"
-        app:cardElevation="7dp"
         app:cardCornerRadius="7dp"
-        app:layout_constraintWidth_percent=".9"
-        app:layout_constraintStart_toStartOf="parent"
+        app:cardElevation="7dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guideline">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline"
+        app:layout_constraintWidth_percent=".9"
+        app:strokeWidth="0dp">
 
         <EditText
+            android:id="@+id/email_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="10dp"
-            android:hint="Username"
-            android:textSize="14sp"
+            android:background="@color/white"
+            android:hint="Email Id"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
-            android:background="@color/white"/>
+            android:paddingStart="20dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="14sp" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -113,38 +114,38 @@
         android:id="@+id/password_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:strokeWidth="0dp"
-        app:cardElevation="7dp"
         android:layout_marginTop="20dp"
         app:cardCornerRadius="7dp"
-        app:layout_constraintWidth_percent=".9"
-        app:layout_constraintStart_toStartOf="parent"
+        app:cardElevation="7dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/username_container">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/username_container"
+        app:layout_constraintWidth_percent=".9"
+        app:strokeWidth="0dp">
 
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="10dp"
+            android:background="@color/white"
             android:hint="Password"
-            android:singleLine="true"
-            android:textSize="14sp"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
-            android:background="@color/white"/>
+            android:paddingStart="20dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp"
+            android:singleLine="true"
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/password_toggle"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:padding="8dp"
-            android:src="@drawable/ic_eye_inactive_login"
             android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginEnd="10dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_eye_inactive_login" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -152,24 +153,24 @@
         android:id="@+id/error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Invalid email or Password . Try Again !"
         android:textColor="#CE0000"
         android:textSize="11sp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/remember_me"
         app:layout_constraintEnd_toEndOf="@+id/password_container"
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="@+id/password_container"
         app:layout_constraintTop_toBottomOf="@+id/password_container" />
+    <!--    android:text="Invalid email or Password . Try Again !"-->
 
     <CheckedTextView
         android:id="@+id/remember_me"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_checkbox_active_login"
+        android:drawablePadding="5dp"
         android:text="Remember me"
         android:textColor="#949090"
-        android:drawablePadding="5dp"
-        android:drawableStart="@drawable/ic_checkbox_active_login"
         app:layout_constraintBottom_toTopOf="@id/login"
         app:layout_constraintStart_toStartOf="@+id/password_container"
         app:layout_constraintTop_toBottomOf="@id/error" />
@@ -187,15 +188,15 @@
         android:id="@+id/login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Log In"
         android:backgroundTint="#520881"
+        android:text="Log In"
         android:textStyle="bold"
         app:cornerRadius="15dp"
-        app:layout_constraintWidth_percent=".8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_container" />
+        app:layout_constraintTop_toBottomOf="@+id/password_container"
+        app:layout_constraintWidth_percent=".8" />
 
     <TextView
         android:id="@+id/term_condition"
@@ -203,31 +204,31 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:text="@string/terms_and_condition"
-        app:layout_constraintVertical_bias=".3"
         android:textColor="#393030"
         android:textSize="11sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login" />
+        app:layout_constraintTop_toBottomOf="@id/login"
+        app:layout_constraintVertical_bias=".3" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/bg_item_login_1"
         android:scaleType="fitXY"
+        android:src="@drawable/bg_item_login_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/term_condition"/>
+        app:layout_constraintTop_toBottomOf="@id/term_condition" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".5"/>
+        app:layout_constraintGuide_percent=".5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

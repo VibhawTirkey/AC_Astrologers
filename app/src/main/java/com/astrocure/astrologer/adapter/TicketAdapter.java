@@ -34,10 +34,10 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         TicketModel model = ticketModels.get(position);
         holder.binding.title.setText(model.getTopic());
         holder.binding.ticketId.setText(model.getTicketId());
-        if (model.isClosed()){
+        if (model.isClosed()) {
             holder.binding.status.setText("Closed");
             holder.binding.status.setTextColor(Color.parseColor("#F11111"));
-        }else {
+        } else {
             holder.binding.status.setText("On Progress");
             holder.binding.status.setTextColor(Color.parseColor("#088123"));
         }
