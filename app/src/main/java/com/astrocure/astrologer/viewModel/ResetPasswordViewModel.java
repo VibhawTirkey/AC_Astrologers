@@ -10,7 +10,7 @@ import com.astrocure.astrologer.repository.AuthRepository;
 
 public class ResetPasswordViewModel extends ViewModel {
     private final MutableLiveData<String> passwordValidationLiveData = new MutableLiveData<>();
-    AuthRepository authRepository;
+    private final AuthRepository authRepository;
 
     public ResetPasswordViewModel() {
         authRepository = new AuthRepository();

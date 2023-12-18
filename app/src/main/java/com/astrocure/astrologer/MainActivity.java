@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.astrocure.astrologer.ui.DashboardActivity;
+import com.astrocure.astrologer.ui.LoginActivity;
+import com.astrocure.astrologer.utils.SPrefClient;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,7 +16,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
-        finish();
+        if (SPrefClient.getAstrologerDetail(getApplicationContext())!=null){
+            startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+            finish();
+        }else {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            finish();
+        }
+
     }
 }

@@ -4,6 +4,7 @@ import com.astrocure.astrologer.models.requestModels.AuthRequestModel;
 import com.astrocure.astrologer.models.requestModels.ForgotPassRequestModel;
 import com.astrocure.astrologer.models.requestModels.LoginRequestModel;
 import com.astrocure.astrologer.models.requestModels.ResetPasswordRequestModel;
+import com.astrocure.astrologer.models.responseModels.AstrologerResponseModel;
 import com.astrocure.astrologer.models.responseModels.ForgotPassResponseModel;
 import com.astrocure.astrologer.models.responseModels.LoginResponseModel;
 import com.astrocure.astrologer.models.responseModels.ResetPasswordResponseModel;
@@ -11,7 +12,9 @@ import com.astrocure.astrologer.models.responseModels.VerifyOtpResponseModel;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ApiInterface {
     @POST("api/v1/auth/login-astrologer")
@@ -25,4 +28,7 @@ public interface ApiInterface {
 
     @POST("api/v1/auth/reset-password")
     Call<ResetPasswordResponseModel> resetPassword(@Body ResetPasswordRequestModel resetPasswordRequestModel);
+
+    @GET("api/v1/astrologer/{astrologerId}")
+    Call<AstrologerResponseModel> getAstrologerDetail(@Path("astrologerId")String astrologerId);
 }

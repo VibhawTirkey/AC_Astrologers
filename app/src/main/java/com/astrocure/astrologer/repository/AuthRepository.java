@@ -1,9 +1,12 @@
 package com.astrocure.astrologer.repository;
 
+import androidx.annotation.NonNull;
+
 import com.astrocure.astrologer.models.requestModels.AuthRequestModel;
 import com.astrocure.astrologer.models.requestModels.ForgotPassRequestModel;
 import com.astrocure.astrologer.models.requestModels.LoginRequestModel;
 import com.astrocure.astrologer.models.requestModels.ResetPasswordRequestModel;
+import com.astrocure.astrologer.models.responseModels.AstrologerResponseModel;
 import com.astrocure.astrologer.models.responseModels.ForgotPassResponseModel;
 import com.astrocure.astrologer.models.responseModels.LoginResponseModel;
 import com.astrocure.astrologer.models.responseModels.ResetPasswordResponseModel;
@@ -17,6 +20,27 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AuthRepository {
+    public void astrologerDetailApi(String astrologerId,IAstrologerDetailResponse astrologerDetailResponse){
+        RetrofitClient.getAppClient().getAstrologerDetail(astrologerId).enqueue(new Callback<AstrologerResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<AstrologerResponseModel> call, @NonNull Response<AstrologerResponseModel> response) {
+                try {
+                    if (response.isSuccessful()){
+                        astrologerDetailResponse.onResponse(response.body());
+                    }else {
+                        astrologerDetailResponse.onFailure(new JSONObject(response.errorBody().string()).getString("alert"));
+                    }
+                }catch (Exception e){
+                    astrologerDetailResponse.onFailure(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<AstrologerResponseModel> call, @NonNull Throwable t) {
+                astrologerDetailResponse.onFailure(t.getMessage());
+            }
+        });
+    }
 
     public void callLoginApi(LoginRequestModel requestModel, ILoginResponse loginResponse) {
         RetrofitClient.getAppClient().loginAstrologer(requestModel).enqueue(new Callback<LoginResponseModel>() {
@@ -107,6 +131,11 @@ public class AuthRepository {
     }
 
 
+    public interface IAstrologerDetailResponse {
+        void onResponse(AstrologerResponseModel astrologerResponseModel);
+
+        void onFailure(String t);
+    }
     public interface ILoginResponse {
         void onResponse(LoginResponseModel loginResponseModel);
 

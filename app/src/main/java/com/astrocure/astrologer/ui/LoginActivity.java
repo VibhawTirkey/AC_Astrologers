@@ -6,17 +6,18 @@ import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.astrocure.astrologer.R;
 import com.astrocure.astrologer.databinding.ActivityLoginBinding;
+import com.astrocure.astrologer.models.requestModels.LoginRequestModel;
+import com.astrocure.astrologer.utils.SPrefClient;
 import com.astrocure.astrologer.viewModel.LoginViewModel;
 import com.bumptech.glide.Glide;
 
 public class LoginActivity extends AppCompatActivity {
-    ActivityLoginBinding binding;
-    LoginViewModel viewModel;
+    private ActivityLoginBinding binding;
+    private LoginViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,28 @@ public class LoginActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
-        binding.rememberMe.setChecked(true);
+        viewModel.getSuccessLiveData().observe(this, aBoolean -> {
+            if (aBoolean) {
+                if (binding.rememberMe.isChecked()) {
+                    SPrefClient.setUserCredential(getApplicationContext(), new LoginRequestModel(
+                            binding.emailId.getText().toString(), binding.password.getText().toString()
+                    ));
+                } else {
+                    SPrefClient.deleteUserCredential(getApplicationContext());
+                }
+            }
+        });
+        viewModel.getLoginLiveData().observe(this, loginResponseModel -> viewModel.getAstrologerDetail(loginResponseModel.getData().getUserId()));
+        viewModel.getAstrologerLiveData().observe(this, astrologerResponseModel -> {
+            SPrefClient.setAstrologerDetail(getApplicationContext(), astrologerResponseModel);
+            startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+            finish();
+        });
+        viewModel.getLoginStatus().observe(this, s -> {
+            binding.error.setText(s);
+        });
+
+
         setRememberMe();
         binding.rememberMe.setOnClickListener(v -> {
             setRememberMe();
@@ -52,21 +74,17 @@ public class LoginActivity extends AppCompatActivity {
                 binding.password.setError("Empty");
                 return;
             }
-            viewModel.login(binding.emailId.getText().toString(), binding.password.getText().toString()).observe(this, new Observer<Boolean>() {
-                @Override
-                public void onChanged(Boolean aBoolean) {
-                    if (aBoolean) {
-                        startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
-                    }
-                }
-            });
+            viewModel.login(binding.emailId.getText().toString(), binding.password.getText().toString());
         });
-        viewModel.getLoginResult().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                binding.error.setText(s);
-            }
-        });
+
+        if (SPrefClient.getUserCredential(getApplicationContext()) != null) {
+            binding.rememberMe.setChecked(true);
+            binding.emailId.setText(SPrefClient.getUserCredential(getApplicationContext()).getEmail());
+            binding.password.setText(SPrefClient.getUserCredential(getApplicationContext()).getPassword());
+        } else {
+            binding.rememberMe.setChecked(false);
+        }
+
     }
 
     private void setRememberMe() {

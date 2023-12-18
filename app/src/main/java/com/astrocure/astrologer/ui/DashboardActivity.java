@@ -21,6 +21,7 @@ import com.astrocure.astrologer.ui.fragment.CallChatLogFragment;
 import com.astrocure.astrologer.ui.fragment.EarningFragment;
 import com.astrocure.astrologer.ui.fragment.HomeFragment;
 import com.astrocure.astrologer.ui.fragment.ProfileFragment;
+import com.astrocure.astrologer.utils.SPrefClient;
 import com.google.android.material.navigation.NavigationView;
 
 public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SideNavigationCallback {
@@ -83,7 +84,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         } else if (item.getItemId() == R.id.side_nav_reviews) {
             startActivity(new Intent(getApplicationContext(), ReviewsActivity.class));
         } else if (item.getItemId() == R.id.side_nav_logout) {
+            SPrefClient.deleteAstrologerDetail(getApplicationContext());
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            finish();
         }
         binding.drawer.closeDrawer(GravityCompat.START);
         return false;
