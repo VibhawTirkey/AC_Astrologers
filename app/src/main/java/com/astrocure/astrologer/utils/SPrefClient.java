@@ -33,7 +33,7 @@ public class SPrefClient {
         editor.apply();
     }
 
-    public static void setAstrologerDetail(Context context, AstrologerResponseModel astrologerResponseModel) {
+    public static void setAstrologerDetail(Context context, AstrologerResponseModel.Data astrologerResponseModel) {
         SharedPreferences sp = context.getSharedPreferences(USER_DATA, MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(USER_DATA, new Gson().toJson(astrologerResponseModel));
@@ -41,9 +41,9 @@ public class SPrefClient {
 //        AppTempData.otpResponseModel = result;
     }
 
-    public static AstrologerResponseModel getAstrologerDetail(Context context) {
+    public static AstrologerResponseModel.Data getAstrologerDetail(Context context) {
         SharedPreferences sp = context.getSharedPreferences(USER_DATA, MODE_PRIVATE);
-        return new Gson().fromJson(sp.getString(USER_DATA, null), AstrologerResponseModel.class);
+        return new Gson().fromJson(sp.getString(USER_DATA, null), AstrologerResponseModel.Data.class);
     }
 
     public static void deleteAstrologerDetail(Context context) {

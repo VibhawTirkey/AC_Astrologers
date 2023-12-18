@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         });
         viewModel.getLoginLiveData().observe(this, loginResponseModel -> viewModel.getAstrologerDetail(loginResponseModel.getData().getUserId()));
         viewModel.getAstrologerLiveData().observe(this, astrologerResponseModel -> {
-            SPrefClient.setAstrologerDetail(getApplicationContext(), astrologerResponseModel);
+            SPrefClient.setAstrologerDetail(getApplicationContext(), astrologerResponseModel.getData());
             startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
             finish();
         });

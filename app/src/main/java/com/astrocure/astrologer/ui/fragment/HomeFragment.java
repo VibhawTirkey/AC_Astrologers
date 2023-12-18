@@ -17,6 +17,7 @@ import android.widget.TimePicker;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.astrocure.astrologer.R;
@@ -31,6 +32,7 @@ import com.astrocure.astrologer.ui.NotificationActivity;
 import com.astrocure.astrologer.ui.ProfileActivity;
 import com.astrocure.astrologer.ui.ReviewsActivity;
 import com.astrocure.astrologer.ui.WaitListActivity;
+import com.astrocure.astrologer.viewModel.HomeViewModel;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -38,7 +40,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import java.util.Calendar;
 
 public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickListener {
-    FragmentHomeBinding binding;
+    private FragmentHomeBinding binding;
+    private HomeViewModel viewModel;
     SideNavigationCallback callback;
     String callTime;
 
@@ -63,11 +66,13 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
 
-        binding.toolbar.setOnMenuItemClickListener(this::onMenuItemClick);
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+
+        binding.toolbar.setOnMenuItemClickListener(this);
         Glide.with(requireContext()).load(PROFILE_IMG).into(binding.profileImage);
 
         HomeTransactionAdapter homeTransactionAdapter = new HomeTransactionAdapter(requireContext());
