@@ -31,7 +31,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:background="#520881"
                 app:layout_constraintTop_toTopOf="parent"
                 app:menu="@menu/home_top_menu"
@@ -47,7 +46,6 @@
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_hamburger"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:riv_border_color="@color/white"
@@ -59,16 +57,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
-                        android:text="Good Morning"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         app:layout_constraintStart_toEndOf="@id/profile_image"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Narendra Modi"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="@+id/greet"
@@ -113,6 +110,24 @@
                 app:layout_constraintStart_toEndOf="@id/label_call"
                 app:layout_constraintTop_toTopOf="@id/label_call" />
 
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/call_service"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/call_time"
+                app:layout_constraintBottom_toBottomOf="@id/call_time"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Call"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/call_service"
+                app:layout_constraintTop_toTopOf="@id/call_service"
+                app:layout_constraintBottom_toBottomOf="@id/call_service"/>
+
             <TextView
                 android:id="@+id/label_chat"
                 android:layout_width="wrap_content"
@@ -132,6 +147,24 @@
                 android:textColor="@color/white"
                 app:layout_constraintStart_toEndOf="@id/label_chat"
                 app:layout_constraintTop_toTopOf="@id/label_chat" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/chat_service"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/chat_time"
+                app:layout_constraintBottom_toBottomOf="@id/chat_time"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chat"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/chat_service"
+                app:layout_constraintTop_toTopOf="@id/chat_service"
+                app:layout_constraintBottom_toBottomOf="@id/chat_service"/>
 
             <TextView
                 android:id="@+id/textView18"
@@ -281,6 +314,7 @@
 
             <include
                 android:id="@+id/prediction_question"
+                android:visibility="gone"
                 layout="@layout/item_prediction_question_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

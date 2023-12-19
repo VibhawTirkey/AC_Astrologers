@@ -167,10 +167,12 @@
         android:id="@+id/remember_me"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_checkbox_active_login"
+        android:drawableStart="@drawable/ic_checkbox_inactive_login"
+        android:checked="false"
         android:drawablePadding="5dp"
         android:text="Remember me"
         android:textColor="#949090"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@id/login"
         app:layout_constraintStart_toStartOf="@+id/password_container"
         app:layout_constraintTop_toBottomOf="@id/error" />

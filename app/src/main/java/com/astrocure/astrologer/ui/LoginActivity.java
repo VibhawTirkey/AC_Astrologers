@@ -27,6 +27,16 @@ public class LoginActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
+        if (SPrefClient.getUserCredential(getApplicationContext()) != null) {
+            binding.rememberMe.setChecked(true);
+            binding.emailId.setText(SPrefClient.getUserCredential(getApplicationContext()).getEmail());
+            binding.password.setText(SPrefClient.getUserCredential(getApplicationContext()).getPassword());
+            binding.rememberMe.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_checkbox_active_login, 0, 0, 0);
+        } else {
+            binding.rememberMe.setChecked(false);
+            binding.rememberMe.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_checkbox_inactive_login, 0, 0, 0);
+        }
+
         viewModel.getSuccessLiveData().observe(this, aBoolean -> {
             if (aBoolean) {
                 if (binding.rememberMe.isChecked()) {
@@ -48,8 +58,6 @@ public class LoginActivity extends AppCompatActivity {
             binding.error.setText(s);
         });
 
-
-        setRememberMe();
         binding.rememberMe.setOnClickListener(v -> {
             setRememberMe();
         });
@@ -76,14 +84,6 @@ public class LoginActivity extends AppCompatActivity {
             }
             viewModel.login(binding.emailId.getText().toString(), binding.password.getText().toString());
         });
-
-        if (SPrefClient.getUserCredential(getApplicationContext()) != null) {
-            binding.rememberMe.setChecked(true);
-            binding.emailId.setText(SPrefClient.getUserCredential(getApplicationContext()).getEmail());
-            binding.password.setText(SPrefClient.getUserCredential(getApplicationContext()).getPassword());
-        } else {
-            binding.rememberMe.setChecked(false);
-        }
 
     }
 

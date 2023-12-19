@@ -2,18 +2,25 @@ package com.astrocure.astrologer;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.astrocure.astrologer.receiver.NetworkChangeReceiver;
+
 public class MainApplication extends Application {
+    private BroadcastReceiver broadcastReceiver;
     @Override
     public void onCreate() {
         super.onCreate();
         setupActivityListener();
-
+        broadcastReceiver = new NetworkChangeReceiver();
+        registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
     private void setupActivityListener() {
@@ -54,5 +61,17 @@ public class MainApplication extends Application {
             }
         });
     }
+    protected void unregisterNetworkChanges() {
+        try {
+            unregisterReceiver(broadcastReceiver);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+    }
 
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        unregisterNetworkChanges();
+    }
 }

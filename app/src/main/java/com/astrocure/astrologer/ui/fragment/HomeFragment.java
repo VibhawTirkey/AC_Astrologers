@@ -32,6 +32,7 @@ import com.astrocure.astrologer.ui.NotificationActivity;
 import com.astrocure.astrologer.ui.ProfileActivity;
 import com.astrocure.astrologer.ui.ReviewsActivity;
 import com.astrocure.astrologer.ui.WaitListActivity;
+import com.astrocure.astrologer.utils.SPrefClient;
 import com.astrocure.astrologer.viewModel.HomeViewModel;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -74,6 +75,9 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
 
         binding.toolbar.setOnMenuItemClickListener(this);
         Glide.with(requireContext()).load(PROFILE_IMG).into(binding.profileImage);
+        viewModel.getGreetTextLiveData().observe(getViewLifecycleOwner(), s -> binding.greet.setText(s));
+
+        binding.userName.setText(SPrefClient.getAstrologerDetail(requireContext()).getUserName());
 
         HomeTransactionAdapter homeTransactionAdapter = new HomeTransactionAdapter(requireContext());
         binding.transactionList.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));

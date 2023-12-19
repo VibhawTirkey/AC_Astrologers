@@ -59,7 +59,7 @@ public class AuthRepository {
 
             @Override
             public void onFailure(Call<LoginResponseModel> call, Throwable t) {
-                loginResponse.onFailure(t.getMessage());
+                loginResponse.onFailure("Check your Network Connection");
             }
         });
     }
