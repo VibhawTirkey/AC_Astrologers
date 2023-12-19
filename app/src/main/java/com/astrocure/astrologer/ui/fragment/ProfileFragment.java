@@ -21,8 +21,6 @@ public class ProfileFragment extends Fragment {
     FragmentProfileBinding binding;
     SideNavigationCallback navigationCallback;
 
-    TaskDaoInterface daoInterface =
-
     public ProfileFragment() {
         // Required empty public constructor
     }
