@@ -1,5 +1,7 @@
 package com.astrocure.astrologer;
 
+import static com.astrocure.astrologer.dao.DatabaseClient.DB_NAME;
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.BroadcastReceiver;
@@ -10,17 +12,26 @@ import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.room.Room;
 
+import com.astrocure.astrologer.dao.DatabaseClient;
 import com.astrocure.astrologer.receiver.NetworkChangeReceiver;
 
 public class MainApplication extends Application {
     private BroadcastReceiver broadcastReceiver;
+    private DatabaseClient databaseClient;
+
     @Override
     public void onCreate() {
         super.onCreate();
         setupActivityListener();
         broadcastReceiver = new NetworkChangeReceiver();
         registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        databaseClient = Room.databaseBuilder(this, DatabaseClient.class, DB_NAME).fallbackToDestructiveMigration().build();
+    }
+
+    public DatabaseClient getDatabaseClient() {
+        return databaseClient;
     }
 
     private void setupActivityListener() {
@@ -61,6 +72,7 @@ public class MainApplication extends Application {
             }
         });
     }
+
     protected void unregisterNetworkChanges() {
         try {
             unregisterReceiver(broadcastReceiver);

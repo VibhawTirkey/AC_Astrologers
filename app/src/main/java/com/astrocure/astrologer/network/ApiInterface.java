@@ -6,6 +6,7 @@ import com.astrocure.astrologer.models.requestModels.LoginRequestModel;
 import com.astrocure.astrologer.models.requestModels.ResetPasswordRequestModel;
 import com.astrocure.astrologer.models.responseModels.AstrologerResponseModel;
 import com.astrocure.astrologer.models.responseModels.ForgotPassResponseModel;
+import com.astrocure.astrologer.models.responseModels.BindResponseModel;
 import com.astrocure.astrologer.models.responseModels.LoginResponseModel;
 import com.astrocure.astrologer.models.responseModels.ResetPasswordResponseModel;
 import com.astrocure.astrologer.models.responseModels.VerifyOtpResponseModel;
@@ -31,4 +32,15 @@ public interface ApiInterface {
 
     @GET("api/v1/astrologer/{astrologerId}")
     Call<AstrologerResponseModel> getAstrologerDetail(@Path("astrologerId")String astrologerId);
+
+    @GET("api/v1/bind-language")
+    Call<BindResponseModel> getLanguages();
+
+    @GET("api/v1/bind-gender")
+    Call<BindResponseModel> getGenders();
+
+    @GET("api/v1/bind-expertise")
+    Call<BindResponseModel> getExpertise();
+
+
 }
