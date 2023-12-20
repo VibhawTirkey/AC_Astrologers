@@ -1,9 +1,5 @@
 package com.astrocure.astrologer.models.responseModels;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -46,25 +42,19 @@ public class BindResponseModel {
         return statusCode;
     }
 
-    @Entity
     public static class Datum {
-        @PrimaryKey
         @SerializedName("_id")
         @Expose
         private String id;
-        @ColumnInfo(name = "dataName")
         @SerializedName("dataName")
         @Expose
         private String dataName;
-        @ColumnInfo(name = "isActive")
         @SerializedName("isActive")
         @Expose
         private boolean isActive;
-        @ColumnInfo(name = "date")
         @SerializedName("date")
         @Expose
         private String date;
-        @ColumnInfo(name = "__v")
         @SerializedName("__v")
         @Expose
         private long v;

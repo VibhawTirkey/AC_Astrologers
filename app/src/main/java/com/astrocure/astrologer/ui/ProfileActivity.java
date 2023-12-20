@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.astrocure.astrologer.databinding.ActivityProfileBinding;
+import com.astrocure.astrologer.utils.SPrefClient;
 import com.bumptech.glide.Glide;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -20,5 +21,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         binding.close.setOnClickListener(v -> onBackPressed());
         Glide.with(getApplicationContext()).load(PROFILE_IMG).into(binding.profileImage);
+
+        binding.name.setText(SPrefClient.getAstrologerDetail(getApplicationContext()).getUserName());
+        binding.bio.setText(SPrefClient.getAstrologerDetail(getApplicationContext()).getExperienceInfo().getPersonalInfo());
     }
 }
