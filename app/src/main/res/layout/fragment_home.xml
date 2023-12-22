@@ -24,6 +24,7 @@
                 android:background="@drawable/item_bg_home"
                 app:layout_constraintDimensionRatio="390:263"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,6 +32,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="20dp"
                 android:background="#520881"
                 app:layout_constraintTop_toTopOf="parent"
                 app:menu="@menu/home_top_menu"
@@ -76,120 +78,172 @@
             </com.google.android.material.appbar.MaterialToolbar>
 
             <TextView
-                android:id="@+id/label_next_online"
+                android:id="@+id/textView19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="Next Online Time"
+                android:layout_marginBottom="25dp"
+                android:text="You are availabile On"
                 android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/textView18"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toolbar"
-                app:layout_constraintVertical_bias=".2" />
+                app:layout_constraintBottom_toTopOf="@id/call_service_container"
+                app:layout_constraintStart_toStartOf="@+id/call_action_container" />
 
-            <TextView
-                android:id="@+id/label_call"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/continue_chat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:text="Continue Chat"
+                android:textColor="#520881"
+                android:textSize="12sp"
+                app:cornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView19"
+                app:layout_constraintEnd_toEndOf="@id/chat_service_container"
+                app:layout_constraintTop_toTopOf="@+id/textView19" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/call_service_container"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:text="CALL TIME : "
-                android:textColor="@color/white"
-                android:textStyle="bold"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="-22dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp"
+                app:layout_constraintBottom_toBottomOf="@id/view_bg"
+                app:layout_constraintDimensionRatio="163:64"
+                app:layout_constraintEnd_toStartOf="@id/chat_service_container"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/label_next_online" />
+                app:strokeWidth="0dp">
 
-            <TextView
-                android:id="@+id/call_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="21 Sept 2023, 03:52 PM"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@id/label_call"
-                app:layout_constraintTop_toTopOf="@id/label_call" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/call_service"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:padding="20dp"
+                        android:src="@drawable/ic_call_home"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/call_service_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="Call Off"
+                        android:textSize="11sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/call_service_switch"
+                        app:layout_constraintStart_toStartOf="@id/call_service_switch"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias=".3" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/call_service_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="25dp"
+                        android:thumb="@drawable/push_switch_thumb_bg"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1"
+                        app:track="@drawable/push_switch_track_bg" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/chat_service_container"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp"
+                app:layout_constraintDimensionRatio="163:64"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/call_time"
-                app:layout_constraintBottom_toBottomOf="@id/call_time"/>
+                app:layout_constraintStart_toEndOf="@id/call_service_container"
+                app:layout_constraintTop_toTopOf="@id/call_service_container"
+                app:strokeWidth="0dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Call"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/call_service"
-                app:layout_constraintTop_toTopOf="@id/call_service"
-                app:layout_constraintBottom_toBottomOf="@id/call_service"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/label_chat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="CHAT TIME : "
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/label_call" />
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:padding="20dp"
+                        android:src="@drawable/ic_chat_home"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/chat_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="21 Sept 2023, 03:52 PM"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@id/label_chat"
-                app:layout_constraintTop_toTopOf="@id/label_chat" />
+                    <TextView
+                        android:id="@+id/chat_service_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="Chat Off"
+                        android:textSize="11sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/chat_service_switch"
+                        app:layout_constraintStart_toStartOf="@id/chat_service_switch"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias=".3" />
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/chat_service"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/chat_time"
-                app:layout_constraintBottom_toBottomOf="@id/chat_time"/>
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/chat_service_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="25dp"
+                        android:thumb="@drawable/push_switch_thumb_bg"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1"
+                        app:track="@drawable/push_switch_track_bg" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Chat"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/chat_service"
-                app:layout_constraintTop_toTopOf="@id/chat_service"
-                app:layout_constraintBottom_toBottomOf="@id/chat_service"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/textView18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="Your availability"
-                android:textColor="#FFFDFD"
+                android:layout_marginTop="10dp"
+                android:text="Your Next availability"
+                android:textColor="#520881"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/call_action_container"
-                app:layout_constraintStart_toStartOf="@+id/call_action_container" />
+                app:layout_constraintStart_toStartOf="@+id/call_action_container"
+                app:layout_constraintTop_toBottomOf="@id/call_service_container" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/call_action_container"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginBottom="-15dp"
+                android:layout_marginTop="10dp"
                 app:cardBackgroundColor="#F7F7F7"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="6dp"
-                app:layout_constraintBottom_toBottomOf="@id/view_bg"
                 app:layout_constraintDimensionRatio="179:32"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView18"
                 app:layout_constraintWidth_percent=".9"
                 app:strokeColor="#520881"
                 app:strokeWidth=".5dp">
@@ -214,7 +268,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/white"
-                            android:padding="10dp"
+                            android:padding="5dp"
                             android:src="@drawable/ic_call_home" />
 
                     </com.google.android.material.card.MaterialCardView>
@@ -230,6 +284,19 @@
                         app:layout_constraintStart_toEndOf="@id/call_img"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <TextView
+                        android:id="@+id/call_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="Offline"
+                        android:textSize="11sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/call_switch"
+                        app:layout_constraintStart_toStartOf="@id/call_switch"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias=".8" />
+
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/call_switch"
                         android:layout_width="wrap_content"
@@ -239,7 +306,53 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0"
                         app:track="@drawable/push_switch_track_bg" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/call_time_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:strokeWidth="0dp"
+                app:cardCornerRadius="13dp"
+                android:layout_marginBottom="-25dp"
+                app:layout_constraintBottom_toBottomOf="@id/call_action_container"
+                app:layout_constraintStart_toStartOf="@id/call_action_container"
+                app:layout_constraintEnd_toEndOf="@id/call_action_container">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#520881"
+                    android:paddingTop="30dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Next Online Time"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginStart="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/call_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="21 Sept 2023, 03:52 PM"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -249,14 +362,14 @@
                 android:id="@+id/chat_action_container"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 app:cardBackgroundColor="#F7F7F7"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="6dp"
                 app:layout_constraintDimensionRatio="179:32"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/call_action_container"
+                app:layout_constraintTop_toBottomOf="@id/call_time_container"
                 app:layout_constraintWidth_percent=".9"
                 app:strokeColor="#520881"
                 app:strokeWidth=".5dp">
@@ -297,6 +410,19 @@
                         app:layout_constraintStart_toEndOf="@id/chat_img"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <TextView
+                        android:id="@+id/chat_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="Offline"
+                        android:textSize="11sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/chat_switch"
+                        app:layout_constraintStart_toStartOf="@id/chat_switch"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias=".8" />
+
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/chat_switch"
                         android:layout_width="wrap_content"
@@ -306,7 +432,53 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0"
                         app:track="@drawable/push_switch_track_bg" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/chat_time_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:strokeWidth="0dp"
+                app:cardCornerRadius="13dp"
+                android:layout_marginBottom="-25dp"
+                app:layout_constraintBottom_toBottomOf="@id/chat_action_container"
+                app:layout_constraintStart_toStartOf="@id/chat_action_container"
+                app:layout_constraintEnd_toEndOf="@id/chat_action_container">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#520881"
+                    android:paddingTop="30dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Next Online Time"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginStart="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/chat_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="21 Sept 2023, 03:52 PM"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -314,11 +486,10 @@
 
             <include
                 android:id="@+id/prediction_question"
-                android:visibility="gone"
                 layout="@layout/item_prediction_question_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/chat_action_container" />
+                app:layout_constraintTop_toBottomOf="@id/chat_time_container" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/month_earning_container"

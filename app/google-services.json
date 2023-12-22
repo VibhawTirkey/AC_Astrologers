@@ -1,0 +1,113 @@
+{
+  "project_info": {
+    "project_number": "184219108175",
+    "project_id": "astrovidhi-dev",
+    "storage_bucket": "astrovidhi-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184219108175:android:025e40d9cf44e9272dbb3a",
+        "android_client_info": {
+          "package_name": "astrovidhi.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184219108175-arvjfq54jtf4k68jl5s8khcdpj5rrfg6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIydldGfcacBiKdTWN44ztJAWJR7RiHrA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184219108175-arvjfq54jtf4k68jl5s8khcdpj5rrfg6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184219108175:android:2256580f2fe689f42dbb3a",
+        "android_client_info": {
+          "package_name": "com.astrocure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184219108175-nd912h6uh3mas2nsbinbvjfm66mfv4me.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.astrocure",
+            "certificate_hash": "49d3ff8a0bc6b9949b3967f923d8a140d284bbcb"
+          }
+        },
+        {
+          "client_id": "184219108175-arvjfq54jtf4k68jl5s8khcdpj5rrfg6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIydldGfcacBiKdTWN44ztJAWJR7RiHrA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184219108175-arvjfq54jtf4k68jl5s8khcdpj5rrfg6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184219108175:android:7268b3d66c4165ff2dbb3a",
+        "android_client_info": {
+          "package_name": "com.astrocure.astrologer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184219108175-93u1av66erbh557sq2jhtrrk1jsneeoo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.astrocure.astrologer",
+            "certificate_hash": "49d3ff8a0bc6b9949b3967f923d8a140d284bbcb"
+          }
+        },
+        {
+          "client_id": "184219108175-arvjfq54jtf4k68jl5s8khcdpj5rrfg6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIydldGfcacBiKdTWN44ztJAWJR7RiHrA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184219108175-arvjfq54jtf4k68jl5s8khcdpj5rrfg6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

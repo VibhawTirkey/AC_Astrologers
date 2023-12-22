@@ -3,6 +3,7 @@ package com.astrocure.astrologer.ui.fragment;
 import static com.astrocure.astrologer.callback.SideNavigationCallback.OPEN_DRAWER;
 import static com.astrocure.astrologer.utils.AppConstants.PROFILE_IMG;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
@@ -26,12 +28,14 @@ import com.astrocure.astrologer.callback.SideNavigationCallback;
 import com.astrocure.astrologer.databinding.BottomDialogPredictionReplyBinding;
 import com.astrocure.astrologer.databinding.DialogNextOnlineTimeBinding;
 import com.astrocure.astrologer.databinding.FragmentHomeBinding;
+import com.astrocure.astrologer.ui.ChatActivity;
 import com.astrocure.astrologer.ui.DayChartActivity;
 import com.astrocure.astrologer.ui.MonthChartActivity;
 import com.astrocure.astrologer.ui.NotificationActivity;
 import com.astrocure.astrologer.ui.ProfileActivity;
 import com.astrocure.astrologer.ui.ReviewsActivity;
 import com.astrocure.astrologer.ui.WaitListActivity;
+import com.astrocure.astrologer.utils.AppUtilMethods;
 import com.astrocure.astrologer.utils.SPrefClient;
 import com.astrocure.astrologer.viewModel.HomeViewModel;
 import com.bumptech.glide.Glide;
@@ -66,6 +70,7 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -130,12 +135,45 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
             }*/
             if (!isChecked) {
                 setOnlineTime("Call");
+                binding.callStatus.setText("Offline");
+                setMargins(binding.callTimeContainer,0,0,0, (int)AppUtilMethods.pxFromDp(requireContext(),-25));
+            }else {
+                binding.callStatus.setText("Online");
+                setMargins(binding.callTimeContainer,0,0,0,6);
             }
         });
 
         binding.chatSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (!isChecked) {
                 setOnlineTime("Chat");
+                binding.chatStatus.setText("Offline");
+                setMargins(binding.chatTimeContainer,0,0,0, (int)AppUtilMethods.pxFromDp(requireContext(),-25));
+            }else {
+                binding.chatStatus.setText("Online");
+                setMargins(binding.chatTimeContainer,0,0,0,6);
+            }
+        });
+
+        binding.callServiceSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked){
+                binding.callServiceStatus.setText("Call On");
+            }else {
+                binding.callServiceStatus.setText("Call Off");
+            }
+        });
+
+        binding.chatServiceSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked){
+                binding.chatServiceStatus.setText("Chat On");
+            }else {
+                binding.chatServiceStatus.setText("Chat Off");
+            }
+        });
+
+        binding.continueChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(requireContext(), ChatActivity.class));
             }
         });
 
@@ -169,6 +207,13 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
             timePickerDialog.show();
         });
         dialog.show();
+    }
+    private void setMargins (View view, int left, int top, int right, int bottom) {
+        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            p.setMargins(left, top, right, bottom);
+            view.requestLayout();
+        }
     }
 
     @Override

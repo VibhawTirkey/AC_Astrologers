@@ -14,7 +14,7 @@ public class LoginViewModel extends ViewModel {
     private final MutableLiveData<String> loginStatusLiveData = new MutableLiveData<>();
     private final MutableLiveData<Boolean> successLiveData = new MutableLiveData<>();
     private final MutableLiveData<AstrologerResponseModel> astrologerLiveData = new MutableLiveData<>();
-    private final MutableLiveData<LoginResponseModel> loginLiveData = new MutableLiveData<>();
+    private final MutableLiveData<LoginResponseModel.Data> loginLiveData = new MutableLiveData<>();
 
     public LoginViewModel() {
         authRepository = new AuthRepository();
@@ -28,7 +28,7 @@ public class LoginViewModel extends ViewModel {
             @Override
             public void onResponse(LoginResponseModel loginResponseModel) {
                 loginStatusLiveData.postValue(loginResponseModel.getAlert());
-                loginLiveData.postValue(loginResponseModel);
+                loginLiveData.postValue(loginResponseModel.getData());
                 successLiveData.postValue(true);
             }
 
@@ -63,7 +63,7 @@ public class LoginViewModel extends ViewModel {
         return loginStatusLiveData;
     }
 
-    public LiveData<LoginResponseModel> getLoginLiveData() {
+    public LiveData<LoginResponseModel.Data> getLoginLiveData() {
         return loginLiveData;
     }
 

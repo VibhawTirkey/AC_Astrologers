@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 
 import com.astrocure.astrologer.models.requestModels.LoginRequestModel;
 import com.astrocure.astrologer.models.responseModels.AstrologerResponseModel;
+import com.astrocure.astrologer.models.responseModels.LoginResponseModel;
 import com.google.gson.Gson;
 
 public class SPrefClient {
@@ -33,17 +34,17 @@ public class SPrefClient {
         editor.apply();
     }
 
-    public static void setAstrologerDetail(Context context, AstrologerResponseModel.Data astrologerResponseModel) {
+    public static void setAstrologerDetail(Context context, LoginResponseModel.Data loginResponseModel) {
         SharedPreferences sp = context.getSharedPreferences(USER_DATA, MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString(USER_DATA, new Gson().toJson(astrologerResponseModel));
+        editor.putString(USER_DATA, new Gson().toJson(loginResponseModel));
         editor.apply();
 //        AppTempData.otpResponseModel = result;
     }
 
-    public static AstrologerResponseModel.Data getAstrologerDetail(Context context) {
+    public static LoginResponseModel.Data getAstrologerDetail(Context context) {
         SharedPreferences sp = context.getSharedPreferences(USER_DATA, MODE_PRIVATE);
-        return new Gson().fromJson(sp.getString(USER_DATA, null), AstrologerResponseModel.Data.class);
+        return new Gson().fromJson(sp.getString(USER_DATA, null), LoginResponseModel.Data.class);
     }
 
     public static void deleteAstrologerDetail(Context context) {
