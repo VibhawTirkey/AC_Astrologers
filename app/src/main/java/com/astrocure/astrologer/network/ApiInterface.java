@@ -5,7 +5,9 @@ import com.astrocure.astrologer.models.requestModels.ForgotPassRequestModel;
 import com.astrocure.astrologer.models.requestModels.LoginRequestModel;
 import com.astrocure.astrologer.models.requestModels.ManageCounsellingRequestModel;
 import com.astrocure.astrologer.models.requestModels.NextAvailableRequestModel;
+import com.astrocure.astrologer.models.requestModels.ReplyReviewRequestModel;
 import com.astrocure.astrologer.models.requestModels.ResetPasswordRequestModel;
+import com.astrocure.astrologer.models.requestModels.ReviewListRequestModel;
 import com.astrocure.astrologer.models.requestModels.UpdateTokenRequestModel;
 import com.astrocure.astrologer.models.responseModels.AstrologerResponseModel;
 import com.astrocure.astrologer.models.responseModels.CounsellingDetailResponseModel;
@@ -14,7 +16,9 @@ import com.astrocure.astrologer.models.responseModels.BindResponseModel;
 import com.astrocure.astrologer.models.responseModels.LoginResponseModel;
 import com.astrocure.astrologer.models.responseModels.ManageCounsellingResponseModel;
 import com.astrocure.astrologer.models.responseModels.NextAvailableResponseModel;
+import com.astrocure.astrologer.models.responseModels.ReplyReviewResponseModel;
 import com.astrocure.astrologer.models.responseModels.ResetPasswordResponseModel;
+import com.astrocure.astrologer.models.responseModels.ReviewListResponseModel;
 import com.astrocure.astrologer.models.responseModels.UpdateTokenResponseModel;
 import com.astrocure.astrologer.models.responseModels.VerifyOtpResponseModel;
 
@@ -60,5 +64,11 @@ public interface ApiInterface {
 
     @POST("api/v1/token-update")
     Call<UpdateTokenResponseModel> updateFirebaseToken(@Body UpdateTokenRequestModel updateTokenRequestModel);
+
+    @POST("api/v1/astrologer/astro-counselling/list-astrologer-reviews")
+    Call<ReviewListResponseModel> reviewList(@Body ReviewListRequestModel reviewListRequestModel);
+
+    @POST("api/v1/astrologer/astro-counselling/reply-to-review")
+    Call<ReplyReviewResponseModel> replyToReview(@Body ReplyReviewRequestModel replyRequestModel);
 
 }
