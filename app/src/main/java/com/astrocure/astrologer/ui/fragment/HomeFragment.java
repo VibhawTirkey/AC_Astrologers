@@ -9,16 +9,17 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -28,6 +29,8 @@ import com.astrocure.astrologer.callback.SideNavigationCallback;
 import com.astrocure.astrologer.databinding.BottomDialogPredictionReplyBinding;
 import com.astrocure.astrologer.databinding.DialogNextOnlineTimeBinding;
 import com.astrocure.astrologer.databinding.FragmentHomeBinding;
+import com.astrocure.astrologer.models.responseModels.ManageCounsellingResponseModel;
+import com.astrocure.astrologer.models.responseModels.NextAvailableResponseModel;
 import com.astrocure.astrologer.ui.ChatActivity;
 import com.astrocure.astrologer.ui.DayChartActivity;
 import com.astrocure.astrologer.ui.MonthChartActivity;
@@ -39,16 +42,22 @@ import com.astrocure.astrologer.utils.AppUtilMethods;
 import com.astrocure.astrologer.utils.SPrefClient;
 import com.astrocure.astrologer.viewModel.HomeViewModel;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickListener {
     private FragmentHomeBinding binding;
     private HomeViewModel viewModel;
     SideNavigationCallback callback;
-    String callTime;
+    private String primaryCounsellingType;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -77,6 +86,10 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
 
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+
+        viewModel.getCounsellingDetail(SPrefClient.getAstrologerDetail(requireContext()).getId());
+
+        setCounsellingData();
 
         binding.toolbar.setOnMenuItemClickListener(this);
         Glide.with(requireContext()).load(PROFILE_IMG).into(binding.profileImage);
@@ -109,37 +122,13 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
         });
 
         binding.callSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            /*if (!isChecked) {
-                final Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
-                int mHour = c.get(Calendar.HOUR_OF_DAY);
-                int mMinute = c.get(Calendar.MINUTE);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        binding.callTime.setText(dayOfMonth+" "+(month+1)+" "+year+", ");
-                        TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay,
-                                                  int minute) {
-                                binding.callTime.append(hourOfDay+" "+minute);
-//                                        txtTime.setText(hourOfDay + ":" + minute);
-                            }
-                        }, mHour, mMinute, false);
-                        timePickerDialog.show();
-                    }
-                }, mYear, mMonth, mDay);
-                datePickerDialog.show();
-            }*/
             if (!isChecked) {
                 setOnlineTime("Call");
                 binding.callStatus.setText("Offline");
-                setMargins(binding.callTimeContainer,0,0,0, (int)AppUtilMethods.pxFromDp(requireContext(),-25));
-            }else {
+                setMargins(binding.callTimeContainer, 0, 0, 0, (int) AppUtilMethods.pxFromDp(requireContext(), -25));
+            } else {
                 binding.callStatus.setText("Online");
-                setMargins(binding.callTimeContainer,0,0,0,6);
+                setMargins(binding.callTimeContainer, 0, 0, 0, 6);
             }
         });
 
@@ -147,39 +136,83 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
             if (!isChecked) {
                 setOnlineTime("Chat");
                 binding.chatStatus.setText("Offline");
-                setMargins(binding.chatTimeContainer,0,0,0, (int)AppUtilMethods.pxFromDp(requireContext(),-25));
-            }else {
+                setMargins(binding.chatTimeContainer, 0, 0, 0, (int) AppUtilMethods.pxFromDp(requireContext(), -25));
+            } else {
                 binding.chatStatus.setText("Online");
-                setMargins(binding.chatTimeContainer,0,0,0,6);
+                setMargins(binding.chatTimeContainer, 0, 0, 0, 6);
             }
         });
 
         binding.callServiceSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked){
+            if (isChecked) {
                 binding.callServiceStatus.setText("Call On");
-            }else {
-                binding.callServiceStatus.setText("Call Off");
+                viewModel.setSecondaryCounselling(SPrefClient.getAstrologerDetail(requireContext()).getId(),
+                        "CALL",
+                        1);
+            } else {
+                if (!primaryCounsellingType.matches("CALL")) {
+                    binding.callServiceStatus.setText("Call Off");
+                    viewModel.setSecondaryCounselling(SPrefClient.getAstrologerDetail(requireContext()).getId(),
+                            "CALL",
+                            0);
+                } else {
+                    binding.callServiceSwitch.setChecked(true);
+                    Toast.makeText(requireContext(), "Permission Denied: Unable to OFFLINE Primary Service", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         binding.chatServiceSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked){
+            if (isChecked) {
                 binding.chatServiceStatus.setText("Chat On");
-            }else {
-                binding.chatServiceStatus.setText("Chat Off");
+                viewModel.setSecondaryCounselling(SPrefClient.getAstrologerDetail(requireContext()).getId(),
+                        "CHAT",
+                        1);
+            } else {
+                if (!primaryCounsellingType.matches("CHAT")) {
+                    binding.chatServiceStatus.setText("Chat Off");
+                    viewModel.setSecondaryCounselling(SPrefClient.getAstrologerDetail(requireContext()).getId(),
+                            "CHAT",
+                            0);
+                } else {
+                    binding.chatServiceSwitch.setChecked(true);
+                    Toast.makeText(requireContext(), "Permission Denied: Unable to OFFLINE Primary Service", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-        binding.continueChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(requireContext(), ChatActivity.class));
-            }
-        });
+        binding.continueChat.setOnClickListener(v -> startActivity(new Intent(requireContext(), ChatActivity.class)));
 
         return binding.getRoot();
     }
 
+    @SuppressLint({"SimpleDateFormat", "SetTextI18n"})
+    private void setCounsellingData() {
+        viewModel.getCounsellingDetailLiveData().observe(getViewLifecycleOwner(), data -> {
+            binding.callServiceSwitch.setChecked(data.getCurrentAvailabilityStatus().isCallAvailability());
+            binding.chatServiceSwitch.setChecked(data.getCurrentAvailabilityStatus().isChatAvailability());
+            primaryCounsellingType = data.getInitialAvailabilitySelection().getPrimaryCounselling();
+        });
+
+        viewModel.getNextAvailableLiveData().observe(getViewLifecycleOwner(), data -> {
+            Date nextTime;
+            try {
+                nextTime = new SimpleDateFormat("yyyy-MM-dd").parse(data.getNextAvailableDate());
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            if (data.getCounsellingType().matches("call")) {
+                assert nextTime != null;
+                binding.callTime.setText(new SimpleDateFormat("d MMM yyyy ").format(nextTime) + data.getNextAvailableTime());
+            } else {
+                assert nextTime != null;
+                binding.chatTime.setText(new SimpleDateFormat("d MMM yyyy ").format(nextTime) + data.getNextAvailableTime());
+            }
+        });
+
+    }
+
+    @SuppressLint({"SimpleDateFormat", "SetTextI18n"})
     private void setOnlineTime(String type) {
         Dialog dialog = new Dialog(requireContext());
         DialogNextOnlineTimeBinding onlineTimeBinding = DialogNextOnlineTimeBinding.inflate(getLayoutInflater());
@@ -195,20 +228,36 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
             final Calendar c = Calendar.getInstance();
             int mHour = c.get(Calendar.HOUR_OF_DAY);
             int mMinute = c.get(Calendar.MINUTE);
-            TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker view, int hourOfDay,
-                                      int minute) {
-//                    binding.callTime.append(hourOfDay + " " + minute);
-                    dialog.dismiss();
-                }
+
+            @SuppressLint("SimpleDateFormat") Date date = null;
+            try {
+                date = new SimpleDateFormat("dd MM yyyy").parse(onlineTimeBinding.datePicker.getDayOfMonth() + " " +
+                        (onlineTimeBinding.datePicker.getMonth() + 1) + " " +
+                        onlineTimeBinding.datePicker.getYear());
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            Date finalDate = date;
+            TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), (view, hourOfDay, minute) -> {
+                Calendar cal1 = Calendar.getInstance();
+                cal1.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                cal1.set(Calendar.MINUTE, minute);
+                assert finalDate != null;
+                viewModel.setNextAvailable(SPrefClient.getAstrologerDetail(requireContext()).getId(),
+                        type.matches("Chat") ? "chat" : "call",
+                        new SimpleDateFormat("yyyy-MM-dd").format(finalDate),
+                        new SimpleDateFormat("KK:mm a").format(cal1.getTime()));
+                dialog.dismiss();
             }, mHour, mMinute, false);
             timePickerDialog.setCancelable(false);
+
+
             timePickerDialog.show();
         });
         dialog.show();
     }
-    private void setMargins (View view, int left, int top, int right, int bottom) {
+
+    private void setMargins(View view, int left, int top, int right, int bottom) {
         if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
             p.setMargins(left, top, right, bottom);

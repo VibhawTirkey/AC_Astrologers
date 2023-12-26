@@ -3,12 +3,19 @@ package com.astrocure.astrologer.network;
 import com.astrocure.astrologer.models.requestModels.AuthRequestModel;
 import com.astrocure.astrologer.models.requestModels.ForgotPassRequestModel;
 import com.astrocure.astrologer.models.requestModels.LoginRequestModel;
+import com.astrocure.astrologer.models.requestModels.ManageCounsellingRequestModel;
+import com.astrocure.astrologer.models.requestModels.NextAvailableRequestModel;
 import com.astrocure.astrologer.models.requestModels.ResetPasswordRequestModel;
+import com.astrocure.astrologer.models.requestModels.UpdateTokenRequestModel;
 import com.astrocure.astrologer.models.responseModels.AstrologerResponseModel;
+import com.astrocure.astrologer.models.responseModels.CounsellingDetailResponseModel;
 import com.astrocure.astrologer.models.responseModels.ForgotPassResponseModel;
 import com.astrocure.astrologer.models.responseModels.BindResponseModel;
 import com.astrocure.astrologer.models.responseModels.LoginResponseModel;
+import com.astrocure.astrologer.models.responseModels.ManageCounsellingResponseModel;
+import com.astrocure.astrologer.models.responseModels.NextAvailableResponseModel;
 import com.astrocure.astrologer.models.responseModels.ResetPasswordResponseModel;
+import com.astrocure.astrologer.models.responseModels.UpdateTokenResponseModel;
 import com.astrocure.astrologer.models.responseModels.VerifyOtpResponseModel;
 
 import retrofit2.Call;
@@ -42,5 +49,16 @@ public interface ApiInterface {
     @GET("api/v1/bind-expertise")
     Call<BindResponseModel> getExpertise();
 
+    @GET("api/v1/astrologer/home/get-counselling-details/{astrologerId}")
+    Call<CounsellingDetailResponseModel> counsellingDetail(@Path("astrologerId")String astrologerId);
+
+    @POST("api/v1/astrologer/home/set-next-availability")
+    Call<NextAvailableResponseModel> setNextAvailability(@Body NextAvailableRequestModel nextAvailableRequestModel);
+
+    @POST("api/v1/astrologer/home/manage-secondary-counselling-type")
+    Call<ManageCounsellingResponseModel> manageSecondaryCounsellingType(@Body ManageCounsellingRequestModel requestModel);
+
+    @POST("api/v1/token-update")
+    Call<UpdateTokenResponseModel> updateFirebaseToken(@Body UpdateTokenRequestModel updateTokenRequestModel);
 
 }
