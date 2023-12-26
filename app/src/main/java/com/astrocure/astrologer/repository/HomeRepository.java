@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 
 import com.astrocure.astrologer.models.requestModels.ManageCounsellingRequestModel;
 import com.astrocure.astrologer.models.requestModels.NextAvailableRequestModel;
+import com.astrocure.astrologer.models.requestModels.UpdateOnlineRequestModel;
 import com.astrocure.astrologer.models.responseModels.CounsellingDetailResponseModel;
 import com.astrocure.astrologer.models.responseModels.ManageCounsellingResponseModel;
 import com.astrocure.astrologer.models.responseModels.NextAvailableResponseModel;
+import com.astrocure.astrologer.models.responseModels.UpdateOnlineResponseModel;
 import com.astrocure.astrologer.network.RetrofitClient;
 
 import org.json.JSONObject;
@@ -16,11 +18,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeRepository {
-
-    public HomeRepository() {
-
-    }
-
     public void getCounsellingDetail(String astrologerId, ICounsellingDetailResponse counsellingDetailResponse) {
         RetrofitClient.getAppClient().counsellingDetail(astrologerId).enqueue(new Callback<CounsellingDetailResponseModel>() {
             @Override
@@ -87,6 +84,28 @@ public class HomeRepository {
         });
     }
 
+    public void updateOnlineStatus(UpdateOnlineRequestModel requestModel,IUpdateOnlineResponse onlineResponse){
+        RetrofitClient.getAppClient().updateOnlineStatus(requestModel).enqueue(new Callback<UpdateOnlineResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<UpdateOnlineResponseModel> call, @NonNull Response<UpdateOnlineResponseModel> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        onlineResponse.onSuccess(response.body());
+                    } else {
+                        onlineResponse.onFailure(new JSONObject(response.errorBody().string()).getString("alert"));
+                    }
+                } catch (Exception e) {
+                    onlineResponse.onFailure(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UpdateOnlineResponseModel> call, @NonNull Throwable t) {
+                onlineResponse.onFailure(t.getMessage());
+            }
+        });
+
+    }
     public interface ICounsellingDetailResponse {
         void onSuccess(CounsellingDetailResponseModel responseModel);
 
@@ -101,6 +120,11 @@ public class HomeRepository {
 
     public interface ISecondaryCounsellingResponse {
         void onSuccess(ManageCounsellingResponseModel responseModel);
+
+        void onFailure(String throwable);
+    }
+    public interface IUpdateOnlineResponse{
+        void onSuccess(UpdateOnlineResponseModel responseModel);
 
         void onFailure(String throwable);
     }

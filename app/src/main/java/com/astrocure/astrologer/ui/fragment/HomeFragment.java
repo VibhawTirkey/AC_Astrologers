@@ -19,7 +19,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -29,8 +28,6 @@ import com.astrocure.astrologer.callback.SideNavigationCallback;
 import com.astrocure.astrologer.databinding.BottomDialogPredictionReplyBinding;
 import com.astrocure.astrologer.databinding.DialogNextOnlineTimeBinding;
 import com.astrocure.astrologer.databinding.FragmentHomeBinding;
-import com.astrocure.astrologer.models.responseModels.ManageCounsellingResponseModel;
-import com.astrocure.astrologer.models.responseModels.NextAvailableResponseModel;
 import com.astrocure.astrologer.ui.ChatActivity;
 import com.astrocure.astrologer.ui.DayChartActivity;
 import com.astrocure.astrologer.ui.MonthChartActivity;
@@ -42,11 +39,8 @@ import com.astrocure.astrologer.utils.AppUtilMethods;
 import com.astrocure.astrologer.utils.SPrefClient;
 import com.astrocure.astrologer.viewModel.HomeViewModel;
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -121,30 +115,32 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
             bottomSheetDialog.show();
         });
 
-        binding.callSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (!isChecked) {
+        binding.callSwitch.setOnClickListener(v -> {
+            if (!binding.callSwitch.isChecked()) {
                 setOnlineTime("Call");
                 binding.callStatus.setText("Offline");
                 setMargins(binding.callTimeContainer, 0, 0, 0, (int) AppUtilMethods.pxFromDp(requireContext(), -25));
             } else {
                 binding.callStatus.setText("Online");
                 setMargins(binding.callTimeContainer, 0, 0, 0, 6);
+                viewModel.setOnlineStatus(SPrefClient.getAstrologerDetail(requireContext()).getId(), "call");
             }
         });
 
-        binding.chatSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (!isChecked) {
+        binding.chatSwitch.setOnClickListener(v -> {
+            if (!binding.chatSwitch.isChecked()) {
                 setOnlineTime("Chat");
                 binding.chatStatus.setText("Offline");
                 setMargins(binding.chatTimeContainer, 0, 0, 0, (int) AppUtilMethods.pxFromDp(requireContext(), -25));
             } else {
                 binding.chatStatus.setText("Online");
                 setMargins(binding.chatTimeContainer, 0, 0, 0, 6);
+                viewModel.setOnlineStatus(SPrefClient.getAstrologerDetail(requireContext()).getId(), "chat");
             }
         });
 
-        binding.callServiceSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
+        binding.callServiceSwitch.setOnClickListener(v -> {
+            if (binding.callServiceSwitch.isChecked()) {
                 binding.callServiceStatus.setText("Call On");
                 viewModel.setSecondaryCounselling(SPrefClient.getAstrologerDetail(requireContext()).getId(),
                         "CALL",
@@ -162,8 +158,8 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
             }
         });
 
-        binding.chatServiceSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
+        binding.chatServiceSwitch.setOnClickListener(v -> {
+            if (binding.chatServiceSwitch.isChecked()) {
                 binding.chatServiceStatus.setText("Chat On");
                 viewModel.setSecondaryCounselling(SPrefClient.getAstrologerDetail(requireContext()).getId(),
                         "CHAT",
@@ -188,25 +184,67 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
 
     @SuppressLint({"SimpleDateFormat", "SetTextI18n"})
     private void setCounsellingData() {
+        //retrieving status data
         viewModel.getCounsellingDetailLiveData().observe(getViewLifecycleOwner(), data -> {
             binding.callServiceSwitch.setChecked(data.getCurrentAvailabilityStatus().isCallAvailability());
             binding.chatServiceSwitch.setChecked(data.getCurrentAvailabilityStatus().isChatAvailability());
             primaryCounsellingType = data.getInitialAvailabilitySelection().getPrimaryCounselling();
+            binding.callServiceStatus.setText(data.getCurrentAvailabilityStatus().isCallAvailability() ? "Call On" : "Call Off");
+            binding.chatServiceStatus.setText(data.getCurrentAvailabilityStatus().isChatAvailability() ? "Chat On" : "Chat Off");
+            binding.callSwitch.setChecked(data.getNextAvailability().get(0).isOnline());
+            if (data.getNextAvailability().get(0).isOnline()) {
+                binding.callStatus.setText("Online");
+                setMargins(binding.callTimeContainer, 0, 0, 0, 6);
+            } else {
+                binding.callStatus.setText("Offline");
+                setMargins(binding.callTimeContainer, 0, 0, 0, (int) AppUtilMethods.pxFromDp(requireContext(), -25));
+                try {
+                    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(data.getNextAvailability().get(0).getNextAvailableDate() == null ? "" : data.getNextAvailability().get(0).getNextAvailableDate());
+                    assert date != null;
+                    binding.callTime.setText(new SimpleDateFormat("dd MMM yyyy ").format(date) + data.getNextAvailability().get(0).getNextAvailableTime());
+                } catch (ParseException e) {
+                    Log.e("TAG", "setCounsellingData: ", e);
+                }
+            }
+            binding.chatSwitch.setChecked(data.getNextAvailability().get(1).isOnline());
+            if (data.getNextAvailability().get(1).isOnline()) {
+                binding.chatStatus.setText("Online");
+                setMargins(binding.chatTimeContainer, 0, 0, 0, 6);
+            } else {
+                binding.chatStatus.setText("Offline");
+                setMargins(binding.chatTimeContainer, 0, 0, 0, (int) AppUtilMethods.pxFromDp(requireContext(), -25));
+                try {
+                    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(data.getNextAvailability().get(1).getNextAvailableDate() == null ? "" : data.getNextAvailability().get(0).getNextAvailableDate());
+                    assert date != null;
+                    binding.chatTime.setText(new SimpleDateFormat("dd MMM yyyy ").format(date) + data.getNextAvailability().get(1).getNextAvailableTime());
+                } catch (ParseException e) {
+                    Log.e("TAG", "setCounsellingData: ", e);
+                }
+            }
         });
 
+        //setting offline data
         viewModel.getNextAvailableLiveData().observe(getViewLifecycleOwner(), data -> {
-            Date nextTime;
-            try {
-                nextTime = new SimpleDateFormat("yyyy-MM-dd").parse(data.getNextAvailableDate());
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-            if (data.getCounsellingType().matches("call")) {
-                assert nextTime != null;
-                binding.callTime.setText(new SimpleDateFormat("d MMM yyyy ").format(nextTime) + data.getNextAvailableTime());
+//            Date nextTime = null;
+//            try {
+//                nextTime = new SimpleDateFormat("yyyy-MM-dd").parse(data.getNextAvailableDate() == null ? "" : data.getNextAvailableDate());
+//                if (data.getCounsellingType().matches("call")) {
+//                    binding.callTime.setText(new SimpleDateFormat("d MMM yyyy ").format(nextTime) + data.getNextAvailableTime());
+//                } else {
+//                    binding.chatTime.setText(new SimpleDateFormat("d MMM yyyy ").format(nextTime) + data.getNextAvailableTime());
+//                }
+//            } catch (ParseException e) {
+//                Log.e("TAG", "setCounsellingData: ", e);
+//            }
+
+        });
+
+        //setting online data
+        viewModel.getUpdateOnlineLiveData().observe(getViewLifecycleOwner(), data -> {
+            if (data.getCounsellingType().matches("chat")) {
+                binding.chatSwitch.setChecked(true);
             } else {
-                assert nextTime != null;
-                binding.chatTime.setText(new SimpleDateFormat("d MMM yyyy ").format(nextTime) + data.getNextAvailableTime());
+                binding.callSwitch.setChecked(true);
             }
         });
 
@@ -247,10 +285,14 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
                         type.matches("Chat") ? "chat" : "call",
                         new SimpleDateFormat("yyyy-MM-dd").format(finalDate),
                         new SimpleDateFormat("KK:mm a").format(cal1.getTime()));
+                if (type.matches("Chat")) {
+                    binding.chatTime.setText(new SimpleDateFormat("dd MMM yyyy ").format(finalDate) + new SimpleDateFormat("KK:mm a").format(cal1.getTime()));
+                } else {
+                    binding.callTime.setText(new SimpleDateFormat("dd MMM yyyy ").format(finalDate) + new SimpleDateFormat("KK:mm a").format(cal1.getTime()));
+                }
                 dialog.dismiss();
             }, mHour, mMinute, false);
             timePickerDialog.setCancelable(false);
-
 
             timePickerDialog.show();
         });

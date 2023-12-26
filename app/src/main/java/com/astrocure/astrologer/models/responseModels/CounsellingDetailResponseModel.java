@@ -52,7 +52,7 @@ public class CounsellingDetailResponseModel {
         private CurrentAvailabilityStatus currentAvailabilityStatus;
         @SerializedName("nextAvailability")
         @Expose
-        private List<Object> nextAvailability;
+        private List<NextAvailability> nextAvailability;
 
         public InitialAvailabilitySelection getInitialAvailabilitySelection() {
             return initialAvailabilitySelection;
@@ -62,8 +62,26 @@ public class CounsellingDetailResponseModel {
             return currentAvailabilityStatus;
         }
 
-        public List<Object> getNextAvailability() {
+        public List<NextAvailability> getNextAvailability() {
             return nextAvailability;
+        }
+
+        public static class CurrentAvailabilityStatus {
+
+            @SerializedName("callAvailability")
+            @Expose
+            private boolean callAvailability;
+            @SerializedName("chatAvilability")
+            @Expose
+            private boolean chatAvailability;
+
+            public boolean isCallAvailability() {
+                return callAvailability;
+            }
+
+            public boolean isChatAvailability() {
+                return chatAvailability;
+            }
         }
 
         public static class InitialAvailabilitySelection {
@@ -84,21 +102,49 @@ public class CounsellingDetailResponseModel {
             }
         }
 
-        public static class CurrentAvailabilityStatus {
+        public static class NextAvailability {
 
-            @SerializedName("callAvailability")
+            @SerializedName("_id")
             @Expose
-            private boolean callAvailability;
-            @SerializedName("chatAvilability")
+            private String uid;
+            @SerializedName("counsellingType")
             @Expose
-            private boolean chatAvailability;
+            private String counsellingType;
+            @SerializedName("nextAvailableDate")
+            @Expose
+            private String nextAvailableDate;
+            @SerializedName("nextAvailableTime")
+            @Expose
+            private String nextAvailableTime;
+            @SerializedName("online")
+            @Expose
+            private boolean online;
+            @SerializedName("id")
+            @Expose
+            private String id;
 
-            public boolean isCallAvailability() {
-                return callAvailability;
+            public String getUid() {
+                return uid;
             }
 
-            public boolean isChatAvailability() {
-                return chatAvailability;
+            public String getCounsellingType() {
+                return counsellingType;
+            }
+
+            public String getNextAvailableDate() {
+                return nextAvailableDate;
+            }
+
+            public String getNextAvailableTime() {
+                return nextAvailableTime;
+            }
+
+            public boolean isOnline() {
+                return online;
+            }
+
+            public String getId() {
+                return id;
             }
         }
     }

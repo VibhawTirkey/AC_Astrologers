@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel;
 
 import com.astrocure.astrologer.models.requestModels.ManageCounsellingRequestModel;
 import com.astrocure.astrologer.models.requestModels.NextAvailableRequestModel;
+import com.astrocure.astrologer.models.requestModels.UpdateOnlineRequestModel;
 import com.astrocure.astrologer.models.responseModels.CounsellingDetailResponseModel;
 import com.astrocure.astrologer.models.responseModels.ManageCounsellingResponseModel;
 import com.astrocure.astrologer.models.responseModels.NextAvailableResponseModel;
+import com.astrocure.astrologer.models.responseModels.UpdateOnlineResponseModel;
 import com.astrocure.astrologer.repository.HomeRepository;
 
 import java.util.Calendar;
@@ -20,6 +22,7 @@ public class HomeViewModel extends ViewModel {
     private final MutableLiveData<CounsellingDetailResponseModel.Data> counsellingDetailLiveData = new MutableLiveData<>();
     private final MutableLiveData<NextAvailableResponseModel.Data> nextAvailableLiveData = new MutableLiveData<>();
     private final MutableLiveData<ManageCounsellingResponseModel> secondaryCounsellingLiveData = new MutableLiveData<>();
+    private final MutableLiveData<UpdateOnlineResponseModel.Data> updateOnlineLiveData = new MutableLiveData<>();
 
     public HomeViewModel() {
         homeRepository = new HomeRepository();
@@ -85,6 +88,20 @@ public class HomeViewModel extends ViewModel {
         });
     }
 
+    public void setOnlineStatus(String astrologerId,String counsellingType){
+        homeRepository.updateOnlineStatus(new UpdateOnlineRequestModel(true,astrologerId,counsellingType), new HomeRepository.IUpdateOnlineResponse() {
+            @Override
+            public void onSuccess(UpdateOnlineResponseModel responseModel) {
+                updateOnlineLiveData.postValue(responseModel.getData());
+            }
+
+            @Override
+            public void onFailure(String throwable) {
+
+            }
+        });
+    }
+
     public MutableLiveData<String> getGreetTextLiveData() {
         return greetTextLiveData;
     }
@@ -93,11 +110,15 @@ public class HomeViewModel extends ViewModel {
         return counsellingDetailLiveData;
     }
 
-    public MutableLiveData<NextAvailableResponseModel.Data> getNextAvailableLiveData() {
+    public LiveData<NextAvailableResponseModel.Data> getNextAvailableLiveData() {
         return nextAvailableLiveData;
     }
 
-    public MutableLiveData<ManageCounsellingResponseModel> getSecondaryCounsellingLiveData() {
+    public LiveData<ManageCounsellingResponseModel> getSecondaryCounsellingLiveData() {
         return secondaryCounsellingLiveData;
+    }
+
+    public MutableLiveData<UpdateOnlineResponseModel.Data> getUpdateOnlineLiveData() {
+        return updateOnlineLiveData;
     }
 }

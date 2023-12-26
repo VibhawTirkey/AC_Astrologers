@@ -8,6 +8,7 @@ import com.astrocure.astrologer.models.requestModels.NextAvailableRequestModel;
 import com.astrocure.astrologer.models.requestModels.ReplyReviewRequestModel;
 import com.astrocure.astrologer.models.requestModels.ResetPasswordRequestModel;
 import com.astrocure.astrologer.models.requestModels.ReviewListRequestModel;
+import com.astrocure.astrologer.models.requestModels.UpdateOnlineRequestModel;
 import com.astrocure.astrologer.models.requestModels.UpdateTokenRequestModel;
 import com.astrocure.astrologer.models.responseModels.AstrologerResponseModel;
 import com.astrocure.astrologer.models.responseModels.CounsellingDetailResponseModel;
@@ -19,6 +20,7 @@ import com.astrocure.astrologer.models.responseModels.NextAvailableResponseModel
 import com.astrocure.astrologer.models.responseModels.ReplyReviewResponseModel;
 import com.astrocure.astrologer.models.responseModels.ResetPasswordResponseModel;
 import com.astrocure.astrologer.models.responseModels.ReviewListResponseModel;
+import com.astrocure.astrologer.models.responseModels.UpdateOnlineResponseModel;
 import com.astrocure.astrologer.models.responseModels.UpdateTokenResponseModel;
 import com.astrocure.astrologer.models.responseModels.VerifyOtpResponseModel;
 
@@ -26,6 +28,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiInterface {
@@ -61,6 +64,9 @@ public interface ApiInterface {
 
     @POST("api/v1/astrologer/home/manage-secondary-counselling-type")
     Call<ManageCounsellingResponseModel> manageSecondaryCounsellingType(@Body ManageCounsellingRequestModel requestModel);
+
+    @PUT("api/v1/astrologer/home/update-online-status")
+    Call<UpdateOnlineResponseModel> updateOnlineStatus(@Body UpdateOnlineRequestModel updateOnlineRequestModel);
 
     @POST("api/v1/token-update")
     Call<UpdateTokenResponseModel> updateFirebaseToken(@Body UpdateTokenRequestModel updateTokenRequestModel);
