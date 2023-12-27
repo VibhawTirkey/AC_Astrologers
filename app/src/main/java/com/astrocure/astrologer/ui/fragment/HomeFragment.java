@@ -28,6 +28,7 @@ import com.astrocure.astrologer.callback.SideNavigationCallback;
 import com.astrocure.astrologer.databinding.BottomDialogPredictionReplyBinding;
 import com.astrocure.astrologer.databinding.DialogNextOnlineTimeBinding;
 import com.astrocure.astrologer.databinding.FragmentHomeBinding;
+import com.astrocure.astrologer.models.responseModels.CounsellingDetailResponseModel;
 import com.astrocure.astrologer.ui.ChatActivity;
 import com.astrocure.astrologer.ui.DayChartActivity;
 import com.astrocure.astrologer.ui.MonthChartActivity;
@@ -192,33 +193,38 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
             binding.callServiceStatus.setText(data.getCurrentAvailabilityStatus().isCallAvailability() ? "Call On" : "Call Off");
             binding.chatServiceStatus.setText(data.getCurrentAvailabilityStatus().isChatAvailability() ? "Chat On" : "Chat Off");
             binding.callSwitch.setChecked(data.getNextAvailability().get(0).isOnline());
-            if (data.getNextAvailability().get(0).isOnline()) {
-                binding.callStatus.setText("Online");
-                setMargins(binding.callTimeContainer, 0, 0, 0, 6);
-            } else {
-                binding.callStatus.setText("Offline");
-                setMargins(binding.callTimeContainer, 0, 0, 0, (int) AppUtilMethods.pxFromDp(requireContext(), -25));
-                try {
-                    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(data.getNextAvailability().get(0).getNextAvailableDate() == null ? "" : data.getNextAvailability().get(0).getNextAvailableDate());
-                    assert date != null;
-                    binding.callTime.setText(new SimpleDateFormat("dd MMM yyyy ").format(date) + data.getNextAvailability().get(0).getNextAvailableTime());
-                } catch (ParseException e) {
-                    Log.e("TAG", "setCounsellingData: ", e);
-                }
-            }
             binding.chatSwitch.setChecked(data.getNextAvailability().get(1).isOnline());
-            if (data.getNextAvailability().get(1).isOnline()) {
-                binding.chatStatus.setText("Online");
-                setMargins(binding.chatTimeContainer, 0, 0, 0, 6);
-            } else {
-                binding.chatStatus.setText("Offline");
-                setMargins(binding.chatTimeContainer, 0, 0, 0, (int) AppUtilMethods.pxFromDp(requireContext(), -25));
-                try {
-                    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(data.getNextAvailability().get(1).getNextAvailableDate() == null ? "" : data.getNextAvailability().get(0).getNextAvailableDate());
-                    assert date != null;
-                    binding.chatTime.setText(new SimpleDateFormat("dd MMM yyyy ").format(date) + data.getNextAvailability().get(1).getNextAvailableTime());
-                } catch (ParseException e) {
-                    Log.e("TAG", "setCounsellingData: ", e);
+            for (CounsellingDetailResponseModel.Data.NextAvailability nextData : data.getNextAvailability()) {
+                if (nextData.getCounsellingType().matches("call")) {
+                    if (nextData.isOnline()) {
+                        binding.callStatus.setText("Online");
+                        setMargins(binding.callTimeContainer, 0, 0, 0, 6);
+                    } else {
+                        binding.callStatus.setText("Offline");
+                        setMargins(binding.callTimeContainer, 0, 0, 0, (int) AppUtilMethods.pxFromDp(requireContext(), -25));
+                        try {
+                            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(nextData.getNextAvailableDate() == null ? "" : nextData.getNextAvailableDate());
+                            assert date != null;
+                            binding.callTime.setText(new SimpleDateFormat("dd MMM yyyy ").format(date) + nextData.getNextAvailableTime());
+                        } catch (ParseException e) {
+                            Log.e("TAG", "setCounsellingData: ", e);
+                        }
+                    }
+                } else {
+                    if (nextData.isOnline()) {
+                        binding.chatStatus.setText("Online");
+                        setMargins(binding.chatTimeContainer, 0, 0, 0, 6);
+                    } else {
+                        binding.chatStatus.setText("Offline");
+                        setMargins(binding.chatTimeContainer, 0, 0, 0, (int) AppUtilMethods.pxFromDp(requireContext(), -25));
+                        try {
+                            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(nextData.getNextAvailableDate() == null ? "" : nextData.getNextAvailableDate());
+                            assert date != null;
+                            binding.chatTime.setText(new SimpleDateFormat("dd MMM yyyy ").format(date) + nextData.getNextAvailableTime());
+                        } catch (ParseException e) {
+                            Log.e("TAG", "setCounsellingData: ", e);
+                        }
+                    }
                 }
             }
         });
@@ -284,11 +290,11 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
                 viewModel.setNextAvailable(SPrefClient.getAstrologerDetail(requireContext()).getId(),
                         type.matches("Chat") ? "chat" : "call",
                         new SimpleDateFormat("yyyy-MM-dd").format(finalDate),
-                        new SimpleDateFormat("KK:mm a").format(cal1.getTime()));
+                        new SimpleDateFormat("hh:mm a").format(cal1.getTime()));
                 if (type.matches("Chat")) {
-                    binding.chatTime.setText(new SimpleDateFormat("dd MMM yyyy ").format(finalDate) + new SimpleDateFormat("KK:mm a").format(cal1.getTime()));
+                    binding.chatTime.setText(new SimpleDateFormat("dd MMM yyyy ").format(finalDate) + new SimpleDateFormat("hh:mm a").format(cal1.getTime()));
                 } else {
-                    binding.callTime.setText(new SimpleDateFormat("dd MMM yyyy ").format(finalDate) + new SimpleDateFormat("KK:mm a").format(cal1.getTime()));
+                    binding.callTime.setText(new SimpleDateFormat("dd MMM yyyy ").format(finalDate) + new SimpleDateFormat("hh:mm a").format(cal1.getTime()));
                 }
                 dialog.dismiss();
             }, mHour, mMinute, false);
