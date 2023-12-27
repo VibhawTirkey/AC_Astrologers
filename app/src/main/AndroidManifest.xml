@@ -4,9 +4,11 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:node="remove"/>
-
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"
+        tools:node="remove" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
         android:name=".MainApplication"
@@ -19,6 +21,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ACAstrologers"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.ChatRequestActivity"
+            android:exported="true"
+            android:showForAllUsers="true"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"/>
         <activity
             android:name=".ui.DayChartActivity"
             android:exported="true" />
@@ -82,19 +90,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".receiver.NetworkChangeReceiver"
+
+        <receiver
+            android:name=".receiver.NetworkChangeReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-        <service android:name=".service.AppFirebaseMessagingService"
-            android:exported="true"
-            android:enabled="true">
+
+        <service
+            android:name=".service.AppFirebaseMessagingService"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <receiver android:name=".receiver.FullNotificationReceiver"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>
