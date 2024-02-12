@@ -39,52 +39,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             finish();
         }
-
-        getFirebaseToken();
-
-        subscribeTopic();
     }
 
-    private void subscribeTopic() {
-        FirebaseMessaging.getInstance().subscribeToTopic("testing").addOnCompleteListener(task -> {
-            if (task.isSuccessful()){
-                Log.i("TAG", "onComplete: Subscribed");
-            }else {
-                Log.i("TAG", "onComplete: Subscribe Failed");
-            }
-        });
-    }
 
-    private void getFirebaseToken() {
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                if (task.isSuccessful()) {
-                    RetrofitClient.getAppClient().updateFirebaseToken(new UpdateTokenRequestModel(
-                            SPrefClient.getAstrologerDetail(getApplicationContext()).getId(), task.getResult()
-                    )).enqueue(new Callback<UpdateTokenResponseModel>() {
-                        @Override
-                        public void onResponse(@NonNull Call<UpdateTokenResponseModel> call, @NonNull Response<UpdateTokenResponseModel> response) {
-                            try {
-                                if (response.isSuccessful()) {
-                                    Log.i("TAG", "onResponse: Token updated Successfully "+response.body().getData().getFirebaseToken());
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(@NonNull Call<UpdateTokenResponseModel> call, @NonNull Throwable t) {
-
-                        }
-                    });
-                } else {
-                    Log.i("TAG", "onComplete: Unsuccessful");
-                }
-            }
-        });
-    }
 
     @Override
     protected void onDestroy() {

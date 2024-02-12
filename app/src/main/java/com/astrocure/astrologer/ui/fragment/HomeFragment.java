@@ -87,7 +87,7 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
         setCounsellingData();
 
         binding.toolbar.setOnMenuItemClickListener(this);
-        Glide.with(requireContext()).load(PROFILE_IMG).into(binding.profileImage);
+        Glide.with(requireContext()).load(SPrefClient.getAstrologerDetail(requireContext()).getProfileUrl()).into(binding.profileImage);
         viewModel.getGreetTextLiveData().observe(getViewLifecycleOwner(), s -> binding.greet.setText(s));
 
         binding.userName.setText(SPrefClient.getAstrologerDetail(requireContext()).getUserName());

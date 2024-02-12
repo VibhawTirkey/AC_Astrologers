@@ -42,7 +42,7 @@ public class LoginResponseModel {
         return statusCode;
     }
 
-    public class Data {
+    public static class Data {
 
         @SerializedName("bankDetails")
         @Expose
@@ -71,6 +71,9 @@ public class LoginResponseModel {
         @SerializedName("password")
         @Expose
         private String password;
+        @SerializedName("profileUrl")
+        @Expose
+        private String profileUrl;
         @SerializedName("location")
         @Expose
         private String location;
@@ -79,7 +82,7 @@ public class LoginResponseModel {
         private String state;
         @SerializedName("language")
         @Expose
-        private String language;
+        private List<String> language;
         @SerializedName("gender")
         @Expose
         private String gender;
@@ -110,6 +113,9 @@ public class LoginResponseModel {
         @SerializedName("__v")
         @Expose
         private long v;
+        @SerializedName("firebaseToken")
+        @Expose
+        private String firebaseToken;
         @SerializedName("id")
         @Expose
         private String id;
@@ -150,6 +156,10 @@ public class LoginResponseModel {
             return password;
         }
 
+        public String getProfileUrl() {
+            return profileUrl;
+        }
+
         public String getLocation() {
             return location;
         }
@@ -158,7 +168,7 @@ public class LoginResponseModel {
             return state;
         }
 
-        public String getLanguage() {
+        public List<String> getLanguage() {
             return language;
         }
 
@@ -202,11 +212,82 @@ public class LoginResponseModel {
             return v;
         }
 
+        public String getFirebaseToken() {
+            return firebaseToken;
+        }
+
         public String getId() {
             return id;
         }
 
-        public class BankDetails {
+        public static class ExperienceInfo {
+
+            @SerializedName("expertise")
+            @Expose
+            private List<String> expertise;
+            @SerializedName("experience")
+            @Expose
+            private String experience;
+            @SerializedName("dateOfJoining")
+            @Expose
+            private String dateOfJoining;
+            @SerializedName("callCharges")
+            @Expose
+            private long callCharges;
+            @SerializedName("chatCharges")
+            @Expose
+            private long chatCharges;
+            @SerializedName("instantCharges")
+            @Expose
+            private long instantCharges;
+            @SerializedName("callAvailablity")
+            @Expose
+            private boolean callAvailability;
+            @SerializedName("chatAvilablity")
+            @Expose
+            private boolean chatAvailability;
+            @SerializedName("personalInfo")
+            @Expose
+            private String personalInfo;
+
+            public List<String> getExpertise() {
+                return expertise;
+            }
+
+            public String getExperience() {
+                return experience;
+            }
+
+            public String getDateOfJoining() {
+                return dateOfJoining;
+            }
+
+            public long getCallCharges() {
+                return callCharges;
+            }
+
+            public long getChatCharges() {
+                return chatCharges;
+            }
+
+            public long getInstantCharges() {
+                return instantCharges;
+            }
+
+            public boolean isCallAvailability() {
+                return callAvailability;
+            }
+
+            public boolean isChatAvailability() {
+                return chatAvailability;
+            }
+
+            public String getPersonalInfo() {
+                return personalInfo;
+            }
+        }
+
+        public static class BankDetails {
 
             @SerializedName("accountNumber")
             @Expose
@@ -245,7 +326,18 @@ public class LoginResponseModel {
             }
         }
 
-        public class Documents {
+        public static class Permissions {
+
+            @SerializedName("accessList")
+            @Expose
+            private List<Object> accessList;
+
+            public List<Object> getAccessList() {
+                return accessList;
+            }
+        }
+
+        public static class Documents {
 
             @SerializedName("aadharCard")
             @Expose
@@ -297,84 +389,5 @@ public class LoginResponseModel {
                 return qualificationCeritificate;
             }
         }
-
-        public class ExperienceInfo {
-
-            @SerializedName("expertise")
-            @Expose
-            private String expertise;
-            @SerializedName("experience")
-            @Expose
-            private String experience;
-            @SerializedName("dateOfJoining")
-            @Expose
-            private String dateOfJoining;
-            @SerializedName("callCharges")
-            @Expose
-            private long callCharges;
-            @SerializedName("chatCharges")
-            @Expose
-            private long chatCharges;
-            @SerializedName("instantCharges")
-            @Expose
-            private long instantCharges;
-            @SerializedName("callAvailablity")
-            @Expose
-            private boolean callAvailablity;
-            @SerializedName("chatAvilablity")
-            @Expose
-            private boolean chatAvilablity;
-            @SerializedName("personalInfo")
-            @Expose
-            private String personalInfo;
-
-            public String getExpertise() {
-                return expertise;
-            }
-
-            public String getExperience() {
-                return experience;
-            }
-
-            public String getDateOfJoining() {
-                return dateOfJoining;
-            }
-
-            public long getCallCharges() {
-                return callCharges;
-            }
-
-            public long getChatCharges() {
-                return chatCharges;
-            }
-
-            public long getInstantCharges() {
-                return instantCharges;
-            }
-
-            public boolean isCallAvailablity() {
-                return callAvailablity;
-            }
-
-            public boolean isChatAvilablity() {
-                return chatAvilablity;
-            }
-
-            public String getPersonalInfo() {
-                return personalInfo;
-            }
-        }
-
-        public class Permissions {
-
-            @SerializedName("accessList")
-            @Expose
-            private List<Object> accessList;
-
-            public List<Object> getAccessList() {
-                return accessList;
-            }
-        }
     }
-
 }

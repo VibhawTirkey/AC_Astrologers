@@ -13,8 +13,15 @@ import androidx.annotation.Nullable;
 
 import com.astrocure.astrologer.receiver.NetworkChangeReceiver;
 
+import java.net.URISyntaxException;
+
+import io.socket.client.IO;
+import io.socket.client.Socket;
+
 public class MainApplication extends Application {
     private BroadcastReceiver broadcastReceiver;
+    private static final String BASE_URL = "https://dev-api.astrocure.co.in";
+    private Socket socket;
 
     @Override
     public void onCreate() {
@@ -22,6 +29,15 @@ public class MainApplication extends Application {
         setupActivityListener();
         broadcastReceiver = new NetworkChangeReceiver();
         registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        try {
+            socket = IO.socket(BASE_URL);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
 
     private void setupActivityListener() {

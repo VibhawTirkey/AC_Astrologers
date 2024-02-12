@@ -3,20 +3,23 @@ package com.astrocure.astrologer.ui;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.astrocure.astrologer.adapter.AstrologerChatAdapter;
 import com.astrocure.astrologer.databinding.ActivityChatBinding;
 import com.astrocure.astrologer.models.AstrologerChatModel;
 import com.astrocure.astrologer.utils.AppConstants;
+import com.astrocure.astrologer.viewModel.ChatViewModel;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
-    ActivityChatBinding binding;
-    List<AstrologerChatModel> chatModels;
+    private ActivityChatBinding binding;
+    private List<AstrologerChatModel> chatModels;
+    public ChatViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +27,11 @@ public class ChatActivity extends AppCompatActivity {
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        viewModel = new ViewModelProvider(this).get(ChatViewModel.class);
+
         binding.toolbar.setNavigationOnClickListener(v -> onBackPressed());
+
+        viewModel.openSocket();
 
         Glide.with(getApplicationContext()).load(AppConstants.PROFILE_IMG).into(binding.profileImage);
 

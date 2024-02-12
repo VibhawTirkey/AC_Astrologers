@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.astrocure.astrologer.R;
 import com.astrocure.astrologer.callback.SideNavigationCallback;
@@ -23,10 +25,13 @@ import com.astrocure.astrologer.ui.fragment.EarningFragment;
 import com.astrocure.astrologer.ui.fragment.HomeFragment;
 import com.astrocure.astrologer.ui.fragment.ProfileFragment;
 import com.astrocure.astrologer.utils.SPrefClient;
+import com.astrocure.astrologer.viewModel.DashboardViewModel;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SideNavigationCallback {
-    ActivityDashboardBinding binding;
+    private ActivityDashboardBinding binding;
+    private DashboardViewModel viewModel;
     boolean doubleBackToExitPressedOnce = false;
     HomeFragment homeFragment;
     EarningFragment walletFragment;
@@ -42,6 +47,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         binding = ActivityDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        viewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
+
         homeFragment = new HomeFragment();
         walletFragment = new EarningFragment();
         logFragment = new CallChatLogFragment();
@@ -51,6 +58,13 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         binding.bottomNav.setItemIconTintList(null);
         binding.bottomNav.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
         binding.sideNav.setNavigationItemSelectedListener(this::onNavigationItemSelected);
+
+        viewModel.getTokenLiveData().observe(this, data -> {
+        });
+
+        getFirebaseToken();
+
+        subscribeTopic();
 
     }
 
@@ -121,5 +135,25 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         if (action.equals(OPEN_DRAWER)) {
             binding.drawer.openDrawer(GravityCompat.START);
         }
+    }
+
+    private void subscribeTopic() {
+        FirebaseMessaging.getInstance().subscribeToTopic("testing").addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Log.i("TAG", "onComplete: Subscribed");
+            } else {
+                Log.i("TAG", "onComplete: Subscribe Failed");
+            }
+        });
+    }
+
+    private void getFirebaseToken() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                viewModel.updateFirebaseToken(SPrefClient.getAstrologerDetail(getApplicationContext()).getId(), task.getResult());
+            } else {
+                Log.i("TAG", "onComplete: Unsuccessful");
+            }
+        });
     }
 }

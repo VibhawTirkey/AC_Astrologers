@@ -6,10 +6,12 @@ import com.astrocure.astrologer.models.requestModels.AuthRequestModel;
 import com.astrocure.astrologer.models.requestModels.ForgotPassRequestModel;
 import com.astrocure.astrologer.models.requestModels.LoginRequestModel;
 import com.astrocure.astrologer.models.requestModels.ResetPasswordRequestModel;
+import com.astrocure.astrologer.models.requestModels.UpdateTokenRequestModel;
 import com.astrocure.astrologer.models.responseModels.AstrologerResponseModel;
 import com.astrocure.astrologer.models.responseModels.ForgotPassResponseModel;
 import com.astrocure.astrologer.models.responseModels.LoginResponseModel;
 import com.astrocure.astrologer.models.responseModels.ResetPasswordResponseModel;
+import com.astrocure.astrologer.models.responseModels.UpdateTokenResponseModel;
 import com.astrocure.astrologer.models.responseModels.VerifyOtpResponseModel;
 import com.astrocure.astrologer.network.RetrofitClient;
 
@@ -20,17 +22,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AuthRepository {
-    public void astrologerDetailApi(String astrologerId,IAstrologerDetailResponse astrologerDetailResponse){
+    public void astrologerDetailApi(String astrologerId, IAstrologerDetailResponse astrologerDetailResponse) {
         RetrofitClient.getAppClient().getAstrologerDetail(astrologerId).enqueue(new Callback<AstrologerResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<AstrologerResponseModel> call, @NonNull Response<AstrologerResponseModel> response) {
                 try {
-                    if (response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         astrologerDetailResponse.onResponse(response.body());
-                    }else {
+                    } else {
                         astrologerDetailResponse.onFailure(new JSONObject(response.errorBody().string()).getString("alert"));
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     astrologerDetailResponse.onFailure(e.getMessage());
                 }
             }
@@ -45,12 +47,12 @@ public class AuthRepository {
     public void callLoginApi(LoginRequestModel requestModel, ILoginResponse loginResponse) {
         RetrofitClient.getAppClient().loginAstrologer(requestModel).enqueue(new Callback<LoginResponseModel>() {
             @Override
-            public void onResponse(Call<LoginResponseModel> call, Response<LoginResponseModel> response) {
+            public void onResponse(@NonNull Call<LoginResponseModel> call, @NonNull Response<LoginResponseModel> response) {
                 try {
                     if (response.isSuccessful()) {
                         loginResponse.onResponse(response.body());
-                    } else if (response.code() == 400) {
-                        loginResponse.onFailure(new JSONObject(response.errorBody().string()).getString("alert"));
+                    } else {
+                        loginResponse.onFailure(new JSONObject(response.errorBody() != null ? response.errorBody().string() : "null").getString("alert"));
                     }
                 } catch (Exception e) {
                     loginResponse.onFailure(e.getMessage());
@@ -58,8 +60,8 @@ public class AuthRepository {
             }
 
             @Override
-            public void onFailure(Call<LoginResponseModel> call, Throwable t) {
-                loginResponse.onFailure("Check your Network Connection");
+            public void onFailure(@NonNull Call<LoginResponseModel> call, @NonNull Throwable t) {
+                loginResponse.onFailure("Something went wrong, Please try again");
             }
         });
     }
@@ -130,12 +132,35 @@ public class AuthRepository {
         });
     }
 
+    public void updateFirebaseToken(UpdateTokenRequestModel updateTokenRequestModel,IUpdateFirebaseToken firebaseTokenResponse){
+        RetrofitClient.getAppClient().updateFirebaseToken(updateTokenRequestModel).enqueue(new Callback<UpdateTokenResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<UpdateTokenResponseModel> call, @NonNull Response<UpdateTokenResponseModel> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        firebaseTokenResponse.onSuccess(response.body());
+                    } else {
+                        firebaseTokenResponse.onFailure(new JSONObject(response.errorBody() != null ? response.errorBody().string() : "null").getString("alert"));
+                    }
+                } catch (Exception e) {
+                    firebaseTokenResponse.onFailure(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UpdateTokenResponseModel> call, @NonNull Throwable t) {
+                firebaseTokenResponse.onFailure(t.getMessage());
+            }
+        });
+    }
+
 
     public interface IAstrologerDetailResponse {
         void onResponse(AstrologerResponseModel astrologerResponseModel);
 
         void onFailure(String t);
     }
+
     public interface ILoginResponse {
         void onResponse(LoginResponseModel loginResponseModel);
 
@@ -158,5 +183,9 @@ public class AuthRepository {
         void onResponse(ResetPasswordResponseModel responseModel);
 
         void onFailure(String t);
+    }
+    public interface IUpdateFirebaseToken{
+        void onSuccess(UpdateTokenResponseModel updateTokenResponseModel);
+        void onFailure(String throwable);
     }
 }
