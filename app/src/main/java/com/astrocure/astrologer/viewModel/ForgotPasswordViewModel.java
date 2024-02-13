@@ -10,7 +10,8 @@ import com.astrocure.astrologer.repository.AuthRepository;
 
 public class ForgotPasswordViewModel extends ViewModel {
     private final MutableLiveData<String> fPasswordResultLiveData = new MutableLiveData<>();
-    private final MutableLiveData<String> numFormatResultLiveData = new MutableLiveData<>();
+    private final MutableLiveData<String> errorLiveData = new MutableLiveData<>();
+    private final MutableLiveData<ForgotPassResponseModel.Data> successLiveData = new MutableLiveData<>();
     private AuthRepository authRepository;
 
     public ForgotPasswordViewModel() {
@@ -18,11 +19,11 @@ public class ForgotPasswordViewModel extends ViewModel {
         fPasswordResultLiveData.postValue("");
     }
 
-    public MutableLiveData<ForgotPassResponseModel.Data> forgotPassword(String phoneNum) {
-        MutableLiveData<ForgotPassResponseModel.Data> successLiveData = new MutableLiveData<>();
+    public void forgotPassword(String phoneNum) {
+
         fPasswordResultLiveData.postValue("");
         if (phoneNum.length() != 10) {
-            numFormatResultLiveData.postValue("Invalid Phone Number");
+            errorLiveData.postValue("Invalid Phone Number");
         } else {
             authRepository.forgotPasswordApiCall(new ForgotPassRequestModel(Long.parseLong(phoneNum)), new AuthRepository.IForgotPasswordResponse() {
                 @Override
@@ -33,12 +34,13 @@ public class ForgotPasswordViewModel extends ViewModel {
 
                 @Override
                 public void onFailure(String t) {
-                    fPasswordResultLiveData.postValue(t);
-                    successLiveData.postValue(null);
+                    errorLiveData.postValue(t);
                 }
             });
         }
+    }
 
+    public LiveData<ForgotPassResponseModel.Data> getSuccessLiveData() {
         return successLiveData;
     }
 
@@ -46,7 +48,7 @@ public class ForgotPasswordViewModel extends ViewModel {
         return fPasswordResultLiveData;
     }
 
-    public LiveData<String> getPhoneNumValidation() {
-        return numFormatResultLiveData;
+    public MutableLiveData<String> getErrorLiveData() {
+        return errorLiveData;
     }
 }

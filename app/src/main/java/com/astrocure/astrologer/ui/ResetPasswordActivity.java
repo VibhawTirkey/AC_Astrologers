@@ -60,7 +60,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
             }
             viewModel.verifyOtp(userId, binding.password.getText().toString()).observe(this, responseModel -> {
                 if (responseModel.getStatusCode() == 200) {
-                    startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 }
             });
         });

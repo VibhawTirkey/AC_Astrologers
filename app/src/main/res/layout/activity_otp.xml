@@ -75,6 +75,7 @@
             android:background="@color/white"
             android:gravity="center"
             android:maxLength="1"
+            android:inputType="number"
             android:textColor="@color/black" />
 
     </com.google.android.material.card.MaterialCardView>
@@ -99,6 +100,7 @@
             android:background="@color/white"
             android:gravity="center"
             android:maxLength="1"
+            android:inputType="number"
             android:textColor="@color/black" />
 
     </com.google.android.material.card.MaterialCardView>
@@ -123,6 +125,7 @@
             android:background="@color/white"
             android:gravity="center"
             android:maxLength="1"
+            android:inputType="number"
             android:textColor="@color/black" />
 
     </com.google.android.material.card.MaterialCardView>
@@ -146,6 +149,7 @@
             android:background="@color/white"
             android:gravity="center"
             android:maxLength="1"
+            android:inputType="number"
             android:textColor="@color/black" />
 
     </com.google.android.material.card.MaterialCardView>
@@ -169,6 +173,7 @@
             android:background="@color/white"
             android:gravity="center"
             android:maxLength="1"
+            android:inputType="number"
             android:textColor="@color/black" />
 
     </com.google.android.material.card.MaterialCardView>
@@ -192,6 +197,7 @@
             android:background="@color/white"
             android:gravity="center"
             android:maxLength="1"
+            android:inputType="number"
             android:textColor="@color/black" />
 
     </com.google.android.material.card.MaterialCardView>
