@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main);
 
-
         if (SPrefClient.getAstrologerDetail(getApplicationContext()) != null) {
             startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
             finish();
@@ -40,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
     }
-
-
 
     @Override
     protected void onDestroy() {

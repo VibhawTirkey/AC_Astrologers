@@ -88,8 +88,8 @@ public class HomeViewModel extends ViewModel {
         });
     }
 
-    public void setOnlineStatus(String astrologerId,String counsellingType){
-        homeRepository.updateOnlineStatus(new UpdateOnlineRequestModel(true,astrologerId,counsellingType), new HomeRepository.IUpdateOnlineResponse() {
+    public void setOnlineStatus(boolean isOnline,String astrologerId,String counsellingType,String date,String time){
+        homeRepository.updateOnlineStatus(new UpdateOnlineRequestModel(isOnline,astrologerId,counsellingType,date,time), new HomeRepository.IUpdateOnlineResponse() {
             @Override
             public void onSuccess(UpdateOnlineResponseModel responseModel) {
                 updateOnlineLiveData.postValue(responseModel.getData());
@@ -102,7 +102,7 @@ public class HomeViewModel extends ViewModel {
         });
     }
 
-    public MutableLiveData<String> getGreetTextLiveData() {
+    public LiveData<String> getGreetTextLiveData() {
         return greetTextLiveData;
     }
 
@@ -118,7 +118,7 @@ public class HomeViewModel extends ViewModel {
         return secondaryCounsellingLiveData;
     }
 
-    public MutableLiveData<UpdateOnlineResponseModel.Data> getUpdateOnlineLiveData() {
+    public LiveData<UpdateOnlineResponseModel.Data> getUpdateOnlineLiveData() {
         return updateOnlineLiveData;
     }
 }

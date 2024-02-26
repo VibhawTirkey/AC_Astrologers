@@ -43,7 +43,6 @@ public class CounsellingDetailResponseModel {
     }
 
     public static class Data {
-
         @SerializedName("initialAvailabilitySelection")
         @Expose
         private InitialAvailabilitySelection initialAvailabilitySelection;
@@ -67,7 +66,6 @@ public class CounsellingDetailResponseModel {
         }
 
         public static class CurrentAvailabilityStatus {
-
             @SerializedName("callAvailability")
             @Expose
             private boolean callAvailability;
@@ -84,32 +82,16 @@ public class CounsellingDetailResponseModel {
             }
         }
 
-        public static class InitialAvailabilitySelection {
-
-            @SerializedName("primaryCounselling")
-            @Expose
-            private String primaryCounselling;
-            @SerializedName("secondaryCounselling")
-            @Expose
-            private String secondaryCounselling;
-
-            public String getPrimaryCounselling() {
-                return primaryCounselling;
-            }
-
-            public String getSecondaryCounselling() {
-                return secondaryCounselling;
-            }
-        }
-
         public static class NextAvailability {
-
             @SerializedName("_id")
             @Expose
             private String uid;
             @SerializedName("counsellingType")
             @Expose
             private String counsellingType;
+            @SerializedName("nextAvailability")
+            @Expose
+            private Object nextAvailability;
             @SerializedName("nextAvailableDate")
             @Expose
             private String nextAvailableDate;
@@ -131,6 +113,10 @@ public class CounsellingDetailResponseModel {
                 return counsellingType;
             }
 
+            public Object getNextAvailability() {
+                return nextAvailability;
+            }
+
             public String getNextAvailableDate() {
                 return nextAvailableDate;
             }
@@ -145,6 +131,23 @@ public class CounsellingDetailResponseModel {
 
             public String getId() {
                 return id;
+            }
+        }
+
+        public static class InitialAvailabilitySelection {
+            @SerializedName("primaryCounselling")
+            @Expose
+            private String primaryCounselling;
+            @SerializedName("secondaryCounselling")
+            @Expose
+            private String secondaryCounselling;
+
+            public String getPrimaryCounselling() {
+                return primaryCounselling;
+            }
+
+            public String getSecondaryCounselling() {
+                return secondaryCounselling;
             }
         }
     }

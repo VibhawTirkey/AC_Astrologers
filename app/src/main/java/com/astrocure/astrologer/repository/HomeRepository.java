@@ -1,5 +1,7 @@
 package com.astrocure.astrologer.repository;
 
+import static com.astrocure.astrologer.utils.AppConstants.SERVER_ERR_MSG;
+
 import androidx.annotation.NonNull;
 
 import com.astrocure.astrologer.models.requestModels.ManageCounsellingRequestModel;
@@ -26,7 +28,7 @@ public class HomeRepository {
                     if (response.isSuccessful()) {
                         counsellingDetailResponse.onSuccess(response.body());
                     } else {
-                        counsellingDetailResponse.onFailure(new JSONObject(response.errorBody().string()).getString("alert"));
+                        counsellingDetailResponse.onFailure(new JSONObject(response.errorBody() != null ? response.errorBody().string() : SERVER_ERR_MSG).getString("alert"));
                     }
                 } catch (Exception e) {
                     counsellingDetailResponse.onFailure(e.getMessage());
@@ -48,7 +50,7 @@ public class HomeRepository {
                     if (response.isSuccessful()) {
                         nextAvailableResponse.onSuccess(response.body());
                     } else {
-                        nextAvailableResponse.onFailure(new JSONObject(response.errorBody().string()).getString("alert"));
+                        nextAvailableResponse.onFailure(new JSONObject(response.errorBody() != null ? response.errorBody().string() : SERVER_ERR_MSG).getString("alert"));
                     }
                 } catch (Exception e) {
                     nextAvailableResponse.onFailure(e.getMessage());
@@ -70,7 +72,7 @@ public class HomeRepository {
                     if (response.isSuccessful()) {
                         counsellingResponse.onSuccess(response.body());
                     } else {
-                        counsellingResponse.onFailure(new JSONObject(response.errorBody().string()).getString("alert"));
+                        counsellingResponse.onFailure(new JSONObject(response.errorBody() != null ? response.errorBody().string() : SERVER_ERR_MSG).getString("alert"));
                     }
                 } catch (Exception e) {
                     counsellingResponse.onFailure(e.getMessage());
@@ -84,7 +86,7 @@ public class HomeRepository {
         });
     }
 
-    public void updateOnlineStatus(UpdateOnlineRequestModel requestModel,IUpdateOnlineResponse onlineResponse){
+    public void updateOnlineStatus(UpdateOnlineRequestModel requestModel, IUpdateOnlineResponse onlineResponse) {
         RetrofitClient.getAppClient().updateOnlineStatus(requestModel).enqueue(new Callback<UpdateOnlineResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<UpdateOnlineResponseModel> call, @NonNull Response<UpdateOnlineResponseModel> response) {
@@ -92,7 +94,7 @@ public class HomeRepository {
                     if (response.isSuccessful()) {
                         onlineResponse.onSuccess(response.body());
                     } else {
-                        onlineResponse.onFailure(new JSONObject(response.errorBody().string()).getString("alert"));
+                        onlineResponse.onFailure(new JSONObject(response.errorBody() != null ? response.errorBody().string() : SERVER_ERR_MSG).getString("alert"));
                     }
                 } catch (Exception e) {
                     onlineResponse.onFailure(e.getMessage());
@@ -106,6 +108,7 @@ public class HomeRepository {
         });
 
     }
+
     public interface ICounsellingDetailResponse {
         void onSuccess(CounsellingDetailResponseModel responseModel);
 
@@ -123,7 +126,8 @@ public class HomeRepository {
 
         void onFailure(String throwable);
     }
-    public interface IUpdateOnlineResponse{
+
+    public interface IUpdateOnlineResponse {
         void onSuccess(UpdateOnlineResponseModel responseModel);
 
         void onFailure(String throwable);

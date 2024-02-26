@@ -41,7 +41,6 @@ public class UpdateOnlineResponseModel {
     }
 
     public static class Data {
-
         @SerializedName("_id")
         @Expose
         private String uid;
@@ -53,13 +52,13 @@ public class UpdateOnlineResponseModel {
         private String astrologerId;
         @SerializedName("nextAvailability")
         @Expose
-        private Object nextAvailability;
+        private String nextAvailability;
         @SerializedName("nextAvailableDate")
         @Expose
-        private Object nextAvailableDate;
+        private String nextAvailableDate;
         @SerializedName("nextAvailableTime")
         @Expose
-        private Object nextAvailableTime;
+        private String nextAvailableTime;
         @SerializedName("online")
         @Expose
         private boolean online;
@@ -88,15 +87,15 @@ public class UpdateOnlineResponseModel {
             return astrologerId;
         }
 
-        public Object getNextAvailability() {
+        public String getNextAvailability() {
             return nextAvailability;
         }
 
-        public Object getNextAvailableDate() {
+        public String getNextAvailableDate() {
             return nextAvailableDate;
         }
 
-        public Object getNextAvailableTime() {
+        public String getNextAvailableTime() {
             return nextAvailableTime;
         }
 
