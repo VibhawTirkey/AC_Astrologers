@@ -1,12 +1,11 @@
 package com.astrocure.astrologer.viewModel;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.astrocure.astrologer.models.requestModels.LoginRequestModel;
+import com.astrocure.astrologer.models.responseModels.AddDeviceIdResponseModel;
 import com.astrocure.astrologer.models.responseModels.AstrologerResponseModel;
 import com.astrocure.astrologer.models.responseModels.LoginResponseModel;
 import com.astrocure.astrologer.repository.AuthRepository;
@@ -17,6 +16,7 @@ public class LoginViewModel extends ViewModel {
     private final MutableLiveData<Boolean> successLiveData = new MutableLiveData<>();
     private final MutableLiveData<AstrologerResponseModel> astrologerLiveData = new MutableLiveData<>();
     private final MutableLiveData<LoginResponseModel.Data> loginLiveData = new MutableLiveData<>();
+    private final MutableLiveData<AddDeviceIdResponseModel.Data> addDeviceIdLiveData = new MutableLiveData<>();
 
     public LoginViewModel() {
         authRepository = new AuthRepository();
@@ -57,6 +57,20 @@ public class LoginViewModel extends ViewModel {
         });
     }
 
+    public void saveDeviceId(String astrologerId, String deviceId) {
+        authRepository.saveDeviceId(astrologerId, deviceId, new AuthRepository.ISaveDeviceId() {
+            @Override
+            public void onSuccess(AddDeviceIdResponseModel responseModel) {
+                addDeviceIdLiveData.postValue(responseModel.getData());
+            }
+
+            @Override
+            public void onFailure(String throwable) {
+
+            }
+        });
+    }
+
     public LiveData<Boolean> getSuccessLiveData() {
         return successLiveData;
     }
@@ -71,5 +85,9 @@ public class LoginViewModel extends ViewModel {
 
     public LiveData<AstrologerResponseModel> getAstrologerLiveData() {
         return astrologerLiveData;
+    }
+
+    public LiveData<AddDeviceIdResponseModel.Data> getAddDeviceIdLiveData() {
+        return addDeviceIdLiveData;
     }
 }

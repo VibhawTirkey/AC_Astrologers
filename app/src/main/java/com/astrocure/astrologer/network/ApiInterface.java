@@ -1,5 +1,6 @@
 package com.astrocure.astrologer.network;
 
+import com.astrocure.astrologer.models.requestModels.AddDeviceIdRequestModel;
 import com.astrocure.astrologer.models.requestModels.AuthRequestModel;
 import com.astrocure.astrologer.models.requestModels.ForgotPassRequestModel;
 import com.astrocure.astrologer.models.requestModels.LoginRequestModel;
@@ -10,10 +11,12 @@ import com.astrocure.astrologer.models.requestModels.ResetPasswordRequestModel;
 import com.astrocure.astrologer.models.requestModels.ReviewListRequestModel;
 import com.astrocure.astrologer.models.requestModels.UpdateOnlineRequestModel;
 import com.astrocure.astrologer.models.requestModels.UpdateTokenRequestModel;
+import com.astrocure.astrologer.models.responseModels.AddDeviceIdResponseModel;
 import com.astrocure.astrologer.models.responseModels.AstrologerResponseModel;
 import com.astrocure.astrologer.models.responseModels.BindByIdResponseModel;
 import com.astrocure.astrologer.models.responseModels.BindResponseModel;
 import com.astrocure.astrologer.models.responseModels.CounsellingDetailResponseModel;
+import com.astrocure.astrologer.models.responseModels.DeviceIdResponseModel;
 import com.astrocure.astrologer.models.responseModels.ForgotPassResponseModel;
 import com.astrocure.astrologer.models.responseModels.LoginResponseModel;
 import com.astrocure.astrologer.models.responseModels.ManageCounsellingResponseModel;
@@ -86,5 +89,11 @@ public interface ApiInterface {
 
     @POST("api/v1/astrologer/astro-counselling/reply-to-review")
     Call<ReplyReviewResponseModel> replyToReview(@Body ReplyReviewRequestModel replyRequestModel);
+
+    @POST("api/v1/device-check")
+    Call<AddDeviceIdResponseModel> saveDeviceId(@Body AddDeviceIdRequestModel addDeviceIdRequestModel);
+
+    @GET("api/v1/device-check/{userId}/{deviceId}")
+    Call<DeviceIdResponseModel> getDeviceId(@Path("userId") String astrologerId, @Path("deviceId") String deviceId);
 
 }

@@ -1,7 +1,9 @@
 package com.astrocure.astrologer.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
 
@@ -12,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.astrocure.astrologer.R;
 import com.astrocure.astrologer.databinding.ActivityLoginBinding;
 import com.astrocure.astrologer.models.requestModels.LoginRequestModel;
+import com.astrocure.astrologer.models.responseModels.AddDeviceIdResponseModel;
 import com.astrocure.astrologer.models.responseModels.LoginResponseModel;
 import com.astrocure.astrologer.utils.SPrefClient;
 import com.astrocure.astrologer.viewModel.LoginViewModel;
@@ -21,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
     private LoginViewModel viewModel;
 
+    @SuppressLint("HardwareIds")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +54,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
         viewModel.getLoginLiveData().observe(this, data -> {
             SPrefClient.setAstrologerDetail(getApplicationContext(), data);
+            viewModel.saveDeviceId(SPrefClient.getAstrologerDetail(getApplicationContext()).getId(), Settings.Secure.getString(getApplication().getContentResolver(), Settings.Secure.ANDROID_ID));
+        });
+
+        viewModel.getAddDeviceIdLiveData().observe(this, data -> {
             startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
             finish();
         });
@@ -59,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         viewModel.getAstrologerLiveData().observe(this, astrologerResponseModel -> {
 
         });
+
         viewModel.getLoginStatus().observe(this, s -> {
             binding.error.setText(s);
         });
@@ -79,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         binding.forgetPassword.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), ForgotPasswordActivity.class)));
+
         binding.login.setOnClickListener(v -> {
             if (binding.emailId.getText().toString().isEmpty()) {
                 binding.emailId.setError("Empty");
