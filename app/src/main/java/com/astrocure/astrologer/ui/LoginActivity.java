@@ -8,14 +8,11 @@ import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.astrocure.astrologer.R;
 import com.astrocure.astrologer.databinding.ActivityLoginBinding;
 import com.astrocure.astrologer.models.requestModels.LoginRequestModel;
-import com.astrocure.astrologer.models.responseModels.AddDeviceIdResponseModel;
-import com.astrocure.astrologer.models.responseModels.LoginResponseModel;
 import com.astrocure.astrologer.utils.SPrefClient;
 import com.astrocure.astrologer.viewModel.LoginViewModel;
 import com.bumptech.glide.Glide;
@@ -56,8 +53,14 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         viewModel.getLoginLiveData().observe(this, data -> {
-            SPrefClient.setAstrologerDetail(getApplicationContext(), data);
-            viewModel.saveDeviceId(SPrefClient.getAstrologerDetail(getApplicationContext()).getId(), Settings.Secure.getString(getApplication().getContentResolver(), Settings.Secure.ANDROID_ID));
+            if (data.isForcePasswordReset()) {
+                Intent intent = new Intent(getApplicationContext(), CreatePasswordActivity.class);
+                intent.putExtra("astroId", data.getId());
+                startActivity(intent);
+            } else {
+                SPrefClient.setAstrologerDetail(getApplicationContext(), data);
+                viewModel.saveDeviceId(SPrefClient.getAstrologerDetail(getApplicationContext()).getId(), Settings.Secure.getString(getApplication().getContentResolver(), Settings.Secure.ANDROID_ID));
+            }
         });
 
         viewModel.getAddDeviceIdLiveData().observe(this, data -> {
@@ -100,7 +103,6 @@ public class LoginActivity extends AppCompatActivity {
             }
             viewModel.login(binding.emailId.getText().toString(), binding.password.getText().toString());
         });
-
     }
 
     private void setRememberMe() {

@@ -8,7 +8,7 @@
         android:name="android.permission.POST_NOTIFICATIONS"
         tools:node="remove" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".MainApplication"
@@ -22,11 +22,14 @@
         android:theme="@style/Theme.ACAstrologers"
         tools:targetApi="31">
         <activity
+            android:name=".ui.CreatePasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ChatRequestActivity"
             android:exported="true"
             android:showForAllUsers="true"
             android:showWhenLocked="true"
-            android:turnScreenOn="true"/>
+            android:turnScreenOn="true" />
         <activity
             android:name=".ui.DayChartActivity"
             android:exported="true" />
@@ -107,7 +110,9 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <receiver android:name=".receiver.FullNotificationReceiver"
+
+        <receiver
+            android:name=".receiver.FullNotificationReceiver"
             android:enabled="true"
             android:exported="true" />
     </application>

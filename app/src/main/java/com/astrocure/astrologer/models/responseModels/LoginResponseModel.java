@@ -116,10 +116,16 @@ public class LoginResponseModel {
         @SerializedName("firebaseToken")
         @Expose
         private String firebaseToken;
+        @SerializedName("forcePasswordReset")
+        @Expose
+        private boolean forcePasswordReset;
         @SerializedName("id")
         @Expose
         private String id;
 
+        public boolean isForcePasswordReset() {
+            return forcePasswordReset;
+        }
         public BankDetails getBankDetails() {
             return bankDetails;
         }
