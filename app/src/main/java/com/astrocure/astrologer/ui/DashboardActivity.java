@@ -11,7 +11,6 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -22,14 +21,12 @@ import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.astrocure.astrologer.R;
 import com.astrocure.astrologer.callback.SideNavigationCallback;
 import com.astrocure.astrologer.databinding.ActivityDashboardBinding;
 import com.astrocure.astrologer.databinding.DialogAutoLogoutBinding;
-import com.astrocure.astrologer.models.responseModels.DeviceIdResponseModel;
 import com.astrocure.astrologer.ui.fragment.CallChatLogFragment;
 import com.astrocure.astrologer.ui.fragment.EarningFragment;
 import com.astrocure.astrologer.ui.fragment.HomeFragment;
@@ -73,23 +70,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         binding.sideNav.setNavigationItemSelectedListener(this);
 
         viewModel.matchDeviceId(SPrefClient.getAstrologerDetail(getApplicationContext()).getId(), Settings.Secure.getString(getApplication().getContentResolver(), Settings.Secure.ANDROID_ID));
-
-        viewModel.getDeviceIdLiveData().observe(this, data -> {
-            if (!data.isLoginAccess()){
-                SPrefClient.deleteAstrologerDetail(getApplicationContext());
-                DialogAutoLogoutBinding logoutBinding = DialogAutoLogoutBinding.inflate(getLayoutInflater());
-                Dialog dialog = new Dialog(DashboardActivity.this);
-                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-                dialog.setCancelable(false);
-                dialog.setContentView(logoutBinding.getRoot());
-                logoutBinding.logout.setOnClickListener(v -> {
-                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-                    finish();
-                });
-                dialog.show();
-            }
-        });
 
         viewModel.getTokenLiveData().observe(this, data -> {
         });
