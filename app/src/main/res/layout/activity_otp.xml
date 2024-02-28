@@ -48,7 +48,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        android:text="+91 9807060504"
         android:textColor="#53668E"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"

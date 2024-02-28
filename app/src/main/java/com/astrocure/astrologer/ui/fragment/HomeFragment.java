@@ -189,10 +189,10 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
         binding.chatServiceSwitch.setOnClickListener(v -> {
             if (!isChatPrimary) {
                 if (binding.chatServiceSwitch.isChecked()) {
-                    binding.chatServiceSwitch.setText("Chat On");
+                    binding.chatServiceStatus.setText("Chat On");
                     viewModel.setSecondaryCounselling(SPrefClient.getAstrologerDetail(requireContext()).getId(), "CHAT", 1);
                 } else {
-                    binding.chatServiceSwitch.setText("Chat Off");
+                    binding.chatServiceStatus.setText("Chat Off");
                     viewModel.setSecondaryCounselling(SPrefClient.getAstrologerDetail(requireContext()).getId(), "CHAT", 0);
                 }
             } else {
