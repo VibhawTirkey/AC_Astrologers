@@ -1,17 +1,13 @@
 package com.astrocure.astrologer.ui;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,7 +22,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.astrocure.astrologer.R;
 import com.astrocure.astrologer.callback.SideNavigationCallback;
 import com.astrocure.astrologer.databinding.ActivityDashboardBinding;
-import com.astrocure.astrologer.databinding.DialogAutoLogoutBinding;
 import com.astrocure.astrologer.ui.fragment.CallChatLogFragment;
 import com.astrocure.astrologer.ui.fragment.EarningFragment;
 import com.astrocure.astrologer.ui.fragment.HomeFragment;
@@ -35,8 +30,6 @@ import com.astrocure.astrologer.utils.SPrefClient;
 import com.astrocure.astrologer.viewModel.DashboardViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
-
-import java.util.Objects;
 
 public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SideNavigationCallback {
     private ActivityDashboardBinding binding;
@@ -115,6 +108,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             SPrefClient.deleteAstrologerDetail(getApplicationContext());
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             finish();
+        } else if (item.getItemId() == R.id.side_nav_session_log) {
+            startActivity(new Intent(getApplicationContext(), SessionLogActivity.class));
         }
         binding.drawer.closeDrawer(GravityCompat.START);
         return false;

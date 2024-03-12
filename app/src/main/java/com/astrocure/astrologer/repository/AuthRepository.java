@@ -16,6 +16,7 @@ import com.astrocure.astrologer.models.responseModels.DeviceIdResponseModel;
 import com.astrocure.astrologer.models.responseModels.ForgotPassResponseModel;
 import com.astrocure.astrologer.models.responseModels.LoginResponseModel;
 import com.astrocure.astrologer.models.responseModels.ResetPasswordResponseModel;
+import com.astrocure.astrologer.models.responseModels.SessionLogResponseModel;
 import com.astrocure.astrologer.models.responseModels.UpdateTokenResponseModel;
 import com.astrocure.astrologer.models.responseModels.VerifyOtpResponseModel;
 import com.astrocure.astrologer.network.RetrofitClient;
@@ -201,6 +202,34 @@ public class AuthRepository {
                 iSaveDeviceId.onFailure(t.getMessage());
             }
         });
+    }
+
+    public void getSessionLog(String astrologerId, ISessionLog iSessionLog) {
+        RetrofitClient.getAppClient().getSeeionLog(astrologerId).enqueue(new Callback<SessionLogResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<SessionLogResponseModel> call, @NonNull Response<SessionLogResponseModel> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        iSessionLog.onSuccess(response.body());
+                    } else {
+                        iSessionLog.onFailure(new JSONObject(response.errorBody() != null ? response.errorBody().string() : SERVER_ERR_MSG).getString("alert"));
+                    }
+                } catch (Exception e) {
+                    iSessionLog.onFailure(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<SessionLogResponseModel> call, @NonNull Throwable t) {
+                iSessionLog.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public interface ISessionLog {
+        void onSuccess(SessionLogResponseModel logResponseModel);
+
+        void onFailure(String throwable);
     }
 
     public interface ISaveDeviceId {

@@ -24,6 +24,7 @@ import com.astrocure.astrologer.models.responseModels.NextAvailableResponseModel
 import com.astrocure.astrologer.models.responseModels.ReplyReviewResponseModel;
 import com.astrocure.astrologer.models.responseModels.ResetPasswordResponseModel;
 import com.astrocure.astrologer.models.responseModels.ReviewListResponseModel;
+import com.astrocure.astrologer.models.responseModels.SessionLogResponseModel;
 import com.astrocure.astrologer.models.responseModels.UpdateOnlineResponseModel;
 import com.astrocure.astrologer.models.responseModels.UpdateTokenResponseModel;
 import com.astrocure.astrologer.models.responseModels.VerifyOtpResponseModel;
@@ -95,5 +96,8 @@ public interface ApiInterface {
 
     @GET("api/v1/device-check/{userId}/{deviceId}")
     Call<DeviceIdResponseModel> getDeviceId(@Path("userId") String astrologerId, @Path("deviceId") String deviceId);
+
+    @GET("api/v1/astrologer/home/get-session-logs/{astrologerId}")
+    Call<SessionLogResponseModel> getSeeionLog(@Path("astrologerId") String astrologerId);
 
 }
