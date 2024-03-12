@@ -16,6 +16,7 @@ import java.util.List;
 public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.SettingViewHolder> {
     Context context;
     List<DocumentModel> list;
+    private OnItemActionListener onItemActionListener;
 
     public SettingAdapter(Context context, List<DocumentModel> list) {
         this.context = context;
@@ -33,6 +34,9 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.SettingV
     public void onBindViewHolder(@NonNull SettingViewHolder holder, int position) {
         holder.binding.documentName.setText(list.get(position).getDocName());
         Glide.with(context).load(list.get(position).getImg()).into(holder.binding.settingImg);
+        holder.binding.getRoot().setOnClickListener(v -> {
+            onItemActionListener.itemClick(list.get(position).getDocName());
+        });
     }
 
     @Override
@@ -40,7 +44,15 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.SettingV
         return list.size();
     }
 
-    public class SettingViewHolder extends RecyclerView.ViewHolder {
+    public void setOnItemActionListener(OnItemActionListener onItemActionListener) {
+        this.onItemActionListener = onItemActionListener;
+    }
+
+    public interface OnItemActionListener {
+        void itemClick(String type);
+    }
+
+    public static class SettingViewHolder extends RecyclerView.ViewHolder {
         ItemSettingNameBinding binding;
 
         public SettingViewHolder(ItemSettingNameBinding binding) {

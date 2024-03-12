@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,6 +34,22 @@ public class SettingActivity extends AppCompatActivity {
         SettingAdapter adapter = new SettingAdapter(getApplicationContext(), list);
         binding.settingList.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         binding.settingList.setAdapter(adapter);
+        adapter.setOnItemActionListener(type -> {
+            switch (type) {
+                case "Change Password":
+                    Toast.makeText(this, "Change Password", Toast.LENGTH_SHORT).show();
+                    break;
+                case "Share App":
+                    Toast.makeText(this, "Share App", Toast.LENGTH_SHORT).show();
+                    break;
+                case "About us":
+                    Toast.makeText(this, "About Us", Toast.LENGTH_SHORT).show();
+                    break;
+                case "Change Bank Details Request":
+                    Toast.makeText(this, "Change Bank Details Request", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        });
 
         binding.logout.setOnClickListener(v -> {
             Dialog dialog = new Dialog(SettingActivity.this);
