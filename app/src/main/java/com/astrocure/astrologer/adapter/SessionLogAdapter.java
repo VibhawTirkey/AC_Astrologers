@@ -45,10 +45,11 @@ public class SessionLogAdapter extends RecyclerView.Adapter<SessionLogAdapter.Se
             Date loginTime = new SimpleDateFormat(AppConstants.SERVER_TIME_FORMAT).parse(log.getStartDateTime());
             Date logoutTime = new SimpleDateFormat(AppConstants.SERVER_TIME_FORMAT).parse(log.getEndDateTime());
             assert loginTime != null;
-            holder.binding.date.setText(new SimpleDateFormat("dd MMM yy").format(loginTime));
             holder.binding.loginTime.setText(new SimpleDateFormat("dd MMM yy, hh:mm a").format(loginTime));
             assert logoutTime != null;
             holder.binding.logoutTime.setText(new SimpleDateFormat("dd MMM yy, hh:mm a").format(logoutTime));
+            long timeDiff = logoutTime.getTime() - loginTime.getTime();
+            holder.binding.date.setText(friendlyTimeDiff(timeDiff));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -65,6 +66,32 @@ public class SessionLogAdapter extends RecyclerView.Adapter<SessionLogAdapter.Se
         public SessionViewHolder(ItemSessionLogBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+        }
+    }
+
+    public String friendlyTimeDiff(long timeDifferenceMilliseconds) {
+        long diffSeconds = timeDifferenceMilliseconds / 1000;
+        long diffMinutes = timeDifferenceMilliseconds / (60 * 1000);
+        long diffHours = timeDifferenceMilliseconds / (60 * 60 * 1000);
+        long diffDays = timeDifferenceMilliseconds / (60 * 60 * 1000 * 24);
+        long diffWeeks = timeDifferenceMilliseconds / (60 * 60 * 1000 * 24 * 7);
+        long diffMonths = (long) (timeDifferenceMilliseconds / (60 * 60 * 1000 * 24 * 30.41666666));
+        long diffYears = timeDifferenceMilliseconds / ((long) 60 * 60 * 1000 * 24 * 365);
+
+        if (diffYears >= 1) {
+            return diffYears + " yr" + diffMonths + " M";
+        } else if (diffMonths >= 1) {
+            return diffMonths + " M " + diffDays + " d";
+        } else if (diffWeeks >= 1) {
+            return diffWeeks + " W" + diffDays + " d";
+        } else if (diffDays >= 1) {
+            return diffDays + " d " + diffHours + " hr";
+        } else if (diffHours >= 1) {
+            return diffHours + " hr " + diffMinutes + " min";
+        } else if (diffMinutes >= 1) {
+            return diffMinutes + " min";
+        } else {
+            return diffSeconds + " sec";
         }
     }
 }
