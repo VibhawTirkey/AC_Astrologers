@@ -70,7 +70,7 @@ public class SettingActivity extends AppCompatActivity {
         adapter.setOnItemActionListener((type, position) -> {
             switch (position) {
                 case 0:
-                    Toast.makeText(this, "Change Password", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), ChangePasswordActivity.class));
                     break;
                 case 1:
                     Toast.makeText(this, "Share App", Toast.LENGTH_SHORT).show();
