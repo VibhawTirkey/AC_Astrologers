@@ -21,6 +21,7 @@ import com.astrocure.astrologer.databinding.DialogLogOutBinding;
 import com.astrocure.astrologer.databinding.DialogPasswordCreatedBinding;
 import com.astrocure.astrologer.databinding.DialogRequestConfirmationBinding;
 import com.astrocure.astrologer.models.DocumentModel;
+import com.astrocure.astrologer.utils.AppUtilMethods;
 import com.astrocure.astrologer.utils.SPrefClient;
 import com.astrocure.astrologer.viewModel.SettingViewModel;
 
@@ -73,7 +74,7 @@ public class SettingActivity extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), ChangePasswordActivity.class));
                     break;
                 case 1:
-                    Toast.makeText(this, "Share App", Toast.LENGTH_SHORT).show();
+                    AppUtilMethods.openAppRating(getApplicationContext());
                     break;
                 case 2:
                     Toast.makeText(this, "About Us", Toast.LENGTH_SHORT).show();
