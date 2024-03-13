@@ -21,6 +21,7 @@ import com.astrocure.astrologer.databinding.DialogPasswordCreatedBinding;
 import com.astrocure.astrologer.databinding.DialogRequestConfirmationBinding;
 import com.astrocure.astrologer.models.DocumentModel;
 import com.astrocure.astrologer.utils.SPrefClient;
+import com.astrocure.astrologer.viewModel.SettingViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

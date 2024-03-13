@@ -7,6 +7,7 @@ import com.astrocure.astrologer.models.requestModels.ForgotPassRequestModel;
 import com.astrocure.astrologer.models.requestModels.LoginRequestModel;
 import com.astrocure.astrologer.models.requestModels.ManageCounsellingRequestModel;
 import com.astrocure.astrologer.models.requestModels.NextAvailableRequestModel;
+import com.astrocure.astrologer.models.requestModels.PredictionReplyRequestModel;
 import com.astrocure.astrologer.models.requestModels.ReplyReviewRequestModel;
 import com.astrocure.astrologer.models.requestModels.ResetPasswordRequestModel;
 import com.astrocure.astrologer.models.requestModels.ReviewListRequestModel;
@@ -24,6 +25,8 @@ import com.astrocure.astrologer.models.responseModels.ForgotPassResponseModel;
 import com.astrocure.astrologer.models.responseModels.LoginResponseModel;
 import com.astrocure.astrologer.models.responseModels.ManageCounsellingResponseModel;
 import com.astrocure.astrologer.models.responseModels.NextAvailableResponseModel;
+import com.astrocure.astrologer.models.responseModels.PredictionQuestionResponseModel;
+import com.astrocure.astrologer.models.responseModels.PredictionReplyResponseModel;
 import com.astrocure.astrologer.models.responseModels.ReplyReviewResponseModel;
 import com.astrocure.astrologer.models.responseModels.RequestStatusTypeResponseModel;
 import com.astrocure.astrologer.models.responseModels.ResetPasswordResponseModel;
@@ -112,4 +115,10 @@ public interface ApiInterface {
 
     @POST("api/v1/astrologer/request")
     Call<ChangeDataResponseModel> changeDataRequest(@Body ChangeDataRequestModel changeDataRequestModel);
+
+    @GET("api/v1//astrologer/prediction/{astrologerId}")
+    Call<PredictionQuestionResponseModel> getPredictionQuestion(@Path("astrologerId") String astrologerId);
+
+    @PUT("api/v1/astrologer/prediction")
+    Call<PredictionReplyResponseModel> sendPredictionAnswer(@Body PredictionReplyRequestModel requestModel);
 }

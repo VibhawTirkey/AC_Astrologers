@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -24,10 +25,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.astrocure.astrologer.R;
 import com.astrocure.astrologer.adapter.HomeTransactionAdapter;
+import com.astrocure.astrologer.adapter.PredictionQuestionAdapter;
 import com.astrocure.astrologer.callback.SideNavigationCallback;
 import com.astrocure.astrologer.databinding.BottomDialogPredictionReplyBinding;
 import com.astrocure.astrologer.databinding.DialogAutoLogoutBinding;
 import com.astrocure.astrologer.databinding.DialogNextOnlineTimeBinding;
+import com.astrocure.astrologer.databinding.DialogPasswordCreatedBinding;
 import com.astrocure.astrologer.databinding.FragmentHomeBinding;
 import com.astrocure.astrologer.models.responseModels.CounsellingDetailResponseModel;
 import com.astrocure.astrologer.ui.ChatActivity;
@@ -96,7 +99,7 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
         });
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "SimpleDateFormat"})
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
@@ -127,15 +130,15 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
         binding.dayEarningContainer.setOnClickListener(v -> startActivity(new Intent(requireContext(), DayChartActivity.class)));
         binding.viewAll.setOnClickListener(v -> startActivity(new Intent(requireContext(), DayChartActivity.class)));
 
-        binding.predictionQuestion.reply.setOnClickListener(v -> {
-            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
-            BottomDialogPredictionReplyBinding replyBinding = BottomDialogPredictionReplyBinding.inflate(getLayoutInflater());
-            bottomSheetDialog.setContentView(replyBinding.getRoot());
-            Objects.requireNonNull(bottomSheetDialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            bottomSheetDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-            replyBinding.toolbar.setNavigationOnClickListener(v1 -> bottomSheetDialog.dismiss());
-            bottomSheetDialog.show();
-        });
+//        binding.predictionQuestion.reply.setOnClickListener(v -> {
+//            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
+//            BottomDialogPredictionReplyBinding replyBinding = BottomDialogPredictionReplyBinding.inflate(getLayoutInflater());
+//            bottomSheetDialog.setContentView(replyBinding.getRoot());
+//            Objects.requireNonNull(bottomSheetDialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//            bottomSheetDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+//            replyBinding.toolbar.setNavigationOnClickListener(v1 -> bottomSheetDialog.dismiss());
+//            bottomSheetDialog.show();
+//        });
 
         binding.callSwitch.setOnClickListener(v -> {
             if (binding.callServiceSwitch.isChecked()) {
@@ -202,6 +205,51 @@ public class HomeFragment extends Fragment implements Toolbar.OnMenuItemClickLis
         });
 
         binding.continueChat.setOnClickListener(v -> startActivity(new Intent(requireContext(), ChatActivity.class)));
+
+        viewModel.getPredictionQuestions(SPrefClient.getAstrologerDetail(requireContext()).getId());
+        viewModel.getQuestionListLiveData().observe(getViewLifecycleOwner(), data -> {
+            PredictionQuestionAdapter questionAdapter = new PredictionQuestionAdapter(requireContext(), data);
+            binding.predictionQuestionList.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
+            binding.predictionQuestionList.setAdapter(questionAdapter);
+            questionAdapter.setOnItemActionListener((predictionId, title, hashTag, question, predictionTime, date, time) -> {
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
+                BottomDialogPredictionReplyBinding replyBinding = BottomDialogPredictionReplyBinding.inflate(getLayoutInflater());
+                bottomSheetDialog.setContentView(replyBinding.getRoot());
+                Objects.requireNonNull(bottomSheetDialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                bottomSheetDialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+                replyBinding.toolbar.setNavigationOnClickListener(v1 -> bottomSheetDialog.dismiss());
+                replyBinding.title.setText(title);
+                replyBinding.hashTag.setText(hashTag);
+                replyBinding.question.setText(question);
+                replyBinding.date.setText(date);
+                replyBinding.time.setText(time);
+                replyBinding.reply.setOnClickListener(v -> {
+                    String answer = replyBinding.answer.getText().toString();
+                    if (answer.isEmpty()) {
+                        Toast.makeText(requireContext(), "Cannot submit without answer.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        viewModel.sendPredictionAnswer(SPrefClient.getAstrologerDetail(requireContext()).getId(),
+                                title, hashTag, question, answer, predictionTime, new SimpleDateFormat("yyyy-MM-dd kk:mm:ss").format(new Date()), predictionId).observe(getViewLifecycleOwner(), data1 -> {
+
+                            Dialog resultDialog = new Dialog(requireContext());
+                            DialogPasswordCreatedBinding resultBinding = DialogPasswordCreatedBinding.inflate(getLayoutInflater());
+                            Objects.requireNonNull(resultDialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                            resultDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            resultDialog.setContentView(resultBinding.getRoot());
+                            resultBinding.textView23.setText("Thank You!");
+                            resultBinding.textView22.setText("Your answer has been sent to the Admin.");
+                            resultBinding.gotoLogin.setText("Okay");
+                            resultBinding.gotoLogin.setOnClickListener(v12 -> {
+                                resultDialog.dismiss();
+                            });
+                            resultDialog.show();
+                            bottomSheetDialog.dismiss();
+                        });
+                    }
+                });
+                bottomSheetDialog.show();
+            });
+        });
 
         return binding.getRoot();
     }

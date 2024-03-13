@@ -3,7 +3,10 @@ package com.astrocure.astrologer.repository;
 import androidx.annotation.NonNull;
 
 import com.astrocure.astrologer.models.requestModels.ChangeDataRequestModel;
+import com.astrocure.astrologer.models.requestModels.PredictionReplyRequestModel;
 import com.astrocure.astrologer.models.responseModels.ChangeDataResponseModel;
+import com.astrocure.astrologer.models.responseModels.PredictionQuestionResponseModel;
+import com.astrocure.astrologer.models.responseModels.PredictionReplyResponseModel;
 import com.astrocure.astrologer.network.RetrofitClient;
 import com.astrocure.astrologer.utils.AppConstants;
 
@@ -36,8 +39,64 @@ public class AstrologerRepository {
         });
     }
 
+    public void getPredictionQuestion(String astrologerId, IPredictionQuestion predictionQuestion) {
+        RetrofitClient.getAppClient().getPredictionQuestion(astrologerId).enqueue(new Callback<PredictionQuestionResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<PredictionQuestionResponseModel> call, @NonNull Response<PredictionQuestionResponseModel> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        predictionQuestion.onSuccess(response.body());
+                    } else {
+                        predictionQuestion.onFailure(new JSONObject(response.errorBody() != null ? response.errorBody().string() : AppConstants.SERVER_ERR_MSG).getString("alert"));
+                    }
+                } catch (Exception e) {
+                    predictionQuestion.onFailure(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<PredictionQuestionResponseModel> call, @NonNull Throwable t) {
+                predictionQuestion.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public void sendPredictionAnswer(PredictionReplyRequestModel replyRequestModel, IPredictionAnswer predictionAnswer) {
+        RetrofitClient.getAppClient().sendPredictionAnswer(replyRequestModel).enqueue(new Callback<PredictionReplyResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<PredictionReplyResponseModel> call, @NonNull Response<PredictionReplyResponseModel> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        predictionAnswer.onSuccess(response.body());
+                    } else {
+                        predictionAnswer.onFailure(new JSONObject(response.errorBody() != null ? response.errorBody().string() : AppConstants.SERVER_ERR_MSG).getString("alert"));
+                    }
+                } catch (Exception e) {
+                    predictionAnswer.onFailure(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<PredictionReplyResponseModel> call, @NonNull Throwable t) {
+                predictionAnswer.onFailure(t.getMessage());
+            }
+        });
+    }
+
     public interface IDetailChange {
         void onSuccess(ChangeDataResponseModel responseModel);
+
+        void onFailure(String throwable);
+    }
+
+    public interface IPredictionQuestion {
+        void onSuccess(PredictionQuestionResponseModel predictionQuestionResponse);
+
+        void onFailure(String throwable);
+    }
+
+    public interface IPredictionAnswer {
+        void onSuccess(PredictionReplyResponseModel predictionReplyResponse);
 
         void onFailure(String throwable);
     }

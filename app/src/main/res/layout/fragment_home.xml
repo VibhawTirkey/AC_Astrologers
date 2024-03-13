@@ -484,11 +484,11 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <include
-                android:id="@+id/prediction_question"
-                layout="@layout/item_prediction_question_layout"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/prediction_question_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                tools:listitem="@layout/item_prediction_question_layout"
                 app:layout_constraintTop_toBottomOf="@id/chat_time_container" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -502,7 +502,7 @@
                 app:layout_constraintDimensionRatio="163:81"
                 app:layout_constraintEnd_toStartOf="@id/day_earning_container"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/prediction_question">
+                app:layout_constraintTop_toBottomOf="@id/prediction_question_list">
 
                 <ImageView
                     android:id="@+id/month_img"
