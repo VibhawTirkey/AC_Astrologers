@@ -2,6 +2,7 @@ package com.astrocure.astrologer.ui;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -156,6 +157,12 @@ public class SettingActivity extends AppCompatActivity {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.setContentView(logOutBinding.getRoot());
             logOutBinding.cancel.setOnClickListener(v1 -> dialog.dismiss());
+            logOutBinding.ok.setOnClickListener(v13 -> {
+                SPrefClient.deleteAstrologerDetail(getApplicationContext());
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                dialog.dismiss();
+                finish();
+            });
             dialog.show();
         });
     }

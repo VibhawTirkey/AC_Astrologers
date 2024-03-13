@@ -104,11 +104,11 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             binding.bottomNav.setSelectedItemId(R.id.bottom_nav_profile);
         } else if (item.getItemId() == R.id.side_nav_reviews) {
             startActivity(new Intent(getApplicationContext(), ReviewsActivity.class));
-        } else if (item.getItemId() == R.id.side_nav_logout) {
+        } /*else if (item.getItemId() == R.id.side_nav_logout) {
             SPrefClient.deleteAstrologerDetail(getApplicationContext());
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             finish();
-        } else if (item.getItemId() == R.id.side_nav_session_log) {
+        }*/ else if (item.getItemId() == R.id.side_nav_session_log) {
             startActivity(new Intent(getApplicationContext(), SessionLogActivity.class));
         }
         binding.drawer.closeDrawer(GravityCompat.START);
