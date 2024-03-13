@@ -2,6 +2,7 @@ package com.astrocure.astrologer.network;
 
 import com.astrocure.astrologer.models.requestModels.AddDeviceIdRequestModel;
 import com.astrocure.astrologer.models.requestModels.AuthRequestModel;
+import com.astrocure.astrologer.models.requestModels.ChangeDataRequestModel;
 import com.astrocure.astrologer.models.requestModels.ForgotPassRequestModel;
 import com.astrocure.astrologer.models.requestModels.LoginRequestModel;
 import com.astrocure.astrologer.models.requestModels.ManageCounsellingRequestModel;
@@ -15,6 +16,8 @@ import com.astrocure.astrologer.models.responseModels.AddDeviceIdResponseModel;
 import com.astrocure.astrologer.models.responseModels.AstrologerResponseModel;
 import com.astrocure.astrologer.models.responseModels.BindByIdResponseModel;
 import com.astrocure.astrologer.models.responseModels.BindResponseModel;
+import com.astrocure.astrologer.models.responseModels.ChangeDataResponseModel;
+import com.astrocure.astrologer.models.responseModels.ChangeRequestTypeResponseModel;
 import com.astrocure.astrologer.models.responseModels.CounsellingDetailResponseModel;
 import com.astrocure.astrologer.models.responseModels.DeviceIdResponseModel;
 import com.astrocure.astrologer.models.responseModels.ForgotPassResponseModel;
@@ -22,6 +25,7 @@ import com.astrocure.astrologer.models.responseModels.LoginResponseModel;
 import com.astrocure.astrologer.models.responseModels.ManageCounsellingResponseModel;
 import com.astrocure.astrologer.models.responseModels.NextAvailableResponseModel;
 import com.astrocure.astrologer.models.responseModels.ReplyReviewResponseModel;
+import com.astrocure.astrologer.models.responseModels.RequestStatusTypeResponseModel;
 import com.astrocure.astrologer.models.responseModels.ResetPasswordResponseModel;
 import com.astrocure.astrologer.models.responseModels.ReviewListResponseModel;
 import com.astrocure.astrologer.models.responseModels.SessionLogResponseModel;
@@ -98,6 +102,14 @@ public interface ApiInterface {
     Call<DeviceIdResponseModel> getDeviceId(@Path("userId") String astrologerId, @Path("deviceId") String deviceId);
 
     @GET("api/v1/astrologer/home/get-session-logs/{astrologerId}")
-    Call<SessionLogResponseModel> getSeeionLog(@Path("astrologerId") String astrologerId);
+    Call<SessionLogResponseModel> getSessionLog(@Path("astrologerId") String astrologerId);
 
+    @GET("api/v1/astrologer/bind-request")
+    Call<ChangeRequestTypeResponseModel> getChangeRequestType();
+
+    @GET("api/v1/astrologer/bind-request-status")
+    Call<RequestStatusTypeResponseModel> getRequestStatusType();
+
+    @POST("api/v1/astrologer/request")
+    Call<ChangeDataResponseModel> changeDataRequest(@Body ChangeDataRequestModel changeDataRequestModel);
 }

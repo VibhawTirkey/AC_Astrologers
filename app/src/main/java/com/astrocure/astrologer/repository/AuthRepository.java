@@ -205,7 +205,7 @@ public class AuthRepository {
     }
 
     public void getSessionLog(String astrologerId, ISessionLog iSessionLog) {
-        RetrofitClient.getAppClient().getSeeionLog(astrologerId).enqueue(new Callback<SessionLogResponseModel>() {
+        RetrofitClient.getAppClient().getSessionLog(astrologerId).enqueue(new Callback<SessionLogResponseModel>() {
             @Override
             public void onResponse(@NonNull Call<SessionLogResponseModel> call, @NonNull Response<SessionLogResponseModel> response) {
                 try {

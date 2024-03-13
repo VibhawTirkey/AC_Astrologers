@@ -35,7 +35,7 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.SettingV
         holder.binding.documentName.setText(list.get(position).getDocName());
         Glide.with(context).load(list.get(position).getImg()).into(holder.binding.settingImg);
         holder.binding.getRoot().setOnClickListener(v -> {
-            onItemActionListener.itemClick(list.get(position).getDocName());
+            onItemActionListener.itemClick(list.get(position).getDocName(), position);
         });
     }
 
@@ -49,7 +49,7 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.SettingV
     }
 
     public interface OnItemActionListener {
-        void itemClick(String type);
+        void itemClick(String type, int position);
     }
 
     public static class SettingViewHolder extends RecyclerView.ViewHolder {

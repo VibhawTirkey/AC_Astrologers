@@ -5,45 +5,45 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardElevation="8dp"
         android:layout_margin="15dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:strokeWidth="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white">
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Log Out"
+                android:layout_marginTop="35dp"
+                android:text="Change Bank Details Request"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/textView15"
+                app:layout_constraintStart_toStartOf="@id/content"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Are you sure you want to logout?"
+                android:layout_marginTop="10dp"
+                android:text="Are you sure you want to sent request?"
                 android:textColor="#677294"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias=".25"
+                app:layout_constraintHorizontal_bias=".4"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+                app:layout_constraintTop_toBottomOf="@id/title" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cancel"
@@ -63,9 +63,9 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:paddingStart="30dp"
-                    android:paddingTop="10dp"
+                    android:paddingTop="8dp"
                     android:paddingEnd="30dp"
-                    android:paddingBottom="10dp"
+                    android:paddingBottom="8dp"
                     android:text="No"
                     android:textColor="#520881" />
 
@@ -75,24 +75,24 @@
                 android:id="@+id/ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="-20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
+                android:layout_marginStart="-60dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
                 android:backgroundTint="#520881"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="4dp"
-                app:layout_constraintStart_toEndOf="@id/textView15"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView15"
+                app:layout_constraintStart_toEndOf="@id/content"
+                app:layout_constraintTop_toBottomOf="@id/content"
                 app:strokeWidth="0dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingStart="30dp"
-                    android:paddingTop="10dp"
+                    android:paddingTop="8dp"
                     android:paddingEnd="30dp"
-                    android:paddingBottom="10dp"
+                    android:paddingBottom="8dp"
                     android:text="Yes"
                     android:textColor="@color/white" />
 

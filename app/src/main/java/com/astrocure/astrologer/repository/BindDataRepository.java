@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 
 import com.astrocure.astrologer.models.responseModels.BindByIdResponseModel;
 import com.astrocure.astrologer.models.responseModels.BindResponseModel;
+import com.astrocure.astrologer.models.responseModels.ChangeRequestTypeResponseModel;
+import com.astrocure.astrologer.models.responseModels.RequestStatusTypeResponseModel;
 import com.astrocure.astrologer.network.RetrofitClient;
+import com.astrocure.astrologer.utils.AppConstants;
 
 import org.json.JSONObject;
 
@@ -75,6 +78,50 @@ public class BindDataRepository {
             @Override
             public void onFailure(@NonNull Call<BindByIdResponseModel> call, @NonNull Throwable t) {
                 bindResponse.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public void getChangeDetailRequestType(IChangeRequestType iChangeRequestType) {
+        RetrofitClient.getAppClient().getChangeRequestType().enqueue(new Callback<ChangeRequestTypeResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<ChangeRequestTypeResponseModel> call, @NonNull Response<ChangeRequestTypeResponseModel> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        iChangeRequestType.onSuccess(response.body());
+                    } else {
+                        iChangeRequestType.onFailure(new JSONObject(response.errorBody() != null ? response.errorBody().string() : AppConstants.SERVER_ERR_MSG).getString("alert"));
+                    }
+                } catch (Exception e) {
+                    iChangeRequestType.onFailure(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ChangeRequestTypeResponseModel> call, @NonNull Throwable t) {
+                iChangeRequestType.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public void getRequestStatusType(IChangeRequestStatusType requestStatusType) {
+        RetrofitClient.getAppClient().getRequestStatusType().enqueue(new Callback<RequestStatusTypeResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<RequestStatusTypeResponseModel> call, @NonNull Response<RequestStatusTypeResponseModel> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        requestStatusType.onSuccess(response.body());
+                    } else {
+                        requestStatusType.onFailure(new JSONObject(response.errorBody() != null ? response.errorBody().string() : AppConstants.SERVER_ERR_MSG).getString("alert"));
+                    }
+                } catch (Exception e) {
+                    requestStatusType.onFailure(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<RequestStatusTypeResponseModel> call, @NonNull Throwable t) {
+                requestStatusType.onFailure(t.getMessage());
             }
         });
     }
@@ -153,6 +200,18 @@ public class BindDataRepository {
 
     public interface IBindByIdResponse {
         void onSuccess(BindByIdResponseModel responseModel);
+
+        void onFailure(String throwable);
+    }
+
+    public interface IChangeRequestType {
+        void onSuccess(ChangeRequestTypeResponseModel responseModel);
+
+        void onFailure(String throwable);
+    }
+
+    public interface IChangeRequestStatusType {
+        void onSuccess(RequestStatusTypeResponseModel responseModel);
 
         void onFailure(String throwable);
     }
