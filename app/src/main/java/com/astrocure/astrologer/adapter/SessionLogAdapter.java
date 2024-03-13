@@ -43,12 +43,13 @@ public class SessionLogAdapter extends RecyclerView.Adapter<SessionLogAdapter.Se
         holder.binding.mode.setText(log.getCounsellingType());
         try {
             Date loginTime = new SimpleDateFormat(AppConstants.SERVER_TIME_FORMAT).parse(log.getStartDateTime());
-            Date logoutTime = new SimpleDateFormat(AppConstants.SERVER_TIME_FORMAT).parse(log.getEndDateTime());
+            Date logoutTime = new SimpleDateFormat(AppConstants.SERVER_TIME_FORMAT).parse(log.getEndDateTime() == null ? "0000-00-00T00:00:00.000Z" : log.getEndDateTime());
             assert loginTime != null;
             holder.binding.loginTime.setText(new SimpleDateFormat("dd MMM yy, hh:mm a").format(loginTime));
             assert logoutTime != null;
-            holder.binding.logoutTime.setText(new SimpleDateFormat("dd MMM yy, hh:mm a").format(logoutTime));
-            long timeDiff = logoutTime.getTime() - loginTime.getTime();
+            holder.binding.logoutTime.setText(log.getEndDateTime() == null ? "-- --- --,--:-- -" : new SimpleDateFormat("dd MMM yy, hh:mm a").format(logoutTime));
+            Date currDate = new Date();
+            long timeDiff = (log.getEndDateTime() == null ? currDate.getTime() : logoutTime.getTime()) - loginTime.getTime();
             holder.binding.date.setText(friendlyTimeDiff(timeDiff));
         } catch (ParseException e) {
             throw new RuntimeException(e);
@@ -87,9 +88,9 @@ public class SessionLogAdapter extends RecyclerView.Adapter<SessionLogAdapter.Se
         } else if (diffDays >= 1) {
             return diffDays + " d " + diffHours + " hr";
         } else if (diffHours >= 1) {
-            return diffHours + " hr " + diffMinutes + " min";
+            return diffHours + " hr " + (String.valueOf(diffMinutes).length() <= 2 ? diffMinutes : String.valueOf(diffMinutes).substring(0, 2)) + " min";
         } else if (diffMinutes >= 1) {
-            return diffMinutes + " min";
+            return diffMinutes + " min " + (String.valueOf(diffSeconds).length() <= 2 ? diffSeconds : String.valueOf(diffSeconds).substring(0, 2)) + " s";
         } else {
             return diffSeconds + " sec";
         }

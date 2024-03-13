@@ -57,7 +57,9 @@ public class SessionLogActivity extends AppCompatActivity {
 
         viewModel.getSessionLogLiveData().observe(this, data -> {
             SessionLogAdapter adapter = new SessionLogAdapter(getApplicationContext(), data);
-            binding.logList.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, true);
+            linearLayoutManager.setStackFromEnd(true);
+            binding.logList.setLayoutManager(linearLayoutManager);
             binding.logList.setAdapter(adapter);
         });
 
