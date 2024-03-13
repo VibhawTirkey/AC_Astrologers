@@ -16,6 +16,7 @@ import java.util.List;
 public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.DocumentViewHolder> {
     Context context;
     List<DocumentModel> list;
+    OnItemActionListener onItemActionListener;
 
     public DocumentAdapter(Context context, List<DocumentModel> list) {
         this.context = context;
@@ -33,6 +34,9 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
     public void onBindViewHolder(@NonNull DocumentViewHolder holder, int position) {
         holder.binding.documentName.setText(list.get(position).getDocName());
         Glide.with(context).load(list.get(position).getImg()).into(holder.binding.documentImg);
+        holder.binding.getRoot().setOnClickListener(v -> {
+            onItemActionListener.onItemClick(list.get(position).getDocName(), position);
+        });
     }
 
     @Override
@@ -40,7 +44,15 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
         return list.size();
     }
 
-    public class DocumentViewHolder extends RecyclerView.ViewHolder {
+    public void setOnItemActionListener(OnItemActionListener onItemActionListener) {
+        this.onItemActionListener = onItemActionListener;
+    }
+
+    public interface OnItemActionListener {
+        void onItemClick(String type, int position);
+    }
+
+    public static class DocumentViewHolder extends RecyclerView.ViewHolder {
         ItemDocumentNameBinding binding;
 
         public DocumentViewHolder(ItemDocumentNameBinding binding) {

@@ -6,4 +6,10 @@
     <string name="terms_and_condition">By signing in, you agree to our<font fgcolor='#520881'> Terms and Conditions.</font></string>
     <string name="resend_otp">Haven’t receive code? <font fgcolor='#135EF2'>Resend code.</font></string>
     <string name="create_new_password"><font fgcolor='#8F00FF'>Create</font> New Password</string>
+    <string name="doc_kyc_document">Kyc Document</string>
+    <string name="doc_agreement">Agreement</string>
+    <string name="doc_aadhar_card">Aadhar Card</string>
+    <string name="doc_bank_details">Bank Details</string>
+    <string name="doc_pan_card">Pan Card</string>
+    <string name="doc_form_16a_download">Form 16A Download</string>
 </resources>
