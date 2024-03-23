@@ -22,6 +22,7 @@ import com.astrocure.astrologer.models.responseModels.ChangeRequestTypeResponseM
 import com.astrocure.astrologer.models.responseModels.CounsellingDetailResponseModel;
 import com.astrocure.astrologer.models.responseModels.DeviceIdResponseModel;
 import com.astrocure.astrologer.models.responseModels.ForgotPassResponseModel;
+import com.astrocure.astrologer.models.responseModels.KidsKundliInfoResponseModel;
 import com.astrocure.astrologer.models.responseModels.LoginResponseModel;
 import com.astrocure.astrologer.models.responseModels.ManageCounsellingResponseModel;
 import com.astrocure.astrologer.models.responseModels.NextAvailableResponseModel;
@@ -121,4 +122,7 @@ public interface ApiInterface {
 
     @PUT("api/v1/astrologer/prediction")
     Call<PredictionReplyResponseModel> sendPredictionAnswer(@Body PredictionReplyRequestModel requestModel);
+
+    @GET("api/v1/kids-by-astrologerid/{astrologerId}")
+    Call<KidsKundliInfoResponseModel> getKidsKundliRequest(@Path("astrologerId") String astrologerId);
 }

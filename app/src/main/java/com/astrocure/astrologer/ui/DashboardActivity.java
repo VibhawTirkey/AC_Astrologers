@@ -1,7 +1,10 @@
 package com.astrocure.astrologer.ui;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -22,14 +25,21 @@ import androidx.lifecycle.ViewModelProvider;
 import com.astrocure.astrologer.R;
 import com.astrocure.astrologer.callback.SideNavigationCallback;
 import com.astrocure.astrologer.databinding.ActivityDashboardBinding;
+import com.astrocure.astrologer.databinding.DialogQueryDetailBinding;
 import com.astrocure.astrologer.ui.fragment.CallChatLogFragment;
 import com.astrocure.astrologer.ui.fragment.EarningFragment;
 import com.astrocure.astrologer.ui.fragment.HomeFragment;
 import com.astrocure.astrologer.ui.fragment.ProfileFragment;
+import com.astrocure.astrologer.utils.AppConstants;
 import com.astrocure.astrologer.utils.SPrefClient;
 import com.astrocure.astrologer.viewModel.DashboardViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Objects;
 
 public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SideNavigationCallback {
     private ActivityDashboardBinding binding;
@@ -42,7 +52,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
 
-    @SuppressLint("HardwareIds")
+
+    @SuppressLint({"HardwareIds", "SimpleDateFormat"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +82,37 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         subscribeTopic();
 
+        viewModel.getKidsKundliRequest(SPrefClient.getAstrologerDetail(getApplicationContext()).getId());
+
+        viewModel.getKundliRequestLiveData().observe(this, data -> {
+            DialogQueryDetailBinding requestBinding = DialogQueryDetailBinding.inflate(getLayoutInflater());
+            Dialog dialog = new Dialog(DashboardActivity.this);
+            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//            Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            dialog.setCancelable(false);
+            dialog.setContentView(requestBinding.getRoot());
+            requestBinding.name.setText(data.getFullName());
+            requestBinding.fName.setText(data.getFatherName());
+            requestBinding.mName.setText(data.getMotherName());
+            try {
+                Date birthTime = new SimpleDateFormat("kk:mm:ss").parse(data.getTob());
+                Date birthDate = new SimpleDateFormat(AppConstants.SERVER_TIME_FORMAT).parse(data.getDob());
+                assert birthTime != null;
+                requestBinding.tob.setText(new SimpleDateFormat("hh:mm a").format(birthTime));
+                assert birthDate != null;
+                requestBinding.dob.setText(new SimpleDateFormat("dd/MM/yyyy").format(birthDate));
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            requestBinding.pob.setText(data.getLocation().getCityName());
+            requestBinding.later.setOnClickListener(v -> dialog.dismiss());
+            requestBinding.confirm.setOnClickListener(v -> {
+                Intent intent = new Intent(getApplicationContext(), KidsKundliActivity.class);
+                intent.putExtra("kundliId", data.getId());
+                startActivity(intent);
+            });
+            dialog.show();
+        });
     }
 
     private void setFragment(Fragment fragment) {

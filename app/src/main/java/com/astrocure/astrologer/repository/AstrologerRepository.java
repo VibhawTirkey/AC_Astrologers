@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.astrocure.astrologer.models.requestModels.ChangeDataRequestModel;
 import com.astrocure.astrologer.models.requestModels.PredictionReplyRequestModel;
 import com.astrocure.astrologer.models.responseModels.ChangeDataResponseModel;
+import com.astrocure.astrologer.models.responseModels.KidsKundliInfoResponseModel;
 import com.astrocure.astrologer.models.responseModels.PredictionQuestionResponseModel;
 import com.astrocure.astrologer.models.responseModels.PredictionReplyResponseModel;
 import com.astrocure.astrologer.network.RetrofitClient;
@@ -83,6 +84,35 @@ public class AstrologerRepository {
         });
     }
 
+    public void getKidsKundliRequest(String astrologerId, IKidsKundliRequest iKidsKundliRequest) {
+        RetrofitClient.getAppClient().getKidsKundliRequest(astrologerId).enqueue(new Callback<KidsKundliInfoResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<KidsKundliInfoResponseModel> call, @NonNull Response<KidsKundliInfoResponseModel> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        iKidsKundliRequest.onSuccess(response.body());
+                    } else {
+                        iKidsKundliRequest.onFailure(new JSONObject(response.errorBody() != null ? response.errorBody().string() : AppConstants.SERVER_ERR_MSG).getString("alert"));
+                    }
+                } catch (Exception e) {
+                    iKidsKundliRequest.onFailure(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<KidsKundliInfoResponseModel> call, @NonNull Throwable t) {
+                iKidsKundliRequest.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    ;
+
+    public interface IKidsKundliRequest {
+        void onSuccess(KidsKundliInfoResponseModel kundliInfoResponseModel);
+
+        void onFailure(String throwable);
+    }
     public interface IDetailChange {
         void onSuccess(ChangeDataResponseModel responseModel);
 
