@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="toolbar_bg_color">#520881</color>
     <color name="bg_white">#F6F6F6</color>
+    <color name="bg_record">#FFBEBE</color>
 </resources>

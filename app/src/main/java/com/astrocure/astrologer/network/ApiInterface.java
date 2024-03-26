@@ -3,6 +3,7 @@ package com.astrocure.astrologer.network;
 import com.astrocure.astrologer.models.requestModels.AddDeviceIdRequestModel;
 import com.astrocure.astrologer.models.requestModels.AuthRequestModel;
 import com.astrocure.astrologer.models.requestModels.ChangeDataRequestModel;
+import com.astrocure.astrologer.models.requestModels.DeleteRecordingRequestModel;
 import com.astrocure.astrologer.models.requestModels.ForgotPassRequestModel;
 import com.astrocure.astrologer.models.requestModels.LoginRequestModel;
 import com.astrocure.astrologer.models.requestModels.ManageCounsellingRequestModel;
@@ -13,6 +14,7 @@ import com.astrocure.astrologer.models.requestModels.ResetPasswordRequestModel;
 import com.astrocure.astrologer.models.requestModels.ReviewListRequestModel;
 import com.astrocure.astrologer.models.requestModels.UpdateOnlineRequestModel;
 import com.astrocure.astrologer.models.requestModels.UpdateTokenRequestModel;
+import com.astrocure.astrologer.models.requestModels.UploadAudioRequestModel;
 import com.astrocure.astrologer.models.responseModels.AddDeviceIdResponseModel;
 import com.astrocure.astrologer.models.responseModels.AstrologerResponseModel;
 import com.astrocure.astrologer.models.responseModels.BindByIdResponseModel;
@@ -20,8 +22,11 @@ import com.astrocure.astrologer.models.responseModels.BindResponseModel;
 import com.astrocure.astrologer.models.responseModels.ChangeDataResponseModel;
 import com.astrocure.astrologer.models.responseModels.ChangeRequestTypeResponseModel;
 import com.astrocure.astrologer.models.responseModels.CounsellingDetailResponseModel;
+import com.astrocure.astrologer.models.responseModels.DeleteRecordingResponseModel;
 import com.astrocure.astrologer.models.responseModels.DeviceIdResponseModel;
+import com.astrocure.astrologer.models.responseModels.FileUploadResponseModel;
 import com.astrocure.astrologer.models.responseModels.ForgotPassResponseModel;
+import com.astrocure.astrologer.models.responseModels.KidKundliQuestionResponseModel;
 import com.astrocure.astrologer.models.responseModels.KidsKundliInfoResponseModel;
 import com.astrocure.astrologer.models.responseModels.LoginResponseModel;
 import com.astrocure.astrologer.models.responseModels.ManageCounsellingResponseModel;
@@ -35,10 +40,13 @@ import com.astrocure.astrologer.models.responseModels.ReviewListResponseModel;
 import com.astrocure.astrologer.models.responseModels.SessionLogResponseModel;
 import com.astrocure.astrologer.models.responseModels.UpdateOnlineResponseModel;
 import com.astrocure.astrologer.models.responseModels.UpdateTokenResponseModel;
+import com.astrocure.astrologer.models.responseModels.UploadAudioResponseModel;
 import com.astrocure.astrologer.models.responseModels.VerifyOtpResponseModel;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -125,4 +133,16 @@ public interface ApiInterface {
 
     @GET("api/v1/kids-by-astrologerid/{astrologerId}")
     Call<KidsKundliInfoResponseModel> getKidsKundliRequest(@Path("astrologerId") String astrologerId);
+
+    @POST("api/v1/upload-file")
+    Call<FileUploadResponseModel> uploadFile(@Body RequestBody requestBody);
+
+    @GET("api/v1/bind-kundali-question/{astrologerId}")
+    Call<KidKundliQuestionResponseModel> getKidsKundliQuestions(@Path("astrologerId") String astrologerId);
+
+    @POST("api/v1/astologer-recording")
+    Call<UploadAudioResponseModel> uploadRecordedAudio(@Body UploadAudioRequestModel uploadAudioRequestModel);
+
+    @DELETE("api/v1/kids-delete-astologer-recordings")
+    Call<DeleteRecordingResponseModel> deletePreviousRecording(@Body DeleteRecordingRequestModel deleteRecordingRequestModel);
 }

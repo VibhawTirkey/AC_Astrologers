@@ -2,12 +2,15 @@ package com.astrocure.astrologer.repository;
 
 import static com.astrocure.astrologer.utils.AppConstants.SERVER_ERR_MSG;
 
+import android.net.Uri;
+
 import androidx.annotation.NonNull;
 
 import com.astrocure.astrologer.models.requestModels.ManageCounsellingRequestModel;
 import com.astrocure.astrologer.models.requestModels.NextAvailableRequestModel;
 import com.astrocure.astrologer.models.requestModels.UpdateOnlineRequestModel;
 import com.astrocure.astrologer.models.responseModels.CounsellingDetailResponseModel;
+import com.astrocure.astrologer.models.responseModels.FileUploadResponseModel;
 import com.astrocure.astrologer.models.responseModels.ManageCounsellingResponseModel;
 import com.astrocure.astrologer.models.responseModels.NextAvailableResponseModel;
 import com.astrocure.astrologer.models.responseModels.UpdateOnlineResponseModel;
@@ -15,6 +18,12 @@ import com.astrocure.astrologer.network.RetrofitClient;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.util.Objects;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -106,7 +115,32 @@ public class HomeRepository {
                 onlineResponse.onFailure(t.getMessage());
             }
         });
+    }
 
+    public void uploadFiles(Uri uri, IUploadImage iUploadImage) {
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        builder.setType(MultipartBody.FORM);
+        File file = new File(Objects.requireNonNull(uri.getPath()));
+        builder.addFormDataPart("files", file.getName(), RequestBody.create(MediaType.parse("application/octet-stream"), file));
+        RetrofitClient.getAppClient().uploadFile(builder.build()).enqueue(new Callback<FileUploadResponseModel>() {
+            @Override
+            public void onResponse(@NonNull Call<FileUploadResponseModel> call, @NonNull Response<FileUploadResponseModel> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        iUploadImage.onSuccess(response.body());
+                    } else {
+                        iUploadImage.onFailure(new JSONObject(response.errorBody() != null ? response.errorBody().string() : "null").getString("alert"));
+                    }
+                } catch (Exception e) {
+                    iUploadImage.onFailure(e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<FileUploadResponseModel> call, @NonNull Throwable t) {
+                iUploadImage.onFailure(t.getMessage());
+            }
+        });
     }
 
     public interface ICounsellingDetailResponse {
@@ -129,6 +163,12 @@ public class HomeRepository {
 
     public interface IUpdateOnlineResponse {
         void onSuccess(UpdateOnlineResponseModel responseModel);
+
+        void onFailure(String throwable);
+    }
+
+    public interface IUploadImage {
+        void onSuccess(FileUploadResponseModel responseModel);
 
         void onFailure(String throwable);
     }

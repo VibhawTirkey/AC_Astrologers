@@ -3,9 +3,10 @@ package com.astrocure.astrologer.models.responseModels;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class KidsKundliInfoResponseModel {
+public class KidsKundliInfoResponseModel implements Serializable {
     @SerializedName("message")
     @Expose
     private String message;
@@ -42,7 +43,7 @@ public class KidsKundliInfoResponseModel {
         return statusCode;
     }
 
-    public static class Datum {
+    public static class Datum implements Serializable {
 
         @SerializedName("astrologerRecordingComplete")
         @Expose
@@ -206,7 +207,7 @@ public class KidsKundliInfoResponseModel {
             return id;
         }
 
-        public static class AssignedAstrologer {
+        public static class AssignedAstrologer implements Serializable {
             @SerializedName("_id")
             @Expose
             private String _id;
@@ -244,7 +245,7 @@ public class KidsKundliInfoResponseModel {
             }
         }
 
-        public static class Gender {
+        public static class Gender implements Serializable {
             @SerializedName("_id")
             @Expose
             private String _id;
@@ -261,7 +262,7 @@ public class KidsKundliInfoResponseModel {
             }
         }
 
-        public static class Language {
+        public static class Language implements Serializable {
             @SerializedName("_id")
             @Expose
             private String _id;
@@ -278,7 +279,7 @@ public class KidsKundliInfoResponseModel {
             }
         }
 
-        public static class Location {
+        public static class Location implements Serializable {
             @SerializedName("_id")
             @Expose
             private String _id;
@@ -295,7 +296,7 @@ public class KidsKundliInfoResponseModel {
             }
         }
 
-        public static class Recording {
+        public static class Recording implements Serializable {
             @SerializedName("_id")
             @Expose
             private String _id;
@@ -340,7 +341,7 @@ public class KidsKundliInfoResponseModel {
             }
         }
 
-        public static class State {
+        public static class State implements Serializable {
             @SerializedName("_id")
             @Expose
             private String _id;

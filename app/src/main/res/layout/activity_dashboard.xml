@@ -18,6 +18,46 @@
             app:layout_constraintBottom_toTopOf="@+id/bottomNav"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/goto_kid_kundli"
+            android:layout_width="52dp"
+            android:layout_height="0dp"
+            android:layout_margin="15dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/toolbar_bg_color"
+            app:cardElevation="6dp"
+            app:layout_constraintBottom_toTopOf="@id/bottomNav"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:strokeColor="@color/white"
+            app:strokeWidth="1.5dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="7dp"
+                android:src="@drawable/ic_kundli_logo"
+                android:tint="@color/white" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/kid_badge_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-5dp"
+            android:layout_marginEnd="-5dp"
+            android:background="@drawable/bg_badge_count"
+            android:elevation="7dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="@id/goto_kid_kundli"
+            app:layout_constraintTop_toTopOf="@id/goto_kid_kundli" />
+
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav"
             android:layout_width="match_parent"

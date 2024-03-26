@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_kid_name"
             android:drawablePadding="5dp"
-            android:text="Name: Abhay"
+            android:text="Name: "
             android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/tob"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_kid_tob"
             android:drawablePadding="5dp"
-            android:text="TOB: 12:32 Am"
+            android:text="TOB: "
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/name"
@@ -80,7 +80,7 @@
             android:layout_marginTop="5dp"
             android:drawableLeft="@drawable/ic_kid_fater_name"
             android:drawablePadding="5dp"
-            android:text="Father’s Name: Rajesh"
+            android:text="Father’s Name: "
             android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/tob"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,7 +93,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_kid_dob"
             android:drawablePadding="5dp"
-            android:text="DOB: 12 /11/2000"
+            android:text="DOB: "
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/father_name"
@@ -107,7 +107,7 @@
             android:layout_marginTop="5dp"
             android:drawableLeft="@drawable/ic_kid_mother_name"
             android:drawablePadding="5dp"
-            android:text="Mother’s Name: Anita"
+            android:text="Mother’s Name: "
             android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/tob"
             app:layout_constraintStart_toStartOf="parent"
@@ -120,7 +120,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_kid_pob"
             android:drawablePadding="5dp"
-            android:text="POB: Jaipur"
+            android:text="POB: "
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/mother_name"
@@ -174,7 +174,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Question-1"
                 android:textColor="#520881"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -182,10 +181,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Who is the supreme ruler of the god?"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/question_num" />
@@ -202,13 +201,16 @@
         android:background="@drawable/bg_recording_list"
         android:clipToPadding="false"
         android:paddingTop="20dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/record_action"
         app:layout_constraintTop_toBottomOf="@id/question_card"
         tools:listitem="@layout/item_audio_layout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/audio_prev_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:background="@color/toolbar_bg_color"
         app:layout_constraintBottom_toTopOf="@id/record_action">
 
@@ -227,18 +229,23 @@
             app:strokeWidth="0dp">
 
             <ImageView
+                android:id="@+id/icon_play"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="8dp"
                 android:src="@drawable/ic_pause" />
+
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
+        <androidx.appcompat.widget.AppCompatSeekBar
             android:id="@+id/audio_progress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
+            android:progressDrawable="@drawable/audio_seek_style"
+            android:splitTrack="false"
+            android:thumb="@drawable/audio_seek_thumb"
             app:layout_constraintBottom_toBottomOf="@id/play_pause"
             app:layout_constraintEnd_toStartOf="@id/audio_send"
             app:layout_constraintStart_toEndOf="@id/play_pause"
@@ -249,7 +256,6 @@
             android:id="@+id/progress_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3:45"
             android:textColor="@color/white"
             android:textSize="11sp"
             app:layout_constraintStart_toStartOf="@id/audio_progress"
@@ -259,7 +265,6 @@
             android:id="@+id/audio_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3:45"
             android:textColor="@color/white"
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="@id/audio_progress"
@@ -348,12 +353,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toEndOf="@id/record_label"
-                app:layout_constraintHorizontal_bias="0.472"
                 app:layout_constraintStart_toStartOf="@id/record_label"
                 app:layout_constraintTop_toBottomOf="@id/record_label"
                 app:strokeWidth=".1dp">
 
                 <ImageView
+                    android:id="@+id/rec_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="25dp"
@@ -378,6 +383,7 @@
                 app:strokeWidth=".1dp">
 
                 <ImageView
+                    android:id="@+id/submit_answer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingStart="15dp"

@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -53,7 +54,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     FragmentTransaction fragmentTransaction;
 
 
-    @SuppressLint({"HardwareIds", "SimpleDateFormat"})
+    @SuppressLint({"HardwareIds", "SimpleDateFormat", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +85,14 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         viewModel.getKidsKundliRequest(SPrefClient.getAstrologerDetail(getApplicationContext()).getId());
 
+        Intent kidIntent = new Intent(getApplicationContext(), KidsKundliActivity.class);
+        viewModel.getKundliRequestListLiveData().observe(this, data -> {
+            binding.kidBadgeCount.setText(data.size() + "");
+            binding.kidBadgeCount.setVisibility(View.VISIBLE);
+        });
         viewModel.getKundliRequestLiveData().observe(this, data -> {
+            kidIntent.putExtra("KID_DETAIL", data);
+            binding.gotoKidKundli.setVisibility(View.VISIBLE);
             DialogQueryDetailBinding requestBinding = DialogQueryDetailBinding.inflate(getLayoutInflater());
             Dialog dialog = new Dialog(DashboardActivity.this);
             Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -108,12 +116,16 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             requestBinding.later.setOnClickListener(v -> dialog.dismiss());
             requestBinding.confirm.setOnClickListener(v -> {
                 Intent intent = new Intent(getApplicationContext(), KidsKundliActivity.class);
-                intent.putExtra("kundliId", data.getId());
+                intent.putExtra("KID_DETAIL", data);
                 startActivity(intent);
             });
             dialog.show();
         });
+        binding.gotoKidKundli.setOnClickListener(v -> {
+            startActivity(kidIntent);
+        });
     }
+
 
     private void setFragment(Fragment fragment) {
         fragmentManager = getSupportFragmentManager();
